@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Main</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1>Cписок пользователей</h1>
+    <div th:if="${not #lists.isEmpty(userList)}">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Roles</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.name}">n</td>
+                <td th:text="${user.surname}">n</td>
+                <td th:each="role:${user.roles}" th:text="${role}">i</td>
+                <td><a th:href ="@{'/users/' + ${user.id}}">edit</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

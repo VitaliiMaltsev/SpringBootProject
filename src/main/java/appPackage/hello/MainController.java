@@ -9,6 +9,7 @@ import appPackage.topics.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,10 +38,15 @@ public class MainController {
     }
 
     @GetMapping("/maif")
-    public String main2(Map <String,Object> model){
+    public String main2(@RequestParam(required = false, defaultValue = "")String name, Model model){
     List<Course> javaCourses = courseService.getAllCourses("java");
-        List<Course> courses = courseRepository.findByTopicId("java");
-        model.put("courses", courses);
+        if(!(name ==null) &&!name.isEmpty()) {
+            javaCourses = courseService.getCoursesByName(name);
+        } else {
+            javaCourses =courseService.getAllCourses("java");
+        }
+        model.addAttribute("courses", javaCourses);
+        model.addAttribute("name", name);
         return "javaCourses2";
     }
     @GetMapping("/user")

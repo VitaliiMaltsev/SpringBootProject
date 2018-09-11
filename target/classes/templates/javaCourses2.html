@@ -39,9 +39,8 @@
                 </form>
             </div>
         </div>
-        <form method="post" th:action="@{/filter}">
+        <form method="get" th:action="@{/maif}">
             <input type="text" name="name">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit" style="font-family:'Bauhaus 93',fantasy">Найти по названию</button>
         </form>
         <br>

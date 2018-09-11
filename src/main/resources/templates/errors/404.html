@@ -3,11 +3,13 @@
         xmlns:th="http://www.thymeleaf.org"
         layout:decorate="~{fragments/layout}">
 <html>
-<body>
+<body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
 <div layout:fragment="content" th:remove="tag">
+    <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+    <!--<p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>-->
     <h1>Something went wrong! </h1>
     <h2>Our Engineers are on it</h2>
-    <h1>ERROR 404</h1>
+    <!--<h1>ERROR 404</h1>-->
     <p><a href="/" th:href="@{/}">Back to home page</a></p>
 </div>
 </body>

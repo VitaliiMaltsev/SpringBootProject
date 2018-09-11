@@ -7,6 +7,7 @@ import appPackage.topics.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,15 @@ public class CoursesController {
     }
 
     @GetMapping("/topics/java/courses")
-    public String main( Map<String,Object> model/*, @PathVariable String topicId*/){
-        List<Course> javaCourses = courseService.getAllCourses("java");
-        model.put("courses", javaCourses);
+    public String main( @RequestParam(required = false, defaultValue = "")String name, Model model){
+        List<Course> javaCourses;
+        if(!(name ==null) &&!name.isEmpty()) {
+            javaCourses = courseService.getCoursesByName(name);
+        } else {
+            javaCourses =courseService.getAllCourses("java");
+        }
+        model.addAttribute("courses", javaCourses);
+        model.addAttribute("name", name);
         return "javaCourses";
     }
     @PostMapping("/topics/java/courses")
