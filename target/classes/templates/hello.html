@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<html>
+<body>
+<div layout:fragment="content" th:remove="tag">
+<p>Before the script...</p>
+
+<script>
+    alert( 'Hello!' );
+</script>
+
+<p>...After the script.</p>
+    <p><a href="/" th:href="@{/}">Back to home page</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="blogy@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.9">
+    <root id="1">
+      <ServerVersion>10.4</ServerVersion>
+    </root>
+    <database id="2" parent="1" name="CaloriesDB">
+      <ObjectId>25068</ObjectId>
+    </database>
+    <database id="3" parent="1" name="Java-course">
+      <ObjectId>16511</ObjectId>
+    </database>
+    <database id="4" parent="1" name="blogy">
+      <ObjectId>25105</ObjectId>
+      <IntrospectionStateNumber>116</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <database id="5" parent="1" name="postgres">
+      <ObjectId>12938</ObjectId>
+      <Comment>default administrative connection database</Comment>
+    </database>
+    <database id="6" parent="1" name="resume_database">
+      <ObjectId>16625</ObjectId>
+    </database>
+    <role id="7" parent="1" name="pg_monitor">
+      <ObjectId>3373</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="8" parent="1" name="pg_read_all_settings">
+      <ObjectId>3374</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="9" parent="1" name="pg_read_all_stats">
+      <ObjectId>3375</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="10" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="11" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="12" parent="1" name="postgres">
+      <ObjectId>10</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <Replication>1</Replication>
+      <ConnectionLimit>-1</ConnectionLimit>
+      <BypassRls>1</BypassRls>
+    </role>
+    <schema id="13" parent="4" name="information_schema">
+      <ObjectId>12648</ObjectId>
+    </schema>
+    <schema id="14" parent="4" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+      <Comment>system catalog schema</Comment>
+    </schema>
+    <schema id="15" parent="4" name="pg_temp_1">
+      <ObjectId>11736</ObjectId>
+    </schema>
+    <schema id="16" parent="4" name="pg_toast">
+      <ObjectId>99</ObjectId>
+      <Comment>reserved schema for TOAST tables</Comment>
+    </schema>
+    <schema id="17" parent="4" name="pg_toast_temp_1">
+      <ObjectId>11737</ObjectId>
+    </schema>
+    <schema id="18" parent="4" name="public">
+      <ObjectId>2200</ObjectId>
+      <Comment>standard public schema</Comment>
+      <IntrospectionTimestamp>2018-09-10.18:36:59.729</IntrospectionTimestamp>
+      <IntrospectionStateNumber>1360</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <access-method id="19" parent="4" name="btree">
+      <ObjectId>403</ObjectId>
+      <Comment>b-tree index access method</Comment>
+      <Handler>pg_catalog.bthandler</Handler>
+      <HandlerId>330</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="20" parent="4" name="hash">
+      <ObjectId>405</ObjectId>
+      <Comment>hash index access method</Comment>
+      <Handler>pg_catalog.hashhandler</Handler>
+      <HandlerId>331</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="21" parent="4" name="gist">
+      <ObjectId>783</ObjectId>
+      <Comment>GiST index access method</Comment>
+      <Handler>pg_catalog.gisthandler</Handler>
+      <HandlerId>332</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="22" parent="4" name="gin">
+      <ObjectId>2742</ObjectId>
+      <Comment>GIN index access method</Comment>
+      <Handler>pg_catalog.ginhandler</Handler>
+      <HandlerId>333</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="23" parent="4" name="spgist">
+      <ObjectId>4000</ObjectId>
+      <Comment>SP-GiST index access method</Comment>
+      <Handler>pg_catalog.spghandler</Handler>
+      <HandlerId>334</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="24" parent="4" name="brin">
+      <ObjectId>3580</ObjectId>
+      <Comment>block range index (BRIN) access method</Comment>
+      <Handler>pg_catalog.brinhandler</Handler>
+      <HandlerId>335</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <sequence id="25" parent="18" name="hibernate_sequence">
+      <ObjectId>25254</ObjectId>
+      <StateNumber>1321</StateNumber>
+      <SequenceIdentity>1</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>bigint</DataType>
+    </sequence>
+    <table id="26" parent="18" name="course">
+      <ObjectId>25209</ObjectId>
+      <StateNumber>1299</StateNumber>
+    </table>
+    <table id="27" parent="18" name="lesson">
+      <ObjectId>25217</ObjectId>
+      <StateNumber>1299</StateNumber>
+    </table>
+    <table id="28" parent="18" name="topic">
+      <ObjectId>25225</ObjectId>
+      <StateNumber>1298</StateNumber>
+    </table>
+    <table id="29" parent="18" name="user_roles">
+      <ObjectId>25272</ObjectId>
+      <StateNumber>1360</StateNumber>
+    </table>
+    <table id="30" parent="18" name="users">
+      <ObjectId>25264</ObjectId>
+      <StateNumber>1360</StateNumber>
+    </table>
+    <column id="31" parent="26" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1295</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="32" parent="26" name="description">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1295</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="33" parent="26" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1295</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="34" parent="26" name="topic_id">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1295</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="35" parent="26" name="course_pkey">
+      <ObjectId>25215</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="36" parent="26" name="course_pkey">
+      <ObjectId>25216</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>course_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="37" parent="26" name="fkokaxyfpv8p583w8yspapfb2ar">
+      <ObjectId>25233</ObjectId>
+      <ColNames>topic_id</ColNames>
+      <RefTableId>25225</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>topic</RefTableName>
+      <RefKeyName>topic_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="38" parent="27" name="id">
+      <Position>1</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1296</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="39" parent="27" name="description">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1296</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="40" parent="27" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1296</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="41" parent="27" name="course_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1296</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="42" parent="27" name="lesson_pkey">
+      <ObjectId>25223</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="43" parent="27" name="lesson_pkey">
+      <ObjectId>25224</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>lesson_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="44" parent="27" name="fkjs3c7skmg8bvdddok5lc7s807">
+      <ObjectId>25238</ObjectId>
+      <ColNames>course_id</ColNames>
+      <RefTableId>25209</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>course</RefTableName>
+      <RefKeyName>course_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="45" parent="28" name="id">
+      <Position>1</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1297</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="46" parent="28" name="description">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1297</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="47" parent="28" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1297</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="48" parent="28" name="topic_pkey">
+      <ObjectId>25231</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="49" parent="28" name="topic_pkey">
+      <ObjectId>25232</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>topic_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="50" parent="29" name="user_id">
+      <Position>1</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1357</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="51" parent="29" name="roles">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1357</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <foreign-key id="52" parent="29" name="fkhfh9dx7w3ubf1co1vdev94g3f">
+      <ObjectId>25275</ObjectId>
+      <ColNames>user_id</ColNames>
+      <RefTableId>25264</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="53" parent="30" name="id">
+      <Position>1</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1335</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="54" parent="30" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1335</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="55" parent="30" name="surname">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1335</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="56" parent="30" name="birthday">
+      <Position>4</Position>
+      <DataType>date|0s</DataType>
+      <StateNumber>1341</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="57" parent="30" name="password">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1359</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="58" parent="30" name="users_pkey">
+      <ObjectId>25270</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="59" parent="30" name="users_pkey">
+      <ObjectId>25271</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
