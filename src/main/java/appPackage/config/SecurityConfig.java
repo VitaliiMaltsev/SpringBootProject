@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import nz.net.ultraq.thymeleaf.LayoutDialect;
+//import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 import javax.sql.DataSource;
 
@@ -32,10 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
-    @Bean
-    public LayoutDialect layoutDialect() {
-        return new LayoutDialect();
-    }
+//    @Bean
+//    public LayoutDialect layoutDialect() {
+//        return new LayoutDialect();
+//    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
