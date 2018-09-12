@@ -20,9 +20,9 @@
             </thead>
             <tbody>
             <tr th:each="user : ${userList}">
-                <td th:text="${user.name}">n</td>
-                <td th:text="${user.surname}">n</td>
-                <td th:each="role:${user.roles}" th:text="${role}">i</td>
+                <td width="15%" th:text="${user.name}">n</td>
+                <td width="15%"th:text="${user.surname}">n</td>
+                <td width="15%"th:each="role, iterStat :${user.roles}" th:text="!${iterStat.last}? ${role} + ',': ${role}">i</td>
                 <td><a th:href ="@{'/users/' + ${user.id}}">edit</a></td>
             </tr>
             </tbody>
