@@ -2,12 +2,15 @@ h1 {
     color: #78ab46;
 }
 
+h5{
+    color: #00C0FF;
+}
 footer {
     position: fixed;
     height: 50px;
     bottom: 0;
     width: 100%;
-    background-color: #ccc
+    background-color: rgba(169, 169, 169, 0.77)
 }
 
 footer p {

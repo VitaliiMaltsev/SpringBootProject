@@ -19,6 +19,7 @@ public class Course {
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
 
+
 	public User getAuthor() {
 		return author;
 	}

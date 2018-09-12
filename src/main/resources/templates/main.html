@@ -13,7 +13,7 @@
     <div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <form th:action="@{/main}" method="post">
+                <form th:action="@{/main}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="topicname"><h5>Topic name</h5></label>:
                         <input type="text"
@@ -33,6 +33,7 @@
                                placeholder="Введите описание нового раздела">
                     </div>
                     <br>
+                    <input type="file" name="file">
 
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" name="time">
@@ -42,7 +43,7 @@
             </div>
         </div>
     </div>
-    <form method="post" th:action="@{/filter}">
+    <form method="get" th:action="@{/main}">
         <input type="text" name="name">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button type="submit" style="font-family:'Bauhaus 93',fantasy">Найти по названию</button>
@@ -57,7 +58,9 @@
                 <td style="color: aqua" th:text="${topic.id}">n</td>
                 <td th:text="${topic.name}">n</td>
                 <td th:text="${topic.description}">n</td>
-                <td th:text="${topic.authorName}">i</td>
+                <div th:if="${not #strings.isEmpty(topic.filename)}">
+                    <img src="/img/${topic.filename}"/>
+                </div>
             </tr>
             </tbody>
         </table>

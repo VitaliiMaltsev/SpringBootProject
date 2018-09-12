@@ -1,4 +1,4 @@
-package appPackage.hello;
+package appPackage.courses;
 
 import appPackage.courses.Course;
 import appPackage.courses.CourseService;
