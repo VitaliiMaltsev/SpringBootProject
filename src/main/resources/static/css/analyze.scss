@@ -1,0 +1,136 @@
+$gold: #9F9689;
+
+@mixin horizontalcenter(){
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+@mixin verticalcenter(){
+  top: 50%;
+  transform: translatey(-50%);
+}
+
+@mixin centercenter(){
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div{
+  position: absolute;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  &:before, &:after{
+    content: '';
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+  }
+}
+
+body{
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: $gold;
+  font-family: 'Lato Light', sans-serif;
+  background: radial-gradient(ellipse at center, #333, #111);
+
+  & .wrapper{
+    @include centercenter();
+    width: 50vw;
+    height: 50vw;
+    max-width: 50vw;
+    max-height: 60vh;
+
+    & svg{
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+
+      & path{
+        fill: none;
+        stroke: url(#gradient);
+
+        &#step-two, &#step-three, &#step-four{
+          display: none;
+        }
+
+      }
+
+    }
+
+  }
+
+  & .titles{
+    @include horizontalcenter();
+    top: 0;
+    width: auto;
+    height: auto;
+    text-align: center;
+
+    & .title{
+      display: inline-block;
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: all 2s ease;
+      &.active{
+        opacity: 1;
+        width: 10em;
+      }
+    }
+
+  }
+
+  & .controls{
+    @include horizontalcenter();
+    bottom: 0;
+    width: auto;
+    height: 2em;
+    text-align: center;
+    font-size: 2em;
+
+    & .next, & .previous{
+      position: relative;
+      float: left;
+      width: 2em;
+      height: 2em;
+      cursor: pointer;
+      &:hover{
+        color: transparentize($gold, 0.2);
+      }
+      &:active{
+        color: transparentize($gold, 0.5);
+      }
+    }
+
+  }
+
+  & .message{
+    position: absolute;
+    right:  0.5vw;
+    bottom: 1vw;
+    max-width: 30vw;
+    font-size: 0.75em;
+    font-family: "Open Sans", sans-serif;
+
+    & a{
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid #444;
+      &:hover{
+        border-width: 3px;
+      }
+    }
+
+  }
+
+}

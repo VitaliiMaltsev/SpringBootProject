@@ -81,7 +81,7 @@ public class MainController {
                 uploadDir.mkdir();
             }
             String uuid = UUID.randomUUID().toString();
-            String resultFileName = uuid + "." +file.getOriginalFilename();
+            String resultFileName = /*uuid + "." +*/file.getOriginalFilename();
             file.transferTo(new File(uploadPath+"/"+resultFileName));
             topic.setFilename(resultFileName);
         }

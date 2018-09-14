@@ -10,60 +10,93 @@
 <div layout:fragment="content" th:remove="tag">
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
-    <div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <form th:action="@{/main}" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="topicname"><h5>Topic name</h5></label>:
-                        <input type="text"
-                               id="topicname"
-                               name="name"
-                               class="form-control"
-                               autofocus="autofocus"
-                               placeholder="Введите название нового раздела">
-                    </div>
-                    <div class="form-group">
-                        <label for="topicdesc"><h5>Topic description</h5></label>:
-                        <input type="text"
-                               id="topicdesc"
-                               name="description"
-                               class="form-control"
-                               autofocus="autofocus"
-                               placeholder="Введите описание нового раздела">
-                    </div>
-                    <br>
-                    <input type="file" name="file">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <form method="get" th:action="@{/main}" class="form-inline">
+                <label for="searchHere" class="sr-only">Password</label>
+                <input type="text" name="name" id="searchHere" class="form-control col-sm-8"
+                       placeholder="Введите имя раздела для поиска">
+                <button class="btn btn-info ml-2" type="submit">Найти по названию</button>
+            </form>
+        </div>
 
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" name="time">
-                    <button type="submit" style="font-family:'Bauhaus 93',fantasy">Добавить</button>
-                    <button type="reset" style="font-family: 'Bauhaus 93',fantasy">Отменить</button>
-                </form>
+    </div>
+    <!--<form class="form-inline">-->
+    <!--<div class="form-group mb-2">-->
+    <!--<label for="staticEmail2" class="sr-only">Email</label>-->
+    <!--<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">-->
+    <!--</div>-->
+    <!--<div class="form-group mx-sm-3 mb-2">-->
+    <!--<label for="inputPassword2" class="sr-only">Password</label>-->
+    <!--<input type="password" class="form-control" id="inputPassword2" placeholder="Password">-->
+    <!--</div>-->
+    <!--<button type="submit" class="btn btn-primary mb-2">Confirm identity</button>-->
+    <!--</form>-->
+    <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+            Добавить новый раздел
+        </a>
+    </p>
+    <div class="collapse " id="collapseExample">
+        <div class="card card-body">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <form th:action="@{/main}" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="topicname"><h5>Topic name</h5></label>:
+                                <input type="text"
+                                       id="topicname"
+                                       name="name"
+                                       class="form-control"
+                                       autofocus="autofocus"
+                                       placeholder="Введите название нового раздела">
+                            </div>
+                            <div class="form-group">
+                                <label for="topicdesc"><h5>Topic description</h5></label>:
+                                <input type="text"
+                                       id="topicdesc"
+                                       name="description"
+                                       class="form-control"
+                                       autofocus="autofocus"
+                                       placeholder="Введите описание нового раздела">
+                            </div>
+
+                            <input type="file" name="file">
+
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <!--<input type="hidden" name="time">-->
+                            <button class="btn btn-outline-info " type="submit"
+                                    style="font-family:'Bauhaus 93',fantasy">Добавить
+                            </button>
+                            <button class="btn btn-outline-secondary" type="reset"
+                                    style="font-family: 'Bauhaus 93',fantasy">Отменить
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <form method="get" th:action="@{/main}">
-        <input type="text" name="name">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <button type="submit" style="font-family:'Bauhaus 93',fantasy">Найти по названию</button>
-    </form>
+
+
     <br>
     <span>Список доступных тем</span><br>
-    <div th:if="${not #lists.isEmpty(topics)}">
-        <table>
-            <!--<thead> … </thead>-->
-            <tbody>
-            <tr th:each="topic : ${topics}">
-                <td style="color: aqua" th:text="${topic.id}">n</td>
-                <td th:text="${topic.name}">n</td>
-                <td th:text="${topic.description}">n</td>
-                <div th:if="${not #strings.isEmpty(topic.filename)}">
-                    <img src="/img/${topic.filename}"/>
+    <div class="card-columns">
+        <div th:if="${not #lists.isEmpty(topics)}">
+            <div class="card border-warning my-3" th:each="topic : ${topics}" style="width: 18rem;">
+                <div class="card-header" style="color: #3ccaed" th:text="${topic.name}">
                 </div>
-            </tr>
-            </tbody>
-        </table>
+                <div th:if="${not #strings.isEmpty(topic.filename)}">
+                    <img class="card-img-top" th:src="@{${'/uploads/' + topic.filename}}">
+                </div>
+
+                <div class="card-footer" th:text="${topic.description}">
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 </body>
