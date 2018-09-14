@@ -12,6 +12,16 @@ footer {
     width: 100%;
     background-color: rgba(169, 169, 169, 0.77)
 }
+/*header{*/
+    /*position: fixed;*/
+    /*height: 100px;*/
+    /*width: 100%;*/
+    /*background-color: rgba(30, 33, 132, 0.96)*/
+
+/*}*/
+/*header navbar-header{*/
+    /*background-color: chartreuse;*/
+/*}*/
 
 footer p {
     padding: 15px;

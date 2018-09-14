@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**").permitAll()
 
                 .antMatchers("/user/**","/main","/maif", "/filter","/cfilter", "/topics/java/courses")
-                .hasAuthority("ROLE_USER")
+                .hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
 

@@ -3,10 +3,25 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
     <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
         <title>My Project</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/card.css}"/>
     </head>
     <body>
+
     <div layout:fragment="content" th:remove="tag">
+        <div class="flip">
+            <div class="front" style="background-image: url(https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
+                <h1 class="text-shadow">MOUNTAIN</h1>
+            </div>
+            <div class="back">
+                <h2>ПРИВЕТ</h2>
+                <p>На данном сайте собраны все ссылки и курсы, которые помогли мне в его создании...</p>
+            </div>
+        </div>
         <h1>Hello, User</h1>
 
         <p>This is an unsecured page, but you can access the secured pages after authenticating.</p>
