@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +23,8 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private MailSender mailSender;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
 //    public UserService(UserRepository userRepository) {
@@ -38,12 +41,14 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             return false;
         }
-        user.setActive(true);
+        user.setActive(false);
         user.setRoles(Collections.singleton(Role.USER));
         user.setRegistrationDate(LocalDate.now());
         user.setActivationCode(UUID.randomUUID().toString());
-        sendMessage(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        //TODO Очередность влияет?
+        sendMessage(user);
         return true;
     }
 
@@ -67,6 +72,8 @@ public class UserService implements UserDetailsService {
             return false;
         }
         user.setActivationCode(null);
+        user.setActive(true);
+//        user.setRoles(Collections.singleton(Role.ADMIN));
         userRepository.save(user);
 
         return true;
@@ -77,8 +84,11 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(User userWithChanges, Long userId, String userName, String password) {
+
         User user = userRepository.findById(userId).get();
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
+
+//        user.setPassword(password);
         user.setName(userName);
         user.setRoles(userWithChanges.getRoles());
         userRepository.save(user);
@@ -98,11 +108,12 @@ public class UserService implements UserDetailsService {
             }
         }
         if (!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
+            user.setPassword(passwordEncoder.encode(password));
         }
-        userRepository.save(user);
         if(isEmailChaned) {
             sendMessage(user);
+            user.setActive(false);
         }
+        userRepository.save(user);
     }
 }
