@@ -20,18 +20,47 @@ public class User implements UserDetails {
     @Column(name = "active")
     private boolean active;
     private LocalDate birthday;
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    private LocalDate registrationDate;
     private String surname;
+    private String email;
+    private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name ="user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role>roles;
+    private Set<Role> roles;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
-@Override
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -91,7 +120,7 @@ public class User implements UserDetails {
 
     public User(String name, String surname) {
         this.name = name;
-        this.surname=surname;
+        this.surname = surname;
     }
 
     public String getSurname() {
@@ -103,7 +132,6 @@ public class User implements UserDetails {
     }
 
 
-
     public User() {
     }
 
@@ -111,7 +139,7 @@ public class User implements UserDetails {
 
         this.id = id;
         this.name = name;
-        this.surname=surname;
+        this.surname = surname;
     }
 
     public Long getId() {

@@ -19,6 +19,8 @@
             <tr>
                 <th>Name</th>
                 <th>Surname</th>
+                <th>E-mail</th>
+                <th>Дата Регистрации</th>
                 <th>Roles</th>
                 <th></th>
             </tr>
@@ -27,6 +29,8 @@
             <tr th:each="user : ${userList}">
                 <td data-label="Name" th:text="${user.name}">n</td>
                 <td data-label="Surname" th:text="${user.surname}">n</td>
+                <td data-label="Surname" th:text="${user.email}">n</td>
+                <td data-label="Surname" th:text="${user.registrationDate}">n</td>
                 <td data-label="Roles" id="Roles">
                     <label for="Roles" th:each="role, iterStat :${user.roles}" th:text="!${iterStat.last}? ${role} + ', ': ${role}">i</td>
                 <td data-label="Edit"> <a th:href ="@{'/users/' + ${user.id}}">edit</a></td>

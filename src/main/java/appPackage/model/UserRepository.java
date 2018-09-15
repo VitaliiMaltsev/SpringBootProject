@@ -14,4 +14,5 @@ public interface UserRepository extends CrudRepository<User,Long> {
     List<User> findBySurname(String surname);
     List<User> findByBirthdayBetween(LocalDate startDate, LocalDate endDate);
 
-    }
+    User findByActivationCode(String code);
+}
