@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/hello",
                         "/webjars/**").permitAll()
 
-                .antMatchers("/user/**","/main","/maif", "/filter","/cfilter", "/topics/java/courses")
+                .antMatchers("/main", "/users/profile", "/maif", "/topics/**")
                 .hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()

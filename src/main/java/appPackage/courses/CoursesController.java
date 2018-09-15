@@ -48,16 +48,16 @@ public class CoursesController {
         return "javaCourses";
     }
 
-    @PostMapping("/cfilter")
-    public String getCourseByName(@RequestParam String name, Map<String,Object>model){
-        Iterable<Course> courses;
-        if(!(name ==null) &&!name.isEmpty()) {
-            courses = courseService.getCoursesByName(name);
-        } else {
-            courses =courseService.getAllCourses("java");
-        }
-        model.put("courses", courses);
-        return "javaCourses";
-    }
+//    @PostMapping("/cfilter")
+//    public String getCourseByName(@RequestParam String name, Map<String,Object>model){
+//        Iterable<Course> courses;
+//        if(!(name ==null) &&!name.isEmpty()) {
+//            courses = courseService.getCoursesByName(name);
+//        } else {
+//            courses =courseService.getAllCourses("java");
+//        }
+//        model.put("courses", courses);
+//        return "javaCourses";
+//    }
 
 }

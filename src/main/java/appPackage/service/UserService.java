@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -41,6 +42,12 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(Role.USER));
         user.setRegistrationDate(LocalDate.now());
         user.setActivationCode(UUID.randomUUID().toString());
+        sendMessage(user);
+        userRepository.save(user);
+        return true;
+    }
+
+    private void sendMessage(User user) {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Здравстуйте, %s!\n" + "Добро пожаловать на VVM.com!\n" +
@@ -50,8 +57,6 @@ public class UserService implements UserDetailsService {
             );
             mailSender.send(user.getEmail(), "Activation code", message);
         }
-        userRepository.save(user);
-        return true;
     }
 
 
@@ -65,5 +70,39 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
 
         return true;
+    }
+
+    public List<User> findAll() {
+        return (List<User>) userRepository.findAll();
+    }
+
+    public void saveUser(User userWithChanges, Long userId, String userName, String password) {
+        User user = userRepository.findById(userId).get();
+        user.setPassword(password);
+        user.setName(userName);
+        user.setRoles(userWithChanges.getRoles());
+        userRepository.save(user);
+    }
+
+    public void updateProfile(User user, String password, String email) {
+        String userEmail = user.getEmail();
+
+        boolean isEmailChaned = (email != null && !email.equals(userEmail)) ||
+                (userEmail != null && !userEmail.equals(email));
+
+        if (isEmailChaned) {
+            user.setEmail(email);
+
+            if (!StringUtils.isEmpty(email)) {
+                user.setActivationCode(UUID.randomUUID().toString());
+            }
+        }
+        if (!StringUtils.isEmpty(password)) {
+            user.setPassword(password);
+        }
+        userRepository.save(user);
+        if(isEmailChaned) {
+            sendMessage(user);
+        }
     }
 }

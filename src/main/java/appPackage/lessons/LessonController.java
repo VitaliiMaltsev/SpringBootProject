@@ -14,23 +14,23 @@ public class LessonController {
 	private LessonService lessonService;
 	
 	@RequestMapping("/topics/{topicId}/courses/{courseId}/lessons")
-	public List<Lesson> getLessons(@PathVariable String courseId) {
+	public List<Lesson> getLessons(@PathVariable Long courseId) {
 		return lessonService.getAllLessons(courseId);
 	}
 
 		@RequestMapping("/topics/{topicId}/courses/{courseId}/lessons/{lessonId}")
-		public Lesson getLesson(@PathVariable String lessonId/*, @PathVariable("courseId") String courseId*/) {
+		public Lesson getLesson(@PathVariable Long lessonId/*, @PathVariable("courseId") String courseId*/) {
 		return lessonService.getLesson(lessonId);
 	}
 
 		@RequestMapping(value="/topics/{topicId}/courses/{courseId}/lessons", method=RequestMethod.POST)
-		public void addLesson(@RequestBody Lesson lesson, @PathVariable int courseId,@PathVariable String topicId) {
+		public void addLesson(@RequestBody Lesson lesson, @PathVariable Long courseId,@PathVariable String topicId) {
 			lesson.setCourse(new Course(courseId,"","",topicId));
 			lessonService.addLesson(lesson);
 		}
 		@RequestMapping(value="/topics/{topicId}/courses/{courseId}/lessons/{lessonId}", method=RequestMethod.PUT)
 		public void updateCourse(@RequestBody Lesson lesson,
-								 @PathVariable int courseId,
+								 @PathVariable Long courseId,
 								 @PathVariable String topicId
 								 /*@PathVariable String lessonId */ ) {
 			lesson.setCourse(new Course(courseId,"","",topicId));
@@ -38,7 +38,7 @@ public class LessonController {
 			lessonService.updateLesson(lesson);
 		}
 		@RequestMapping(value="/topics/{topicId}/courses/{courseId}/lessons/{lessonId}", method=RequestMethod.DELETE)
-		public void deleteLesson(@PathVariable String lessonId) {
+		public void deleteLesson(@PathVariable Long lessonId) {
 			lessonService.deleteLesson(lessonId);
 		}
 }

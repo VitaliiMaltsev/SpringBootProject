@@ -12,7 +12,7 @@ public class LessonService {
 	private LessonRepository lessonRepository;
 		
 	
-	public List<Lesson>getAllLessons(String courseId){
+	public List<Lesson>getAllLessons(Long courseId){
 		//List<Lesson>courses = new ArrayList<>();
 		//lessonRepository.findByTopicId(topicId)
 		//.forEach(courses::add);
@@ -20,7 +20,7 @@ public class LessonService {
 		return lessonRepository.findByCourseId(courseId);
 	}
 
-	public Lesson getLesson(String id) {
+	public Lesson getLesson(Long id) {
 		return lessonRepository.findById(id).get();
 	}
 
@@ -32,7 +32,7 @@ public class LessonService {
 		lessonRepository.save(lesson);
 	}
 
-	public void deleteLesson(String id) {
+	public void deleteLesson(Long id) {
 		lessonRepository.deleteById(id);
 		
 	}

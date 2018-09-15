@@ -34,8 +34,9 @@ public class MainController {
     @Autowired
     CourseService courseService;
     @GetMapping("/")
-    public String index(@RequestParam(name = "name", required = false, defaultValue = "Boy") String name, Map<String,Object>model){
-        model.put("name", name);
+    public String index(@RequestParam(name = "name", required = false, defaultValue = "Boy") String name, Model model){
+        model.addAttribute("name", name);
+        model.addAttribute("topics", topicRepository.findAll());
         return "home";
     }
 

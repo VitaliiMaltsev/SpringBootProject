@@ -22,7 +22,7 @@ public class CourseService {
 		return courseRepository.findByTopicId(topicId);
 	}
 	
-	public Course getCourse(int id) {
+	public Course getCourse(Long id) {
 		return courseRepository.findById(id).get();
 	}
 
@@ -38,7 +38,7 @@ public class CourseService {
 		courseRepository.save(course);
 	}
 
-	public void deleteCourse(int id) {
+	public void deleteCourse(Long id) {
 		courseRepository.deleteById(id);
 		
 	}

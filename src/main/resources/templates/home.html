@@ -15,6 +15,19 @@
     <div layout:fragment="content" th:remove="tag">
         <div class="flip">
             <div class="front" style="background-image: url(http://www.technocrazed.com/wp-content/uploads/2015/12/beautiful-wallpaper-download-14.jpg)">
+                <!--<div th:if="${not #lists.isEmpty(topics)}">-->
+                    <!--<div class="card border-warning my-3" th:each="topic : ${topics}" style="width: 18rem;">-->
+                        <!--<div class="card-header" style="color: #3ccaed" th:text="${topic.name}">-->
+                        <!--</div>-->
+                        <!--<div th:if="${not #strings.isEmpty(topic.filename)}">-->
+                            <!--<img class="card-img-top" th:src="@{${'/uploads/' + topic.filename}}">-->
+                        <!--</div>-->
+
+                        <!--<div class="card-footer" th:text="${topic.description}">-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                <!--</div>-->
                 <h1 class="text-shadow">...</h1>
             </div>
             <div class="back">

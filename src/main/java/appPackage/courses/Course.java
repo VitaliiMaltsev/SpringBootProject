@@ -11,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	private String name;
 	private String description;
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -45,17 +45,17 @@ public class Course {
 		return author!=null?author.getName():"<none>";
 	}
 
-	public Course(int id, String name, String description, String topicId) {
+	public Course(Long id, String name, String description, String topicId) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.topic = new Topic(topicId,"","");
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
