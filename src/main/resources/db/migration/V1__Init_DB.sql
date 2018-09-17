@@ -28,6 +28,7 @@ create sequence hibernate_sequence start 1 increment 1;
        id int8 not null,
         description varchar(2048) not null,
         name varchar(255) not null,
+        filename varchar(255),
         user_id int8,
         topic_id varchar(255),
         primary key (id)

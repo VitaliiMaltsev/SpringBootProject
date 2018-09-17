@@ -5,6 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
@@ -15,11 +17,34 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank(message = "Имя пользователя должно быть заполнено")
     private String name;
+
+    @NotBlank(message = "Пароль должнен быть заполнен")
     private String password;
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    @Transient
+//    @NotBlank(message = "Подтвержденный пароль должнен быть заполнен")
+    private String password2;
+
     @Column(name = "active")
     private boolean active;
+
     private LocalDate birthday;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public LocalDate getRegistrationDate() {
         return registrationDate;
@@ -28,16 +53,13 @@ public class User implements UserDetails {
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
-
     private LocalDate registrationDate;
     private String surname;
+    @Email(message = "E-mail заполнен некорректно")
+    @NotBlank(message = "E-mail должен быть заполнен")
     private String email;
     private String activationCode;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
 
     public String getEmail() {
         return email;

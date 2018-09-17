@@ -1,7 +1,9 @@
 package appPackage.topics;
 import appPackage.model.User;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 
 @Entity
@@ -11,6 +13,7 @@ public class Topic {
 //	@ManyToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "user_id")
 //	private User author;
+
 private String filename;
 
 	public String getFilename() {
@@ -44,15 +47,6 @@ private String filename;
 		this.description = description;
 	}
 
-//	public String getAuthorName(){
-//		return author!=null?author.getName():"none";
-//	}
-
-//	public Topic(String name, String description) {
-////		this.author =user;
-//		this.name = name;
-//		this.description = description;
-//	}
 
 	public String getId() {
 		return id;
@@ -72,6 +66,10 @@ private String filename;
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@NotBlank(message = "Пожалуйста заполните имя раздела")
+	@Length(max = 255, message = "Имя слишком длинное")
 	private String name;
+	@NotBlank(message = "Пожалуйста заполните описание раздела")
+	@Length(max = 2048, message = "Описание раздела слишком длинное")
 	private String description;
 }

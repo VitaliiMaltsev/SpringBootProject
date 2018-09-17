@@ -7,7 +7,7 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/blogy</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="coursesDB@localhost" uuid="504e6bc3-4102-4c79-b9e6-649860db5173">
+    <data-source source="LOCAL" name="coursesDB@localhost" uuid="aa9b42a9-c84e-4e04-a5d4-def3dad0afca">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

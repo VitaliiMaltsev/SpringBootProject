@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -53,17 +55,36 @@ public class MainController {
     }
 
     @GetMapping("/maif")
-    public String main2(@RequestParam(required = false, defaultValue = "")String name, Model model){
-    List<Course> javaCourses = courseService.getAllCourses("java");
-        if(!(name ==null) &&!name.isEmpty()) {
-            javaCourses = courseService.getCoursesByName(name);
-        } else {
-            javaCourses =courseService.getAllCourses("java");
-        }
-        model.addAttribute("courses", javaCourses);
-        model.addAttribute("name", name);
+    public String maif(){
         return "javaCourses2";
     }
+
+
+    @PostMapping("/maif")
+    public String addCourse(
+            @AuthenticationPrincipal User user,
+            @Valid Course course,
+            BindingResult bindingResult, //- всегда должен идти перед Mo del!!!
+            Model model) {
+
+        course.setTopic(new Topic("java", "", ""));
+        course.setAuthor(user);
+        if (bindingResult.hasErrors()) {
+
+//            model.mergeAttributes(ControllerUtil.getErrors(bindingResult));
+            model.addAttribute("course", course);
+
+        } else {
+//        Course course = new Course(name, description, new Topic("java","",""),user);
+//            model.addAttribute("course", null);
+            courseService.addCourse(course);
+        }
+        List<Course> javaCourses = courseService.getAllCourses("java");
+        model.addAttribute("courses", javaCourses);
+        return "javaCourses2";
+
+    }
+
     @GetMapping("/user")
     public String userIndex() {
         return "user/index";
@@ -74,7 +95,7 @@ public class MainController {
             @RequestParam("file") MultipartFile file,
             @RequestParam String name,
             @RequestParam String description,
-            Map<String,Object>model) throws IOException {
+            Model model) throws IOException {
         Topic topic = new Topic("java",name, description);
         if(file!=null&&!file.getOriginalFilename().isEmpty()){
             File uploadDir = new File(uploadPath);
@@ -88,7 +109,7 @@ public class MainController {
         }
         topicRepository.save(topic);
         Iterable<Topic> topics = topicRepository.findAll();
-        model.put("topics", topics);
+        model.addAttribute("topics", topics);
         return "main";
     }
 

@@ -33,7 +33,10 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        return userRepository.findByName(name);
+        User user = userRepository.findByName(name);
+        if (user==null)
+        {throw new UsernameNotFoundException ("Пользователь не найден !"); }
+        return user;
     }
 
     public boolean addUser(User user) {
@@ -46,6 +49,7 @@ public class UserService implements UserDetailsService {
         user.setRegistrationDate(LocalDate.now());
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword2(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         //TODO Очередность влияет?
         sendMessage(user);

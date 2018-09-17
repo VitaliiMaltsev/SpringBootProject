@@ -12,10 +12,16 @@
         <div class="col-md-6 col-md-offset-3">
 
             <h1>Login page</h1>
+            <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION]}">
+                <div class="alert alert-warning">
+                    <div th:remove="tag" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION].message}"></div>
+                </div>
+            </div>
+
             <div th:if="${message !=null}">
                 <div th:if="${message == false}">
                            
-                    <div class="alert alert-danger">
+                    <div class="alert alert-warning">
                         Код активации не найден!
                     </div>
                 </div>

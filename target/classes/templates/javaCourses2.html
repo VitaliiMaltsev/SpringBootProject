@@ -4,62 +4,124 @@
       layout:decorate="~{fragments/layout}">
 <head>
     <title>Main</title>
+    <!--<script type="text/javascript" th:src="@{/js/validator.js}"></script>-->
+    <!--<script src="/js/bootstrap-validate.js"></script>-->
+
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
     <h1 th:inline="text">Здравствуй, [[${#httpServletRequest.remoteUser}]]! </h1>
 
-    <div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <form th:action="@{/topics/java/courses}" method="post">
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <form class="needs-validation" th:action="@{/topics/java/courses}" th:object="${course}" novalidate=""
+                  method="post">
+                <div class="form-group">
+                    <!--<div class="col-md-6 mb-1">-->
+                    <label for="validationCustomCourses"><h5>Название курса</h5></label>
+                    <input type="text"
+                           class="form-control"
+                           id="validationCustomCourses"
+                           autofocus="autofocus"
+                           name="name"
+                           placeholder="Введите название нового курса"
+                           minlength="3"
+                           maxlength="255"
+                           required>
+                    <!--pattern="[0-9]{16}"-->
+                    <!--data-value-missing="A credit card number is required"-->
+                    <!--data-pattern-mismatch="The credit card number must be 16 digits"-->
+                    <!--&gt;-->
+                    <!--<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>-->
+                    <div class="valid-feedback">Отлично!</div>
+                    <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
                     <div class="form-group">
-                        <label for="coursename"><h5>Course name</h5></label>:
-                        <input type="text"
-                               id="coursename"
-                               name="name"
-                               class="form-control"
-                               autofocus="autofocus"
-                               placeholder="Введите название нового курса">
+                        <label for="validationCustomDesc"><h5>Описание курса</h5></label>
+                        <textarea class="form-control"
+                                  name="description"
+                                  rows="5"
+                                  minlength="3"
+                                  maxlength="2048"
+                                  id="validationCustomDesc"
+                                  placeholder="Введите описание курса"
+                                  required></textarea>
+                        <div class="valid-feedback">Отлично!</div>
+                        <div class="invalid-feedback">
+                            Данное поле не должно быть менее 3 символов
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="coursedesc"><h5>Course description</h5></label>:
-                        <input type="text"
-                               id="coursedesc"
-                               name="description"
-                               class="form-control"
-                               autofocus="autofocus"
-                               placeholder="Введите описание нового курса">
-                    </div><br>
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <input type="submit"
+                                       name="login-submit"
+                                       id="login-submit"
+                                       class="form-control btn btn-info"
+                                       value="Добавить">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" name="time">
-                    <button type="submit" style="font-family:'Bauhaus 93',fantasy">Добавить</button>
-                    <button type="reset" style="font-family: 'Bauhaus 93',fantasy">Отменить</button>
-                </form>
+
+            <br>
+            <h5>Список доступных курсов</h5>
+            <div th:if="${not #lists.isEmpty(courses)}">
+                <table>
+                    <!--<thead> … </thead>-->
+                    <tbody>
+                    <tr th:each="course : ${courses}">
+                        <td style="color: aqua" th:text="${course.id}">n</td>
+                        <td th:text="${course.name}">n</td>
+                        <td th:text="${course.description}">n</td>
+                        <td th:text="${course.topic.id}">n</td>
+                        <td th:text="${course.authorName}">i</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <form method="get" th:action="@{/maif}">
-            <input type="text" name="name">
-            <button type="submit" style="font-family:'Bauhaus 93',fantasy">Найти по названию</button>
-        </form>
-        <br>
-        <span>Список доступных курсов</span><br>
-        <div th:if="${not #lists.isEmpty(courses)}">
-            <table>
-                <!--<thead> … </thead>-->
-                <tbody>
-                <tr th:each="course : ${courses}">
-                    <td style="color: aqua" th:text="${course.id}">n</td>
-                    <td th:text="${course.name}">n</td>
-                    <td th:text="${course.description}">n</td>
-                    <td th:text="${course.topic.id}">n</td>
-                    <td th:text="${course.authorName}">i</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-</div>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                // var ele = form.getElementsByTagName("input")
+                                //
+                                // // var ele = form.getElementById('validationCustomCourses')
+                                // for (var i = 0; i < ele.length; i++) {
+                                //     var msg = "", reason = ele[i].validity;
+                                //     if (reason.valueMissing) {
+                                //         msg = ele[i].getAttribute("data-value-missing");
+                                //     }
+                                //     else if (reason.patternMismatch) {
+                                //         msg = ele[i].getAttribute("data-pattern-mismatch");
+                                //     }
+                                // }
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
+
+        <!--<script>-->
+        <!--bootstrapValidate('#validationCustomDesc', 'min:5:Enter at least 5 Characters');-->
+        <!--bootstrapValidate('#validationCustomCourses', 'required:Please fill out this field!');-->
+        <!--</script>-->
+    </div>
 </div>
 </body>
 </html>

@@ -9,58 +9,108 @@
 <div layout:fragment="content" th:remove="tag">
     <h1 th:inline="text">Здравствуй, [[${#httpServletRequest.remoteUser}]]! </h1>
 
-    <div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <form th:action="@{/topics/java/courses}" method="post">
-                    <div class="form-group">
-                        <label for="coursename"><h5>Course name</h5></label>:
-                        <input type="text"
-                               id="coursename"
-                               name="name"
-                               class="form-control"
-                               autofocus="autofocus"
-                               placeholder="Введите название нового курса">
-                    </div>
-                    <div class="form-group">
-                        <label for="coursedesc"><h5>Course description</h5></label>:
-                        <input type="text"
-                               id="coursedesc"
-                               name="description"
-                               class="form-control"
-                               autofocus="autofocus"
-                               placeholder="Введите описание нового курса">
-                    </div>
+    <p>
+        <a class="btn btn-outline-info" data-toggle="collapse" href="#collapseExample" role="button"
+           aria-expanded="false"
+           aria-controls="collapseExample">
+            Добавить новый раздел
+        </a>
+    </p>
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
 
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" name="time">
-                    <button type="submit" style="font-family:'Bauhaus 93',fantasy">Добавить</button>
-                    <button type="reset" style="font-family: 'Bauhaus 93',fantasy">Отменить</button>
-                    <br>
-                </form>
+                        <form class="needs-validation" th:action="@{/topics/java/courses}" th:object="${course}"
+                              novalidate=""
+                              method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="validationCustomCourses"><h5>Название курса</h5></label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="validationCustomCourses"
+                                       autofocus="autofocus"
+                                       name="name"
+                                       placeholder="Введите название нового курса"
+                                       minlength="3"
+                                       maxlength="255"
+                                       required>
+                                <div class="valid-feedback">Отлично!</div>
+                                <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
+                                <div class="form-group">
+                                    <label for="validationCustomDesc"><h5>Описание курса</h5></label>
+                                    <textarea class="form-control"
+                                              name="description"
+                                              rows="5"
+                                              minlength="3"
+                                              maxlength="2048"
+                                              id="validationCustomDesc"
+                                              placeholder="Введите описание курса"
+                                              required></textarea>
+                                    <div class="valid-feedback">Отлично!</div>
+                                    <div class="invalid-feedback">
+                                        Данное поле не должно быть менее 3 символов
+                                    </div>
+                                </div>
+                                <input type="file" name="file">
+
+                                <button class="btn btn-outline-info " type="submit"
+                                        style="font-family:'Bauhaus 93',fantasy">Добавить
+                                </button>
+                                <button class="btn btn-outline-secondary" type="reset"
+                                        style="font-family: 'Bauhaus 93',fantasy">Отменить
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <form method="get" th:action="@{/topics/java/courses}">
-            <input type="text" name="name">
-            <button type="submit" style="font-family:'Bauhaus 93',fantasy">Найти по названию</button>
-        </form>
-        <br>
-        <h5>Список доступных курсов</h5>
-        <div th:if="${not #lists.isEmpty(courses)}">
-            <table>
-                <!--<thead> … </thead>-->
-                <tbody>
-                <tr th:each="course : ${courses}">
-                    <td style="color: aqua" th:text="${course.id}">n</td>
-                    <td th:text="${course.name}">n</td>
-                    <td th:text="${course.description}">n</td>
-                    <td th:text="${course.topic.id}">n</td>
-                    <td th:text="${course.authorName}">i</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
+    <br>
+    <h5>Список доступных курсов</h5>
+    <div th:if="${not #lists.isEmpty(courses)}">
+        <table>
+            <!--<thead> … </thead>-->
+            <tbody>
+            <tr th:each="course : ${courses}">
+                <td style="color: aqua" th:text="${course.id}">n</td>
+                <td th:text="${course.name}">n</td>
+                <td th:text="${course.description}">n</td>
+                <td th:text="${course.topic.id}">n</td>
+                <td th:text="${course.authorName}">i</td>
+                <div th:if="${not #strings.isEmpty(course.filename)}">
+                    <img class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">
+                </div>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</div>
+
+</div>
 </div>
 </body>
 </html>

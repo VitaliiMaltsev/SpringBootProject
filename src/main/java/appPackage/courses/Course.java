@@ -1,10 +1,14 @@
 package appPackage.courses;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import appPackage.model.User;
 import appPackage.topics.Topic;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Length;
 
 
 @Entity
@@ -12,13 +16,28 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+//	@NotBlank(/*message = "Пожалуйста заполните имя раздела"*/)
+//	@Length(max = 255/*, message = "Имя слишком длинное"*/)
 	private String name;
+
+	@NotBlank(message = "Пожалуйста заполните описание раздела")
+	@Length(max = 2048, message = "Описание раздела слишком длинное")
 	private String description;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
 
+	private String filename;
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 
 	public User getAuthor() {
 		return author;
@@ -39,6 +58,7 @@ public class Course {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User author;
+
 	public Course() {
 			}
 	public String getAuthorName(){
@@ -78,5 +98,5 @@ public class Course {
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
-	
+
 }
