@@ -46,9 +46,10 @@ public class UserController {
     public String updateUser(
             @ModelAttribute(value = "user") User userWithChanges,
             @RequestParam Long userId,
+            @RequestParam Set<Role> userRoles,
             @RequestParam String password,
             @RequestParam String userName) {
-        userService.saveUser(userWithChanges, userId, userName, password);
+        userService.saveUser(userWithChanges, userId, userName, password, userRoles);
 
         return "redirect:/users";
     }

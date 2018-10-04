@@ -9,9 +9,10 @@
 <div layout:fragment="content" th:remove="tag">
 
     <div class="row">
+        <div class="container">
+            <h5 th:inline="text">Редактирование пользователя [[${#httpServletRequest.remoteUser}]]!</h5>
         <div class="col-md-6 col-md-offset-3">
 
-            <h5 th:inline="text">Редактирование пользователя [[${#httpServletRequest.remoteUser}]]!</h5>
             <div th:if="${message !=null}">
                 <div th:if="${message == false}">
                            
@@ -38,22 +39,26 @@
                     <!--</div>-->
                 <!--</div>-->
                 <div class="form-group">
-                    <label for="password">Пароль</label>:
+                    <div class="input-field">
+                        <i class="material-icons prefix">lock_outline</i>
                     <input type="password"
                            id="password"
                            name="password"
-                           class="form-control"
-                           placeholder="Password">
+                           class="form-control">
+                    <label for="password">Пароль</label>
                            <!--th:value=${user.password}-->
                 </div>
+                </div>
                 <div class="form-group">
-                    <label for="email">E-mail</label>:
+                    <div class="input-field">
+                        <i class="material-icons prefix">email</i>
                     <input type="email"
                            id="email"
                            name="email"
                            class="form-control"
-                           th:value=${user.email}
-                           placeholder="email@example.com">
+                           th:value=${user.email}>
+                    <label for="email">E-mail</label>
+                </div>
                 </div>
                 <!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
                 <div class="form-group">
@@ -71,6 +76,7 @@
         </div>
     </div>
     <p><a href="/" th:href="@{/}">Вернуться на главную</a></p>
+    </div>
 
 </div>
 </body>

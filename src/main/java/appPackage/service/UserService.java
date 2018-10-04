@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -87,14 +88,15 @@ public class UserService implements UserDetailsService {
         return (List<User>) userRepository.findAll();
     }
 
-    public void saveUser(User userWithChanges, Long userId, String userName, String password) {
+    public void saveUser(User userWithChanges, Long userId, String userName, String password, Set<Role> userRoles) {
 
         User user = userRepository.findById(userId).get();
         user.setPassword(passwordEncoder.encode(password));
+        user.setRoles(userRoles);
 
 //        user.setPassword(password);
         user.setName(userName);
-        user.setRoles(userWithChanges.getRoles());
+//        user.setRoles(userWithChanges.getRoles());
         userRepository.save(user);
     }
 

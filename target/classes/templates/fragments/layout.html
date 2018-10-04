@@ -6,18 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Vitaliy Maltsev Project</title>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <th:block th:replace="fragments/header :: header"/>
-<div class="container mt-3">
+<!--<div class="container my-lg-5">-->
     <th:block layout:fragment="content"/>
-</div>
+<!--</div>-->
+<script>
 
+
+    $(".dropdown-trigger").dropdown();
+
+</script>
 <th:block th:replace="fragments/footer :: footer"/>
 </body>
 </html>

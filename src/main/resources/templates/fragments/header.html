@@ -1,79 +1,60 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- CSS  -->
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+</head>
 <body>
 <th:block th:fragment="header">
 
-    <nav class="navbar sticky-top bd-navbar navbar-expand-lg navbar-dark bg-dark ">
-        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/img/cat.png}" alt="Vitaliy Maltsev logo"/>
-                </a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link"  th:href="@{/}">VVM.COM <span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/hello}">Hello page</a>
-                    </li>
+    <div class="navbar-fixed">
+        <nav>
+            <ul id="dropdown1" class="dropdown-content lime lighten-5">
+                <li><a th:href="@{/topics/java/courses}">Java</a></li>
+                <li><a th:href="@{/topics/javaee/courses}">Java EE</a></li>
+                <li><a th:href="@{/topics/javascript/courses}">JavaScript</a></li>
+                <li><a th:href="@{/topics/html-css/courses}">HTML+CSS</a></li>
+                <li class="divider"></li>
+                <li><a th:href="@{/topics/spring/courses}">Spring</a></li>
+                <li><a href="http://www.stackoverflow.com">Stackoverflow</a></li>
+            </ul>
+            <nav class="yellow lighten-5" role="navigation">
+                <div class="nav-wrapper container">
+                    <a id="logo-container" href="/" class="brand-logo"><img class="responsive-img" id="logo"
+                                                                            th:src="@{/img/cat.png}"/>VVM.COM</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Все курсы<i
+                                class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a th:href="@{/hello}">Hello page</a></li>
+                        <li><a th:href="@{/login}">Вход | Регистрация</a></li>
+                        <span sec:authorize="isAuthenticated()">
+                            <li><a th:href="@{/users/profile}">Profile</a>
+                            </li>
+                        </span>
+                        <span sec:authorize="hasAuthority('ADMIN')">
+                            <li><a th:href="@{/users}">Администрирование</a>
+                            </li>
+                        </span>
+                    </ul>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Все курсы
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/topics/java/courses}">Java</a>
-                            <a class="dropdown-item" th:href="@{/topics/javascript/courses}">JavaScript</a>
-                            <a class="dropdown-item" th:href="@{/topics/html-css/courses}">HTML+CSS</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/topics/spring/courses}">Spring</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                    <div sec:authorize="isAnonymous()">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/login}">Log in</a>
-                    </li>
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/users/profile}">Profile</a>
-                        </li>
-                    </div>
-                    <div sec:authorize="hasAuthority('ADMIN')">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/users}">Администрирование</a>
-                        </li>
-                    </div>
+                    <ul id="nav-mobile" class="sidenav">
+                        <li><a href="#">Main page</a></li>
+                        <li><a href="#">Все курсы</a></li>
+                        <li><a href="#">Еще ссылка</a></li>
+                        <li><a href="#">Снова ссылка</a></li>
+                        <li><a href="#">Вход</a></li>
+                    </ul>
+                    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                </div>
+            </nav>
+        </nav>
+    </div>
 
-
-                </ul>
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Искать</button>
-                </form>
-                <!--<ul class="nav navbar-nav mr-auto" >-->
-                    <!--<li class="nav-item active">-->
-                        <!--<a class="nav-link" th:href="@{/}">Home</a>-->
-                    <!--</li>-->
-                    <!--<li class="nav-item active">-->
-                        <!--<a class="nav-link" th:href="@{/topics/java/courses}">Courses</a>-->
-                    <!--</li>-->
-                    <!--<li class="nav-item active">-->
-                        <!--<a class="nav-link" th:href="@{/users}">User List</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            </div>
-        </div>
-    </nav>
 </th:block>
+
 </body>
 </html>

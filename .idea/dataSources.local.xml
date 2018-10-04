@@ -10,7 +10,7 @@
       <user-name>postgres</user-name>
       <introspection-schemas>blogy:public</introspection-schemas>
     </data-source>
-    <data-source name="coursesDB@localhost" uuid="504e6bc3-4102-4c79-b9e6-649860db5173">
+    <data-source name="coursesDB@localhost" uuid="aa9b42a9-c84e-4e04-a5d4-def3dad0afca">
       <database-info product="PostgreSQL" version="10.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>

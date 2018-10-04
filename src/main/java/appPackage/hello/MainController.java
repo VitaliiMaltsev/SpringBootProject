@@ -39,7 +39,7 @@ public class MainController {
     public String index(@RequestParam(name = "name", required = false, defaultValue = "Boy") String name, Model model){
         model.addAttribute("name", name);
         model.addAttribute("topics", topicRepository.findAll());
-        return "home";
+        return "index";
     }
 
     @GetMapping("/main")
@@ -64,7 +64,7 @@ public class MainController {
     public String addCourse(
             @AuthenticationPrincipal User user,
             @Valid Course course,
-            BindingResult bindingResult, //- всегда должен идти перед Mo del!!!
+            BindingResult bindingResult, //- всегда должен идти перед Model!!!
             Model model) {
 
         course.setTopic(new Topic("java", "", ""));

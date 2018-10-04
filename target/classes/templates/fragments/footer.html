@@ -3,22 +3,62 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <body>
 <th:block th:fragment="footer">
-    <footer>
+    <footer class="page-footer teal lighten-1">
         <div class="container">
-            <p>
-                &copy; VitaliyMaltsev.com
-                <span sec:authorize="isAuthenticated()" style="display: inline-block;">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Описание</h5>
+                    <p class="grey-text text-lighten-4">
+                    <span class="grey-text text-lighten-4" sec:authorize="isAuthenticated()" style="display: inline-block;">
                     | Logged user: <span sec:authentication="name"></span> |
                     Roles: <span sec:authentication="principal.authorities"></span> |
-                    <a th:href="@{/logout}">Sign Out</a>
+                    <a th:href="@{/logout}">Sign Out</a></p>
                 </span>
-            </p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Настройки</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Ссылка 1</a></li>
+                        <li><a class="white-text" href="#!">Ссылка 2</a></li>
+                        <!--<li><a class="white-text" href="#!">Link 3</a></li>-->
+                        <!--<li><a class="white-text" href="#!">Link 4</a></li>-->
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Контакты</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Ссылка 1</a></li>
+                        <li><a class="white-text" href="#!">Ссылка 2</a></li>
+                        <!--<li><a class="white-text" href="#!">Link 3</a></li>-->
+                        <!--<li><a class="white-text" href="#!">Link 4</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="brown-text text-lighten-3" href="http://vvm.com"> © 2018 Vitaliy Maltsev</a>
+            </div>
         </div>
     </footer>
 
     <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js/}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/popper.js/1.14.1/umd/popper.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/materialize.js}"></script>
+    <script type="text/javascript" th:src="@{/js/init.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>-->
+
+    <script>
+
+
+        $(".dropdown-trigger").dropdown();
+
+    </script>
+    <!--<script src="/js/materialize.js"></script>-->
+    <!--<script th:src="@{/js/init.js"></script>-->
 
 </th:block>
 </body>
