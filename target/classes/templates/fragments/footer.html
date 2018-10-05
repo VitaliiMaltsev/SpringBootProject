@@ -10,9 +10,9 @@
                     <h5 class="white-text">Описание</h5>
                     <p class="grey-text text-lighten-4">
                     <span class="grey-text text-lighten-4" sec:authorize="isAuthenticated()" style="display: inline-block;">
-                    | Logged user: <span sec:authentication="name"></span> |
-                    Roles: <span sec:authentication="principal.authorities"></span> |
-                    <a th:href="@{/logout}">Sign Out</a></p>
+                    | Вы вошли как: <span sec:authentication="name"></span> |
+                    Роли: <span sec:authentication="principal.authorities"></span> |
+                    <a th:href="@{/logout}">Выход</a></p>
                 </span>
 
 

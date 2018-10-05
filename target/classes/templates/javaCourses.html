@@ -8,109 +8,135 @@
 <body>
 <div layout:fragment="content" th:remove="tag">
     <div class="container my-lg-3">
-    <h1 th:inline="text">Здравствуй, [[${#httpServletRequest.remoteUser}]]! </h1>
+        <h1 th:inline="text">Здравствуй, [[${#httpServletRequest.remoteUser}]]! </h1>
 
-    <p>
-        <a class="btn btn-outline-info" data-toggle="collapse" href="#collapseExample" role="button"
-           aria-expanded="false"
-           aria-controls="collapseExample">
-            Добавить новый раздел
-        </a>
-    </p>
-    <div class="collapse show" id="collapseExample">
-        <div class="card card-body">
-            <div>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
+        <p>
+            <a class="btn btn-outline-info" data-toggle="collapse" href="#collapseExample" role="button"
+               aria-expanded="false"
+               aria-controls="collapseExample">
+                Добавить новый курс
+            </a>
+        </p>
+        <div class="collapse" th:classappend="${course== null ? '' :'show'}" id="collapseExample">
+            <div class="card card-body">
+                <div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
 
-                        <form class="needs-validation" th:action="@{/topics/java/courses}" th:object="${course}"
-                              novalidate=""
-                              method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="validationCustomCourses"><h5>Название курса</h5></label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="validationCustomCourses"
-                                       autofocus="autofocus"
-                                       name="name"
-                                       placeholder="Введите название нового курса"
-                                       minlength="3"
-                                       maxlength="255"
-                                       required>
-                                <div class="valid-feedback">Отлично!</div>
-                                <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
+                            <form class="needs-validation" th:action="@{/topics/java/courses}" th:object="${course}"
+                                  novalidate=""
+                                  method="post" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label for="validationCustomDesc"><h5>Описание курса</h5></label>
-                                    <textarea class="form-control"
-                                              name="description"
-                                              rows="5"
-                                              minlength="3"
-                                              maxlength="2048"
-                                              id="validationCustomDesc"
-                                              placeholder="Введите описание курса"
-                                              required></textarea>
+                                    <label for="validationCustomCourses"><h5>Название курса</h5></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="validationCustomCourses"
+                                           autofocus="autofocus"
+                                           name="name"
+                                           placeholder="Введите название нового курса"
+                                           minlength="3"
+                                           maxlength="255"
+                                           required>
                                     <div class="valid-feedback">Отлично!</div>
-                                    <div class="invalid-feedback">
-                                        Данное поле не должно быть менее 3 символов
+                                    <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
+                                    <!--<div th:if="${not #strings.isEmpty(course.id)}">-->
+                                    <!--th:if="${course.id!=null}"-->
+                                    <input type="hidden" name="id" th:value="${course== null ? '' : course.id}">
+                                    <!--</div>-->
+                                    <div class="form-group">
+                                        <label for="validationCustomDesc"><h5>Описание курса</h5></label>
+                                        <textarea class="form-control"
+                                                  name="description"
+                                                  rows="5"
+                                                  minlength="3"
+                                                  maxlength="2048"
+                                                  id="validationCustomDesc"
+                                                  placeholder="Введите описание курса"
+                                                  required></textarea>
+                                        <div class="valid-feedback">Отлично!</div>
+                                        <div class="invalid-feedback">
+                                            Данное поле не должно быть менее 3 символов
+                                        </div>
                                     </div>
+                                    <input type="file" name="file">
+<div class="mt-2">
+                                    <button class="btn btn-outline-info  " type="submit"
+                                            style="font-family: "Roboto", sans-serif">Добавить
+                                    </button>
+                                    <button class="btn btn-outline-secondary waves-effect waves-light red" type="reset"
+                                            style="font-family: "Roboto", sans-serif">Отменить
+                                    </button>
+</div>
                                 </div>
-                                <input type="file" name="file">
-
-                                <button class="btn btn-outline-info " type="submit"
-                                        style="font-family:'Bauhaus 93',fantasy">Добавить
-                                </button>
-                                <button class="btn btn-outline-secondary" type="reset"
-                                        style="font-family: 'Bauhaus 93',fantasy">Отменить
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <br>
-    <h5>Список доступных курсов</h5>
-    <div th:if="${not #lists.isEmpty(courses)}">
-        <table>
-            <!--<thead> … </thead>-->
-            <tbody>
-            <tr th:each="course : ${courses}">
-                <td style="color: aqua" th:text="${course.id}">n</td>
-                <td th:text="${course.name}">n</td>
-                <td th:text="${course.description}">n</td>
-                <td th:text="${course.topic.id}">n</td>
-                <td th:text="${course.authorName}">i</td>
-                <div th:if="${not #strings.isEmpty(course.filename)}">
-                    <img class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">
+        <br>
+        <h5>Список доступных курсов</h5>
+        <div class="card-columns">
+            <div th:if="${not #lists.isEmpty(courses)}">
+                <div class="card border-success my-3" th:each="course : ${courses}" style="width: 18rem;">
+                    <div class="card-header" style="color: #3ccaed" th:text="${course.name}">
+                    </div>
+                    <div th:if="${not #strings.isEmpty(course.filename)}">
+                        <img style="height: 15rem" class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" th:text="${course.description}"></p>
+                        <a href="#" class="btn btn-outline-success">Смотреть</a>
+                    </div>
+
+                    <div class="card-footer text-right" >Добавил:
+                        <a th:href="@{'/users/user-courses/' + ${course.author.id}}" th:text="${course.authorName}"></a>
+                        <span th:if="${course.author.id}==${#authentication.getPrincipal().getId()}">
+                        <a class="btn purple lighten-3" th:href="@{'/users/user-courses/' + ${course.author.id}(course=${course.id})}">Изменить</a>
+                    </span>
                 </div>
+            </div>
+        </div>
+        <!--<div th:if="${not #lists.isEmpty(courses)}">-->
+            <!--<table>-->
+                <!--&lt;!&ndash;<thead> … </thead>&ndash;&gt;-->
+                <!--<tbody>-->
+                <!--<tr th:each="course : ${courses}">-->
+                    <!--<td style="color: aqua" th:text="${course.id}">n</td>-->
+                    <!--<td th:text="${course.name}">n</td>-->
+                    <!--<td th:text="${course.description}">n</td>-->
+                    <!--<td th:text="${course.topic.id}">n</td>-->
+                    <!--<td th:text="${course.authorName}">i</td>-->
+                    <!--<div th:if="${not #strings.isEmpty(course.filename)}">-->
+                        <!--<img class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">-->
+                    <!--</div>-->
 
-            </tr>
-            </tbody>
-        </table>
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+        <!--</div>-->
+
+        <script>
+
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
     </div>
-
-    <script>
-
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
-</div>
 </div>
 <!--</div>-->
 <!--</div>-->

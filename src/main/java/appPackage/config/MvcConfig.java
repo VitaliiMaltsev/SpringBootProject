@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,13 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
+
+//    @Bean
+//    public SpringTemplateEngine templateEngine() {
+//        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+//        templateEngine.addDialect(new SpringSecurityDialect());
+//        return templateEngine;
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

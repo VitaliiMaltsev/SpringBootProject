@@ -30,15 +30,12 @@
                         <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Все курсы<i
                                 class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a th:href="@{/hello}">Hello page</a></li>
-                        <li><a th:href="@{/login}">Вход | Регистрация</a></li>
-                        <span sec:authorize="isAuthenticated()">
-                            <li><a th:href="@{/users/profile}">Profile</a>
-                            </li>
-                        </span>
-                        <span sec:authorize="hasAuthority('ADMIN')">
-                            <li><a th:href="@{/users}">Администрирование</a>
-                            </li>
-                        </span>
+                        <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Вход | Регистрация</a></li>
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/users/profile}">Профиль</a></li>
+                        <li sec:authorize="isAuthenticated()"><a
+                                th:href="@{'/users/user-courses/' + ${#authentication.getPrincipal().getId()}}">Мои курсы</a>
+                        </li>
+                        <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Администрирование</a></li>
                     </ul>
 
                     <ul id="nav-mobile" class="sidenav">

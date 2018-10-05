@@ -8,6 +8,7 @@
 <body>
 <span><a href="/users">User's list</a></span>
 <div layout:fragment="content" th:remove="tag">
+    <div class="container">
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
     <div class="form-row">
@@ -86,6 +87,7 @@
 
             </div>
         </div>
+    </div>
     </div>
 </div>
 </body>

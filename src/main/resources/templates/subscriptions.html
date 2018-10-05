@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Subscriptions</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="container my-lg-3">
+        <h1 th:text="${userChannel.name}"></h1>
+        <div th:text="${type}"></div>
+        <ul class="list-group">
+            <div th:each="user : ${users}">
+            <li class="list-group-item">
+                <a th:href="@{'/users/user-courses/'+${user.id}}">[[${user.getName()}]]</a>
+            </li>
+            </div>
+    </div>
+</div>
+</body>
+</html>

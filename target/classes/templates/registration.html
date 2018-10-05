@@ -9,8 +9,8 @@
 <div layout:fragment="content" th:remove="tag">
     <div class="container">
 
+            <h1>Регистрация</h1>
     <div class="row">
-            <h1>Страница регистрации</h1>
         <div class="col-md-6 col-md-offset-3">
             <div th:if="${userNameError != null}">
                         <div class="alert alert-danger">
@@ -23,6 +23,10 @@
                     <div class="alert alert-danger">
                         Неверные имя пользователя и/или пароль
                     </div>
+                </div>
+                <div th:if="${captchaError != null}">
+                           <div class="alert alert-danger">
+                    Captcha не подтверждена!</div>
                 </div>
                 <div th:if="${param.logout}">
                     <div class="alert alert-info">
@@ -104,14 +108,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="g-recaptcha" data-sitekey="6LcPrXAUAAAAAOU_wOzV2harKcW83YyBpSJQ41Be" ></div>
-                    <div th:if="${captchaError != null}">
-                               <div class="alert alert-danger">
-                        Captcha не подтверждена!!!!!
+
                     </div>
-                    </div>
-                </div>
+
             </form>
 
         </div>

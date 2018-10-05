@@ -10,7 +10,7 @@
 
     <div class="row">
         <div class="container">
-            <h5 th:inline="text">Редактирование пользователя [[${#httpServletRequest.remoteUser}]]!</h5>
+            <h1 th:inline="text">Редактирование пользователя [[${#httpServletRequest.remoteUser}]]!</h1>
         <div class="col-md-6 col-md-offset-3">
 
             <div th:if="${message !=null}">
@@ -73,9 +73,9 @@
                     </div>
                 </div>
             </form>
+    <p><a href="/" th:href="@{/}">Вернуться на главную</a></p>
         </div>
     </div>
-    <p><a href="/" th:href="@{/}">Вернуться на главную</a></p>
     </div>
 
 </div>
