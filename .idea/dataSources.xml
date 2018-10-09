@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/coursesDB</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="coursesDBTest@localhost" uuid="928acb6c-060b-465a-aa43-66f13eefa76e">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/coursesDBTest</jdbc-url>
+    </data-source>
   </component>
 </project>

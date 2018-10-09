@@ -36,12 +36,12 @@
                                            placeholder="Введите название нового курса"
                                            minlength="3"
                                            maxlength="255"
-                                           required>
+                                           required="required"/>
                                     <div class="valid-feedback">Отлично!</div>
                                     <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
                                     <!--<div th:if="${not #strings.isEmpty(course.id)}">-->
                                     <!--th:if="${course.id!=null}"-->
-                                    <input type="hidden" name="id" th:value="${course== null ? '' : course.id}">
+                                    <input type="hidden" name="id" th:value="${course== null ? '' : course.id}"/>
                                     <!--</div>-->
                                     <div class="form-group">
                                         <label for="validationCustomDesc"><h5>Описание курса</h5></label>
@@ -52,21 +52,22 @@
                                                   maxlength="2048"
                                                   id="validationCustomDesc"
                                                   placeholder="Введите описание курса"
-                                                  required></textarea>
+                                                  required="required"></textarea>
                                         <div class="valid-feedback">Отлично!</div>
                                         <div class="invalid-feedback">
                                             Данное поле не должно быть менее 3 символов
                                         </div>
                                     </div>
-                                    <input type="file" name="file">
-<div class="mt-2">
-                                    <button class="btn btn-outline-info  " type="submit"
-                                            style="font-family: "Roboto", sans-serif">Добавить
-                                    </button>
-                                    <button class="btn btn-outline-secondary waves-effect waves-light red" type="reset"
-                                            style="font-family: "Roboto", sans-serif">Отменить
-                                    </button>
-</div>
+                                    <input type="file" name="file"/>
+                                    <div class="mt-2">
+                                        <button class="btn btn-outline-info  " type="submit"
+                                        >Добавить
+                                        </button>
+                                        <button class="btn btn-outline-secondary waves-effect waves-light red"
+                                                type="reset"
+                                        >Отменить
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -74,71 +75,148 @@
                 </div>
             </div>
         </div>
-        <br>
+        <br/>
+        <div th:with="totalPages=${page.getTotalPages()},
+              pageNumber=${page.getNumber()+1},
+              head=${(pageNumber>4)?{ {1,-1} }: { {1, 2, 3} }},
+              tail=${(pageNumber < totalPages-3) ?{ {-1, totalPages} }:{ {totalPages-2, totalPages-1, totalPages} }},
+              bodyBefore=${(pageNumber > 4 && pageNumber < totalPages-1)?{ {pageNumber-2, pageNumber-1} } :''},
+              bodyAfter=${(pageNumber > 2 && pageNumber < totalPages-3)?{ {pageNumber+1, pageNumber+2} }:''},
+              currentPage =${(pageNumber > 3 && pageNumber < totalPages-2)? { {pageNumber} } : '' },
+              body0=${#strings.concat(head, bodyBefore,currentPage,bodyAfter,tail)},
+              body1=${#strings.replace(body0,'[',' ')},
+              body2=${#strings.replace(body1,']',' ')},
+              body3=${#strings.replace(body2,',',' ')},
+              body4=${#strings.trim(body3)},
+              bodyLast=${#strings.listSplit(body4,' ')}">
+
+            <div th:with="body=${(page.getTotalPages() > 7) ? bodyLast: #numbers.sequence(1,page?.getTotalPages())}">
+
+                <div>
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Страницы</a>
+                        </li>
+                        <span th:each="pg : ${body}">
+                        <span th:with="p=${T(Integer).parseInt(pg)}">
+                    <span th:if="${p-1==page.getNumber()}">
+                    <li class="page-item active">
+                        <a class="page-link" href="#" tabindex="-1">[[${p}]]</a>
+                    </li>
+                    </span>
+                         <span th:if="${p==-1}">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">...</a>
+                    </li>
+                    </span>
+                        <span th:unless="${p==-1}">
+                    <span th:unless="${p-1==page.getNumber()}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{${url}(page=${p-1},size=${page.getSize()})}" tabindex="-1">[[${p==-1?'':p}]]</a>
+                    </li>
+                    </span>
+                </span>
+                        </span>
+                    </span>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <h5>Список доступных курсов</h5>
-        <div class="card-columns">
-            <div th:if="${not #lists.isEmpty(courses)}">
-                <div class="card border-success my-3" th:each="course : ${courses}" style="width: 18rem;">
+        <div class="card-columns" id="courses-list">
+            <div th:each="course : ${page?.content}">
+                <div class="card border-success my-3" style="width: 18rem;">
                     <div class="card-header" style="color: #3ccaed" th:text="${course.name}">
                     </div>
                     <div th:if="${not #strings.isEmpty(course.filename)}">
-                        <img style="height: 15rem" class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">
+                        <img style="height: 15rem" class="card-img-top"
+                             th:src="@{${'/uploads/' + course.filename}}"/>
                     </div>
                     <div class="card-body">
                         <p class="card-text" th:text="${course.description}"></p>
                         <a href="#" class="btn btn-outline-success">Смотреть</a>
                     </div>
 
-                    <div class="card-footer text-right" >Добавил:
-                        <a th:href="@{'/users/user-courses/' + ${course.author.id}}" th:text="${course.authorName}"></a>
+                    <div class="card-footer text-right">Добавил:
+                        <a th:href="@{'/users/user-courses/' + ${course.author.id}}"
+                           th:text="${course.authorName}"></a>
                         <span th:if="${course.author.id}==${#authentication.getPrincipal().getId()}">
-                        <a class="btn purple lighten-3" th:href="@{'/users/user-courses/' + ${course.author.id}(course=${course.id})}">Изменить</a>
+                        <a class="btn purple lighten-3"
+                           th:href="@{'/users/user-courses/' + ${course.author.id}(course=${course.id})}">Изменить</a>
                     </span>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div th:if="${not #lists.isEmpty(courses)}">-->
+            <!--<table>-->
+            <!--&lt;!&ndash;<thead> … </thead>&ndash;&gt;-->
+            <!--<tbody>-->
+            <!--<tr th:each="course : ${courses}">-->
+            <!--<td style="color: aqua" th:text="${course.id}">n</td>-->
+            <!--<td th:text="${course.name}">n</td>-->
+            <!--<td th:text="${course.description}">n</td>-->
+            <!--<td th:text="${course.topic.id}">n</td>-->
+            <!--<td th:text="${course.authorName}">i</td>-->
+            <!--<div th:if="${not #strings.isEmpty(course.filename)}">-->
+            <!--<img class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">-->
+            <!--</div>-->
+
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--</div>-->
+
+            <script>
+
+                (function () {
+                    'use strict';
+                    window.addEventListener('load', function () {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function (form) {
+                            form.addEventListener('submit', function (event) {
+                                if (form.checkValidity() === false) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                            }, false);
+                        });
+                    }, false);
+                })();
+            </script>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <div th:with="sizeList = ${ {1,3,5,8,10} }" class="ml-auto">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Элементов на странице</a>
+                        </li>
+                        <span th:each="size : ${sizeList}">
+                    <span th:if="${size==page.getSize()}">
+                    <li class="page-item active">
+                        <a class="page-link" href="#" tabindex="-1">[[${size}]]</a>
+                    </li>
+                    </span>
+                    <span th:unless="${size==page.getSize()}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{${url}(page=${page.getNumber()},size=${size})}" tabindex="-1">[[${size}]]</a>
+                    </li>
+                    </span>
+                </span>
+                    </ul>
                 </div>
             </div>
         </div>
-        <!--<div th:if="${not #lists.isEmpty(courses)}">-->
-            <!--<table>-->
-                <!--&lt;!&ndash;<thead> … </thead>&ndash;&gt;-->
-                <!--<tbody>-->
-                <!--<tr th:each="course : ${courses}">-->
-                    <!--<td style="color: aqua" th:text="${course.id}">n</td>-->
-                    <!--<td th:text="${course.name}">n</td>-->
-                    <!--<td th:text="${course.description}">n</td>-->
-                    <!--<td th:text="${course.topic.id}">n</td>-->
-                    <!--<td th:text="${course.authorName}">i</td>-->
-                    <!--<div th:if="${not #strings.isEmpty(course.filename)}">-->
-                        <!--<img class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">-->
-                    <!--</div>-->
-
-                <!--</tr>-->
-                <!--</tbody>-->
-            <!--</table>-->
-        <!--</div>-->
-
-        <script>
-
-            (function () {
-                'use strict';
-                window.addEventListener('load', function () {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        </script>
     </div>
 </div>
-<!--</div>-->
 <!--</div>-->
 
 </body>

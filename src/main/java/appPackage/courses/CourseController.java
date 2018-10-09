@@ -1,5 +1,6 @@
 package appPackage.courses;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,17 @@ public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
-	
-	@RequestMapping("/rest/topics/{id}/courses")
-	public List<Course> getCourses(@PathVariable String id) {
-		return courseService.getAllCourses(id);
-	}
+	//TODO сделать что-то с пагинацией
+//	@RequestMapping("/rest/topics/{id}/courses")
+//	public List<Course> getCourses(@PathVariable String id) {
+//		return courseService.getAllCourses(id);
+//	}
 
 		@RequestMapping("/rest/topics/{topicId}/courses/{courseId}")
 		public Course getCourse(@PathVariable("topicId") String topicId, @PathVariable("courseId") Long courseId) {
 		return courseService.getCourse(courseId);
+//		ArrayList<String> test=new ArrayList<>();
+//		test.
 	}
 		
 		@RequestMapping(value="/rest/topics/{topicId}/courses", method=RequestMethod.POST)

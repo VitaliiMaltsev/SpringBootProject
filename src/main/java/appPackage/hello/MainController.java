@@ -60,30 +60,30 @@ public class MainController {
     }
 
 
-    @PostMapping("/maif")
-    public String addCourse(
-            @AuthenticationPrincipal User user,
-            @Valid Course course,
-            BindingResult bindingResult, //- всегда должен идти перед Model!!!
-            Model model) {
-
-        course.setTopic(new Topic("java", "", ""));
-        course.setAuthor(user);
-        if (bindingResult.hasErrors()) {
-
-//            model.mergeAttributes(ControllerUtil.getErrors(bindingResult));
-            model.addAttribute("course", course);
-
-        } else {
-//        Course course = new Course(name, description, new Topic("java","",""),user);
-//            model.addAttribute("course", null);
-            courseService.addCourse(course);
-        }
-        List<Course> javaCourses = courseService.getAllCourses("java");
-        model.addAttribute("courses", javaCourses);
-        return "javaCourses2";
-
-    }
+//    @PostMapping("/maif")
+//    public String addCourse(
+//            @AuthenticationPrincipal User user,
+//            @Valid Course course,
+//            BindingResult bindingResult, //- всегда должен идти перед Model!!!
+//            Model model) {
+//
+//        course.setTopic(new Topic("java", "", ""));
+//        course.setAuthor(user);
+//        if (bindingResult.hasErrors()) {
+//
+////            model.mergeAttributes(ControllerUtil.getErrors(bindingResult));
+//            model.addAttribute("course", course);
+//
+//        } else {
+////        Course course = new Course(name, description, new Topic("java","",""),user);
+////            model.addAttribute("course", null);
+//            courseService.addCourse(course);
+//        }
+//        List<Course> javaCourses = courseService.getAllCourses("java");
+//        model.addAttribute("courses", javaCourses);
+//        return "javaCourses2";
+//
+//    }
 
     @GetMapping("/user")
     public String userIndex() {

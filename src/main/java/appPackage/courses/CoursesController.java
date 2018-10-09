@@ -4,6 +4,10 @@ import appPackage.model.User;
 import appPackage.topics.Topic;
 import appPackage.utils.ControllerUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,14 +36,18 @@ public class CoursesController {
     }
 
     @GetMapping("/topics/java/courses")
-    public String main(@RequestParam(required = false, defaultValue = "") String name, Model model) {
-        List<Course> javaCourses;
+    public String main(@RequestParam(required = false, defaultValue = "") String name,
+                       Model model,
+                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
+        Page<Course> pageJavaCourses;
         if (!(name == null) && !name.isEmpty()) {
-            javaCourses = courseService.getCoursesByName(name);
+            pageJavaCourses = courseService.getCoursesByName(name,pageable);
         } else {
-            javaCourses = courseService.getAllCourses("java");
+            pageJavaCourses = courseService.getAllCourses("java",pageable);
         }
-        model.addAttribute("courses", javaCourses);
+
+        model.addAttribute("page", pageJavaCourses);
+        model.addAttribute("url", "/topics/java/courses");
         model.addAttribute("name", name);
         return "javaCourses";
     }
@@ -50,7 +58,8 @@ public class CoursesController {
             @AuthenticationPrincipal User user,
             @Valid Course course,
             BindingResult bindingResult, //- всегда должен идти перед Mo del!!!
-            Model model) throws IOException {
+            Model model,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) throws IOException {
 
         course.setTopic(new Topic("java", "", ""));
         course.setAuthor(user);
@@ -73,8 +82,8 @@ public class CoursesController {
             courseService.addCourse(course);
             model.addAttribute("course", null);
         }
-        List<Course> javaCourses = courseService.getAllCourses("java");
-        model.addAttribute("courses", javaCourses);
+        Page<Course> javaCourses = courseService.getAllCourses("java",pageable);
+        model.addAttribute("page", javaCourses);
         return "javaCourses";
 
     }
