@@ -1,6 +1,8 @@
 package appPackage.lessons;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +14,17 @@ public class LessonService {
 	private LessonRepository lessonRepository;
 		
 	
-	public List<Lesson>getAllLessons(Long courseId){
+	public Page<Lesson> getAllLessons(Long courseId,  Pageable pageable){
 		//List<Lesson>courses = new ArrayList<>();
 		//lessonRepository.findByTopicId(topicId)
 		//.forEach(courses::add);
 		//return courses;
-		return lessonRepository.findByCourseId(courseId);
+		return lessonRepository.findByCourseId(courseId, pageable);
 	}
+	public Page<Lesson> getLessonsByName(String name, Pageable pageable){
+		return lessonRepository.findByName(name, pageable);
+	}
+
 
 	public Lesson getLesson(Long id) {
 		return lessonRepository.findById(id).get();

@@ -5,11 +5,16 @@ import appPackage.courses.CourseService;
 import appPackage.model.Role;
 import appPackage.model.User;
 import appPackage.model.UserRepository;
+import appPackage.model.dto.CourseDTO;
 import appPackage.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -81,21 +86,23 @@ public class UserController {
         return "redirect:/users/profile";
     }
 
-    @GetMapping("/user-courses/{user}")
+    @GetMapping("/user-courses/{author}")
     public String userCourses(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable User user,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable,
+            @PathVariable User author,
             @RequestParam(required = false) Course course,
             Model model
     ) {
-        Set<Course> courses = user.getCourses();
-        model.addAttribute("courses", courses);
-        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
-        model.addAttribute("subscribersCount", user.getSubscribers().size());
+        Page<CourseDTO> courses = courseService.getCoursesListForUser(pageable, author, currentUser);
+        model.addAttribute("pageUserCourses", courses);
+        model.addAttribute("subscriptionsCount", author.getSubscriptions().size());
+        model.addAttribute("subscribersCount", author.getSubscribers().size());
         model.addAttribute("course", course);
-        model.addAttribute("userChannel", user);
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
-        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
+        model.addAttribute("userChannel", author);
+        model.addAttribute("isCurrentUser", currentUser.equals(author));
+        model.addAttribute("isSubscriber", author.getSubscribers().contains(currentUser));
+        model.addAttribute("url", "/users/user-courses/"+author.getId());
         return "user/userCourses";
     }
 

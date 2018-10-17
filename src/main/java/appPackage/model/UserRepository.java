@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User,Long> {
     User findByName(String name);
-    List<User> findBySurname(String surname);
+//    List<User> findBySurname(String surname);
     List<User> findByBirthdayBetween(LocalDate startDate, LocalDate endDate);
 
     User findByActivationCode(String code);

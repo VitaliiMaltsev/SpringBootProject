@@ -37,7 +37,10 @@ create sequence hibernate_sequence start 1 increment 1;
       id int8 not null,
         description varchar(2048) not null,
         name varchar(255),
+        link varchar(255),
         course_id int8,
+        user_id int8,
+        added_date date,
         primary key (id)
 );
 
@@ -70,6 +73,11 @@ create sequence hibernate_sequence start 1 increment 1;
 
     alter table if exists course
        add constraint course_users_fk
+       foreign key (user_id)
+       references users;
+
+    alter table if exists lesson
+       add constraint lesson_users_fk
        foreign key (user_id)
        references users;
 

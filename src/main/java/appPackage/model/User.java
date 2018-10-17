@@ -38,6 +38,40 @@ public class User implements UserDetails {
     )
     private Set<User> subscribers = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_subscriptions",
+            joinColumns = {@JoinColumn(name = "subscriber_id")},
+            inverseJoinColumns = {@JoinColumn(name="channel_id")}
+
+    )
+    private Set<User> subscriptions = new HashSet<>();
+
+    @Transient
+//    @NotBlank(message = "Подтвержденный пароль должнен быть заполнен")
+    private String password2;
+
+    @Column(name = "active")
+    private boolean active;
+
+    private LocalDate birthday;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    private LocalDate registrationDate;
+//    private String surname;
+    @Email(message = "E-mail заполнен некорректно")
+    @NotBlank(message = "E-mail должен быть заполнен")
+    private String email;
+    private String activationCode;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Course> courses;
+
+
     public Set<User> getSubscribers() {
         return subscribers;
     }
@@ -54,15 +88,6 @@ public class User implements UserDetails {
         this.subscriptions = subscriptions;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_subscriptions",
-            joinColumns = {@JoinColumn(name = "subscriber_id")},
-            inverseJoinColumns = {@JoinColumn(name="channel_id")}
-
-    )
-    private Set<User> subscriptions = new HashSet<>();
-
     public String getPassword2() {
         return password2;
     }
@@ -71,36 +96,12 @@ public class User implements UserDetails {
         this.password2 = password2;
     }
 
-    @Transient
-//    @NotBlank(message = "Подтвержденный пароль должнен быть заполнен")
-    private String password2;
-
-    @Column(name = "active")
-    private boolean active;
-
-    private LocalDate birthday;
-
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-
     public LocalDate getRegistrationDate() {
         return registrationDate;
     }
-
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
-    private LocalDate registrationDate;
-    private String surname;
-    @Email(message = "E-mail заполнен некорректно")
-    @NotBlank(message = "E-mail должен быть заполнен")
-    private String email;
-    private String activationCode;
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Course> courses;
 
     public Set<Course> getCourses() {
         return courses;
@@ -206,28 +207,28 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User(String name, String surname) {
+    public User(String name) {
         this.name = name;
-        this.surname = surname;
+//        this.surname = surname;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+//    public String getSurname() {
+//        return surname;
+//    }
+//
+//    public void setSurname(String surname) {
+//        this.surname = surname;
+//    }
 
 
     public User() {
     }
 
-    public User(Long id, String name, String surname) {
+    public User(Long id, String name) {
 
         this.id = id;
         this.name = name;
-        this.surname = surname;
+//        this.surname = surname;
     }
 
     public Long getId() {

@@ -5,10 +5,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import appPackage.model.User;
+import appPackage.model.util.CourseHelper;
 import appPackage.topics.Topic;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -16,12 +20,13 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-//	@NotBlank(/*message = "Пожалуйста заполните имя раздела"*/)
-//	@Length(max = 255/*, message = "Имя слишком длинное"*/)
+
+	@NotBlank
+	@Length(max = 255)
 	private String name;
 
-	@NotBlank(message = "Пожалуйста заполните описание раздела")
-	@Length(max = 2048, message = "Описание раздела слишком длинное")
+	@NotBlank
+	@Length(max = 2048)
 	private String description;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -29,7 +34,29 @@ public class Course {
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User author;
+
+	@ManyToMany
+	@JoinTable(
+			name="course_likes",
+			joinColumns = {@JoinColumn(name="course_id")},
+			inverseJoinColumns = {@JoinColumn(name="user_id")}
+	)
+	private Set<User>likes=new HashSet<>();
+
 	private String filename;
+
+	public Set<User> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Set<User> likes) {
+		this.likes = likes;
+	}
+
+
 
 	public String getFilename() {
 		return filename;
@@ -55,14 +82,15 @@ public class Course {
 		this.author = author;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
-	private User author;
-
 	public Course() {
 			}
+
 	public String getAuthorName(){
-		return author!=null?author.getName():"<none>";
+		return CourseHelper.getAuthorName(author);
+	}
+	public String getTopicId() {
+		return CourseHelper.getTopicId(topic);
+
 	}
 
 	public Course(Long id, String name, String description, String topicId) {

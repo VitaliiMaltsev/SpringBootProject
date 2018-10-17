@@ -7,17 +7,17 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Описание</h5>
+                    <h5 class="white-text">Параметры</h5>
                     <p class="grey-text text-lighten-4">
                     <span class="grey-text text-lighten-4" sec:authorize="isAuthenticated()" style="display: inline-block;">
-                    | Вы вошли как: <span sec:authentication="name"></span> |
+                    Вы вошли как : <span sec:authentication="name"></span> |
                     Роли: <span sec:authentication="principal.authorities"></span> |
                         <a th:href="@{/logout}">Выход</a></span></p>
                 <!--</span>-->
 
 
                 </div>
-                <div class="col l3 s12">
+                <div class="col l6 s12">
                     <h5 class="white-text">Настройки</h5>
                     <ul>
                         <li><a class="white-text" href="#!">Ссылка 1</a></li>
@@ -26,11 +26,12 @@
                         <!--<li><a class="white-text" href="#!">Link 4</a></li>-->
                     </ul>
                 </div>
-                <div class="col l3 s12">
+                <div class="col l6 s12">
                     <h5 class="white-text">Контакты</h5>
                     <ul>
-                        <li><a class="white-text" href="#!">Ссылка 1</a></li>
-                        <li><a class="white-text" href="#!">Ссылка 2</a></li>
+                        <li><a class="white-text" href="#!">E-mail</a></li>
+                        <li><a class="white-text" href="#!">Skype</a></li>
+                        <li><a class="white-text" href="https://github.com/VitaliiMaltsev/SpringBootProject">Github</a></li>
                         <!--<li><a class="white-text" href="#!">Link 3</a></li>-->
                         <!--<li><a class="white-text" href="#!">Link 4</a></li>-->
                     </ul>

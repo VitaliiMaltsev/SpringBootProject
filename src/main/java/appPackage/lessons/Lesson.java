@@ -1,25 +1,69 @@
 package appPackage.lessons;
 
 import appPackage.courses.Course;
-import appPackage.topics.Topic;
+import appPackage.model.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 
 @Entity
 public class Lesson {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotBlank
+	@Length(max = 255)
 	private String name;
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	@NotBlank
+	@Length(max = 255)
+	private String link;
+
+	@NotBlank
+	@Length(max = 2048)
 	private String description;
+
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "course_id")
 	private Course course;
-	
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User author;
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public LocalDate getAddedDate() {
+		return addedDate;
+	}
+
+	public void setAddedDate(LocalDate addedDate) {
+		this.addedDate = addedDate;
+	}
+
+	private LocalDate addedDate;
+
+
 	public Lesson() {
 			}
 	

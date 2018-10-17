@@ -14,13 +14,17 @@
     <div class="navbar-fixed">
         <nav>
             <ul id="dropdown1" class="dropdown-content lime lighten-5">
-                <li><a th:href="@{/topics/java/courses}">Java</a></li>
-                <li><a th:href="@{/topics/javaee/courses}">Java EE</a></li>
-                <li><a th:href="@{/topics/javascript/courses}">JavaScript</a></li>
-                <li><a th:href="@{/topics/html-css/courses}">HTML+CSS</a></li>
-                <li class="divider"></li>
-                <li><a th:href="@{/topics/spring/courses}">Spring</a></li>
-                <li><a href="http://www.stackoverflow.com">Stackoverflow</a></li>
+                <li th:each="topic:${topics}" ><a th:unless="${topic.id=='stackoverflow'}" th:href="@{'/topics/'+${topic.id}+'/courses'}">[[${topic.name}]]</a>
+                    <!--<li class="divider"></li>-->
+
+                    <a th:if="${topic.id=='stackoverflow'}" href="http://www.stackoverflow.com">Stackoverflow</a>
+                </li>
+                <!--<li><a th:href="@{/topics/javaee/courses}">Java EE</a></li>-->
+                <!--<li><a th:href="@{/topics/javascript/courses}">JavaScript</a></li>-->
+                <!--<li><a th:href="@{/topics/html-css/courses}">HTML+CSS</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a th:href="@{/topics/spring/courses}">Spring</a></li>-->
+                <!--<li><a href="http://www.stackoverflow.com">Stackoverflow</a></li>-->
             </ul>
             <nav class="yellow lighten-5" role="navigation">
                 <div class="nav-wrapper container">
@@ -36,6 +40,10 @@
                                 th:href="@{'/users/user-courses/' + ${#authentication.getPrincipal().getId()}}">Мои курсы</a>
                         </li>
                         <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Администрирование</a></li>
+                        <li sec:authorize="isAuthenticated()"><a data-toggle="tooltip" data-placement="bottom" title="Выход"
+                                th:href="@{/logout}"><i style="color: #00e5ff" class="fas fa-sign-out-alt"></i>
+                        </a>
+                        </li>
                     </ul>
 
                     <ul id="nav-mobile" class="sidenav">
@@ -49,6 +57,11 @@
                 </div>
             </nav>
         </nav>
+        <script>
+        $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+        })
+        </script>
     </div>
 
 </th:block>
