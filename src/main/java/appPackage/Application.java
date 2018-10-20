@@ -1,7 +1,6 @@
 package appPackage;
 
 
-import appPackage.model.TestClass;
 import appPackage.model.User;
 import appPackage.model.UserRepository;
 import org.slf4j.Logger;

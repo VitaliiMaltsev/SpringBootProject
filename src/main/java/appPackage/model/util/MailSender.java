@@ -1,4 +1,4 @@
-package appPackage.service;
+package appPackage.model.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

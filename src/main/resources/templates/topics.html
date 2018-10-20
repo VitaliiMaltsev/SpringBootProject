@@ -84,7 +84,7 @@
                 </div>
                 <div class="card-body">
                     <!--<p class="card-text" th:text="${topic.description}"></p>-->
-                    <a th:href="${topic.id=='stackoverflow'}? @{http://www.stackoverflow.com}: @{'/topics/'+${topic.id}+'/courses'}" class="btn green accent-2">Перейти</a>
+                    <a th:href="${topic.id=='stackoverflow'}? @{http://www.stackoverflow.com}: @{'/topics/'+${topic.id}+'/courses'}" style="border-radius: 100px" class="btn green accent-2">Перейти</a>
                 </div>
 
                 <!--<div class="card-footer" th:text="${topic.description}">-->

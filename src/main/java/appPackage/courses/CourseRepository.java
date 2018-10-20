@@ -22,17 +22,26 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
             " group by c"
     )
     public Page<CourseDTO> findByTopicId(@Param("topicId")String topicId, Pageable pageable, @Param("user") User user);
+    @Query("select c " +
+            " from Course c " +
+            " where c.name =:name "+
+            " and c.topic.id =:topicId "+
+            " group by c"
+    )
+    public Course findByNameAndTopicId(@Param("name") String name,@Param("topicId") String topicId);
 
     @Query("select new appPackage.model.dto.CourseDTO(" +
             " c, " +
             " count (cl), " +
-            " sum(case when cl= :user then 1 else 0 end) > 0" +
+            " sum(case when cl= :user then 1 else 0 end)>0" +
             ") " +
             " from Course c left join c.likes cl" +
-            " where c.name =:name "+
+            " where (upper(c.name) like upper(concat('%',:searchTerm,'%')) "+
+            " or upper(c.description) like upper(concat('%',:searchTerm,'%'))) "+
+            " and c.topic.id =:topicId "+
             " group by c"
     )
-    public Page<CourseDTO> findByName(@Param("name")String name, Pageable pageable,  @Param("user") User user);
+    public Page<CourseDTO> findByNameContainingIgnoreCase(@Param("searchTerm")String searchName, Pageable pageable,  @Param("user") User user, @Param("topicId") String topicId);
 
     public Page<Course> findAll(Pageable pageable);
 
@@ -49,4 +58,14 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
     public Page<CourseDTO> findByUser(Pageable pageable,
                                    @Param("author") User author,
                                    @Param("user") User user);
+        @Query("select new appPackage.model.dto.CourseDTO(" +
+            " c, " +
+            " count (cl), " +
+            " sum(case when cl= :user then 1 else 0 end) > 0" +
+            ") " +
+            " from Course c left join c.likes cl" +
+            " where c.name =:name "+
+            " group by c"
+    )
+    public Page<CourseDTO> findCoursesByName(@Param("name") String name, Pageable pageable, @Param("user")User user);
 }

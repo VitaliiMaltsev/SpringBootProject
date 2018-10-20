@@ -35,8 +35,9 @@
                                 class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a th:href="@{/hello}">Hello page</a></li>
                         <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Вход | Регистрация</a></li>
-                        <li sec:authorize="isAuthenticated()"><a th:href="@{/users/profile}">Профиль</a></li>
-                        <li sec:authorize="isAuthenticated()"><a
+                        <!--Профиль&nbsp;-->
+                        <li sec:authorize="isAuthenticated()"><a data-toggle="tooltip" data-placement="bottom" title="Профиль" th:href="@{/users/profile}"><i class="fas fa-user-circle"></i></a></li>
+                        <li sec:authorize="isAuthenticated()"><a data-toggle="tooltip" data-placement="bottom" title="Мои курсы"
                                 th:href="@{'/users/user-courses/' + ${#authentication.getPrincipal().getId()}}">Мои курсы</a>
                         </li>
                         <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Администрирование</a></li>

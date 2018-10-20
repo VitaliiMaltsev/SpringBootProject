@@ -1,8 +1,6 @@
-package appPackage.service;
+package appPackage.model;
 
-import appPackage.model.Role;
-import appPackage.model.User;
-import appPackage.model.UserRepository;
+import appPackage.model.util.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;

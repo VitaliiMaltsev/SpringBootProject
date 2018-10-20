@@ -3,7 +3,9 @@ package appPackage.courses;
 import appPackage.model.User;
 import appPackage.model.dto.CourseDTO;
 import appPackage.topics.Topic;
+import appPackage.topics.TopicService;
 import appPackage.utils.ControllerUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,42 +34,46 @@ public class CoursesController {
     private String uploadPath;
 
     private final CourseService courseService;
+    private final TopicService topicService;
 
-    public CoursesController(CourseService courseService) {
+    @Autowired
+    public CoursesController(CourseService courseService, TopicService topicService) {
         this.courseService = courseService;
+        this.topicService = topicService;
     }
 
     @GetMapping("/topics/{topicId}/courses")
-    public String main(@RequestParam(required = false, defaultValue = "") String name,
-                       @PathVariable String topicId,
-                       Model model,
-                       @AuthenticationPrincipal User user,
-                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
+    public String main(
+//            @RequestParam(required = false, defaultValue = "") String name,
+            @RequestParam(value = "searchName", required = false) String searchName,
+            @PathVariable String topicId,
+            Model model,
+            @AuthenticationPrincipal User user,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable
+            ) {
         Page<CourseDTO> pageJavaCourses;
-        if (!(name == null) && !name.isEmpty()) {
-            pageJavaCourses = courseService.getCoursesByName(name, pageable, user);
+        if (!(searchName == null) && !searchName.isEmpty()) {
+            model.addAttribute("searchName", searchName);
+            pageJavaCourses = courseService.getCoursesBySearchName(searchName, pageable, user, topicId);
         } else {
             pageJavaCourses = courseService.getAllCourses(topicId, pageable, user);
         }
 
         model.addAttribute("page", pageJavaCourses);
         model.addAttribute("url", "/topics/" + topicId + "/courses");
-        model.addAttribute("name", name);
-        if (pageJavaCourses.getContent().size() != 0) {
-            model.addAttribute("topicC", pageJavaCourses.getContent().stream().filter(curse -> curse.getTopic().getId().equals(topicId)).findFirst().get().getTopic().getName());
-        }
+        model.addAttribute("topicName", topicService.getTopic(topicId).getName());
         return "courses";
     }
 
     @PostMapping("/topics/{topicId}/courses")
     public String addCourse(
-            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "file", required = false) MultipartFile file,
             @PathVariable String topicId,
             @AuthenticationPrincipal User user,
             @Valid Course course,
             BindingResult bindingResult, //- всегда должен идти перед Mo del!!!
             Model model,
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) throws IOException {
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable) throws IOException {
 
         course.setTopic(new Topic(topicId, "", ""));
         course.setAuthor(user);
@@ -87,14 +93,14 @@ public class CoursesController {
                 file.transferTo(new File(uploadPath + "/" + resultFileName));
                 course.setFilename(resultFileName);
             }
-            courseService.addCourse(course);
+            if (!courseService.addCourse(course,topicId)) {
+                model.addAttribute("courseNameError", "Курс с таким именем существует");
+            }
             model.addAttribute("course", null);
         }
-        Page<CourseDTO> javaCourses = courseService.getAllCourses(topicId, pageable,user);
+        Page<CourseDTO> javaCourses = courseService.getAllCourses(topicId, pageable, user);
         model.addAttribute("page", javaCourses);
         model.addAttribute("topicId", topicId);
-//        model.addAttribute("topicC",course.getTopic().getName());
-//        model.addAttribute("topicC",javaCourses.getContent().stream().filter(curse ->curse.getTopic().getId().equals(topicId)).findFirst().get().getTopic().getName());
         return "courses";
 
     }
@@ -104,12 +110,12 @@ public class CoursesController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable Course course,
             RedirectAttributes redirectAttributes,
-            @RequestHeader(required = false)String referer
-    ){
-        Set<User> likes=course.getLikes();
-        if(likes.contains(currentUser)){
+            @RequestHeader(required = false) String referer
+    ) {
+        Set<User> likes = course.getLikes();
+        if (likes.contains(currentUser)) {
             likes.remove(currentUser);
-        }else{
+        } else {
             likes.add(currentUser);
         }
         UriComponents components = UriComponentsBuilder.fromHttpUrl(referer).build();
@@ -117,7 +123,7 @@ public class CoursesController {
                 .entrySet()
                 .forEach(pair -> redirectAttributes.addAttribute(pair.getKey(), pair.getValue()));
 
-        return "redirect:" +components.getPath();
+        return "redirect:" + components.getPath();
 
     }
 

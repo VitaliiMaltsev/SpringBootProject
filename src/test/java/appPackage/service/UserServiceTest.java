@@ -3,6 +3,8 @@ package appPackage.service;
 import appPackage.model.Role;
 import appPackage.model.User;
 import appPackage.model.UserRepository;
+import appPackage.model.UserService;
+import appPackage.model.util.MailSender;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;

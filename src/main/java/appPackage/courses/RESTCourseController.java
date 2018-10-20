@@ -33,7 +33,7 @@ public class RESTCourseController {
 		@RequestMapping(value="/rest/topics/{topicId}/courses", method=RequestMethod.POST)
 		public void addCourse(@RequestBody Course course, @PathVariable String topicId) {
 			course.setTopic(new Topic(topicId,"",""));
-			courseService.addCourse(course);
+			courseService.addCourse(course,topicId);
 		}
 		@RequestMapping(value="/rest/topics/{topicId}/courses/{courseId}", method=RequestMethod.PUT)
 		public void updateCourse(@RequestBody Course course, @PathVariable Long courseId, @PathVariable String topicId ) {

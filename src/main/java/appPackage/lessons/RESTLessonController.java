@@ -15,10 +15,10 @@ public class RESTLessonController {
 
 	//TODO fix pagination
 	
-//	@RequestMapping("/rest/topics/{topicId}/courses/{courseId}/lessons")
-//	public List<Lesson> getLessons(@PathVariable Long courseId) {
-//		return lessonService.getAllLessons(courseId);
-//	}
+	@RequestMapping("/rest/topics/{topicId}/courses/{courseId}/lessons")
+	public List<Lesson> getLessons(@PathVariable Long courseId) {
+		return lessonService.getAllLessons(courseId);
+	}
 
 		@RequestMapping("/rest/topics/{topicId}/courses/{courseId}/lessons/{lessonId}")
 		public Lesson getLesson(@PathVariable Long lessonId/*, @PathVariable("courseId") String courseId*/) {

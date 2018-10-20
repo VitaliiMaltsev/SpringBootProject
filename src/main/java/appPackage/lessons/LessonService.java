@@ -9,11 +9,11 @@ import java.util.List;
 
 @Service
 public class LessonService {
-	
+
 	@Autowired
 	private LessonRepository lessonRepository;
-		
-	
+
+
 	public Page<Lesson> getAllLessons(Long courseId,  Pageable pageable){
 		//List<Lesson>courses = new ArrayList<>();
 		//lessonRepository.findByTopicId(topicId)
@@ -23,6 +23,10 @@ public class LessonService {
 	}
 	public Page<Lesson> getLessonsByName(String name, Pageable pageable){
 		return lessonRepository.findByName(name, pageable);
+	}
+
+	public Page<Lesson>getLessonbySearchName(String searchName, Pageable pageable){
+		return lessonRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchName,pageable);
 	}
 
 
@@ -40,6 +44,15 @@ public class LessonService {
 
 	public void deleteLesson(Long id) {
 		lessonRepository.deleteById(id);
-		
+
+	}
+
+    public Page<Lesson> getLessonsBySearchName(String searchTerm, Pageable pageable, Long courseId) {
+		Page<Lesson> searchLessons = lessonRepository.findByNameContainingIgnoreCase(searchTerm, pageable, courseId);
+		return searchLessons;
+    }
+
+	public List<Lesson> getAllLessons(Long courseId) {
+		return lessonRepository.findByCourseId(courseId);
 	}
 }

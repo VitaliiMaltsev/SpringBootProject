@@ -54,4 +54,8 @@ public class TopicService {
 		//	}
 		//}
 	}
+
+	public Iterable<Topic> findByName(String name) {
+		return topicRepository.findByName(name);
+	}
 }

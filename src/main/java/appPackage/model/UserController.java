@@ -1,12 +1,10 @@
-package appPackage.hello;
+package appPackage.model;
 
 import appPackage.courses.Course;
 import appPackage.courses.CourseService;
-import appPackage.model.Role;
-import appPackage.model.User;
-import appPackage.model.UserRepository;
+import appPackage.lessons.Lesson;
+import appPackage.lessons.LessonService;
 import appPackage.model.dto.CourseDTO;
-import appPackage.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +16,16 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequestMapping("/users")
 @Controller
@@ -36,6 +35,9 @@ public class UserController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    LessonService lessonService;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -89,9 +91,10 @@ public class UserController {
     @GetMapping("/user-courses/{author}")
     public String userCourses(
             @AuthenticationPrincipal User currentUser,
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable,
             @PathVariable User author,
             @RequestParam(required = false) Course course,
+            @RequestParam(required = false) Lesson lesson,
             Model model
     ) {
         Page<CourseDTO> courses = courseService.getCoursesListForUser(pageable, author, currentUser);
@@ -99,42 +102,48 @@ public class UserController {
         model.addAttribute("subscriptionsCount", author.getSubscriptions().size());
         model.addAttribute("subscribersCount", author.getSubscribers().size());
         model.addAttribute("course", course);
+        model.addAttribute("lesson", lesson);
         model.addAttribute("userChannel", author);
         model.addAttribute("isCurrentUser", currentUser.equals(author));
         model.addAttribute("isSubscriber", author.getSubscribers().contains(currentUser));
         model.addAttribute("url", "/users/user-courses/"+author.getId());
         return "user/userCourses";
     }
-
+//    @Transactional
     @PostMapping("/user-courses/{user}")
     public String updateCorse(
-            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "file", required = false) MultipartFile file,
             @AuthenticationPrincipal User currentUser,
             @PathVariable Long user,
-            @RequestParam("id") Course course,
-            @RequestParam("name") String name,
-            @RequestParam("description") String description
-
+            @RequestParam(value = "lessonId", required = false) Lesson lesson,
+            @RequestParam(value = "lessonName", required = false) String lessonName,
+            @RequestParam(value = "lessonDescription", required = false) String lessonDescription,
+            @RequestParam(value = "lessonLink", required = false) String lessonLink,
+            @RequestParam(value = "courseId", required = false) Course course,
+            @RequestParam(value = "courseName", required = false) String courseName,
+            @RequestParam(value = "courseDescription", required = false) String courseDescription,
+            Model model,
+            RedirectAttributes redir
     ) throws IOException {
-        if (course.getAuthor().equals(currentUser)) {
-            if (!StringUtils.isEmpty(name)) {
-                course.setName(name);
+        if (course!=null && course.getAuthor().equals(currentUser)) {
+            if (!courseService.updateCourse(course, courseName, courseDescription, file )) {
+                redir.addFlashAttribute("courseUpdateError", "Курс с таким именем существует в разделе " + course.getTopic().getName());
+                return "redirect:/users/user-courses/" + user;
             }
-            if (!StringUtils.isEmpty(description)) {
-                course.setDescription(description);
-            }
-            if (file != null && !file.getOriginalFilename().isEmpty()) {
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-                String uuid = UUID.randomUUID().toString();
-                String resultFileName = /*uuid + "." +*/file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/" + resultFileName));
-                course.setFilename(resultFileName);
 
+        } else if(lesson.getAuthor().equals(currentUser)){
+            if (!StringUtils.isEmpty(lessonName)) {
+                lesson.setName(lessonName);
             }
-            courseService.updateCourse(course);
+            if (!StringUtils.isEmpty(lessonDescription)) {
+                lesson.setDescription(lessonDescription);
+            }
+            if (!StringUtils.isEmpty(lessonLink)) {
+                lesson.setLink(lessonLink);
+            }
+            lessonService.updateLesson(lesson);
+            redir.addFlashAttribute("lessonUpdateSuccess", "Урок успешно обновлен" );
+            return "redirect:/topics/"+lesson.getCourse().getTopic().getId()+"/courses/"+lesson.getCourse().getId()+"/lessons";
         }
         return "redirect:/users/user-courses/" + user;
     }
