@@ -85,15 +85,17 @@ public class UserService implements UserDetailsService {
         return (List<User>) userRepository.findAll();
     }
 
-    public void saveUser(User userWithChanges, Long userId, String userName, String password, Set<Role> userRoles) {
+    public void saveUser( Long userId, String userName, String password, Set<Role> userRoles) {
 
         User user = userRepository.findById(userId).get();
-        user.setPassword(passwordEncoder.encode(password));
+        if (!StringUtils.isEmpty(password)) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
         user.setRoles(userRoles);
 
-//        user.setPassword(password);
-        user.setName(userName);
-//        user.setRoles(userWithChanges.getRoles());
+        if (!StringUtils.isEmpty(userName)) {
+            user.setName(userName);
+        }
         userRepository.save(user);
     }
 

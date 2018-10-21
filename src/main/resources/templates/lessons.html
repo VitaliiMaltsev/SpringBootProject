@@ -16,10 +16,10 @@
     </div>
     <div class="container">
         <div class="row my-0">
-            <div class="col-3">
+            <div class="col-4">
                 <h1 th:inline="text">[[${courseName}]] </h1>
             </div>
-            <div class="col-4"></div>
+            <div class="col-3"></div>
             <div class="form-group col-5 mt-1 ">
                 <form method="get" th:action="@{'/topics/'+${topicId}+'/courses/'+${courseId}+'/lessons'}"
                       class="form-inline right-align">
@@ -58,7 +58,7 @@
                                            name="name"
                                            placeholder="Введите название нового урока"
                                            minlength="3"
-                                           maxlength="255"
+                                           maxlength="20"
                                            class="form-control"
                                            required="required"/>
                                     <div class="valid-feedback">Отлично!</div>
@@ -73,7 +73,7 @@
                                         <textarea class="form-control"
                                                   name="description"
                                                   minlength="10"
-                                                  maxlength="2048"
+                                                  maxlength="60"
                                                   id="validationCustomDesc"
                                                   placeholder="Введите описание урока"
                                                   required="required"></textarea>
@@ -95,9 +95,10 @@
                                                minlength="10"
                                                class="form-control"
                                                maxlength="255"
+                                               pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
                                                required="required"/>
                                         <div class="valid-feedback">Отлично!</div>
-                                        <div class="invalid-feedback">Данное поле не должно быть менее 10 символов</div>
+                                        <div class="invalid-feedback">Введите корректную ссылку</div>
                                     </div>
                                     <!--<input type="file" name="file"/>-->
                                     <div class="mt-2">
@@ -138,7 +139,7 @@
               body4=${#strings.trim(body3)},
               bodyLast=${#strings.listSplit(body4,' ')}">
 
-            <div th:with="body=${(pageLessons.getTotalPages() > 7) ? bodyLast: #numbers.sequence(1,pageLessons?.getTotalPages())}">
+            <div th:with="body=${pageLessons.getTotalPages()==0?1:(pageLessons.getTotalPages() > 7) ? bodyLast: #numbers.sequence(1,pageLessons?.getTotalPages())}">
 
                 <div>
                     <ul class="pagination">

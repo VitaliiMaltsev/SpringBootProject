@@ -12,35 +12,38 @@
 
     <div class="container" >
 
-            <h1>Login page</h1>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <h1>Login</h1>
+        <!--Войти в тестовый аккаунт: username: 111 password: 111-->
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
 
-            <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION]}">
-                <div class="alert alert-warning">
-                    <div th:remove="tag" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION].message}"></div>
-                </div>
-            </div>
-            <div th:if="${checkEmail}">
-                <div class="alert alert-link">
-                    <div th:remove="tag" th:utext="${checkEmail}"></div>
-                </div>
-            </div>
 
-            <div th:if="${message !=null}">
-                <div th:if="${message == false}">
-                           
-                    <div class="alert alert-warning">
-                        Код активации не найден!
+
+                <!--<div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION]}">-->
+                <!--<div class="alert alert-warning">-->
+                    <!--<div th:remove="tag" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION].message}"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+                <div th:if="${checkEmail}">
+                    <div class="alert alert-info">
+                        <div th:remove="tag" th:utext="${checkEmail}"></div>
                     </div>
                 </div>
+
+                <div th:if="${message !=null}">
+                    <div th:if="${message == false}">
+                               
+                        <div class="alert alert-warning">
+                            Код активации не найден!
+                        </div>
+                    </div>
                     <div th:if="${message == true}">
                                
                         <div class="alert alert-success">
                             Учетная запись успешно активирована!
                         </div>
                     </div>
-            </div>
+                </div>
                     <form rel="stylesheet" th:action="@{/login}" method="post">
                         <div th:if="${param.error}">
                             <div class="alert alert-danger">
@@ -59,7 +62,7 @@
                                    id="username"
                                    name="username"
                                    class="form-control"
-                                   autofocus="autofocus">
+                                   >
                             <label for="username">Имя пользователя</label><br>
                             </div>
 

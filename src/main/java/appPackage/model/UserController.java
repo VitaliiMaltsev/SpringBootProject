@@ -62,12 +62,12 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public String updateUser(
-            @ModelAttribute(value = "user") User userWithChanges,
+//            @ModelAttribute(value = "user") User userWithChanges,
             @RequestParam Long userId,
             @RequestParam Set<Role> userRoles,
             @RequestParam String password,
             @RequestParam String userName) {
-        userService.saveUser(userWithChanges, userId, userName, password, userRoles);
+        userService.saveUser(userId, userName, password, userRoles);
 
         return "redirect:/users";
     }
@@ -85,7 +85,7 @@ public class UserController {
             @RequestParam String email
     ) {
         userService.updateProfile(user, password, email);
-        return "redirect:/users/profile";
+        return "redirect:/logout";
     }
 
     @GetMapping("/user-courses/{author}")
@@ -126,27 +126,25 @@ public class UserController {
             RedirectAttributes redir
     ) throws IOException {
         if (course!=null && course.getAuthor().equals(currentUser)) {
-            if (!courseService.updateCourse(course, courseName, courseDescription, file )) {
-                redir.addFlashAttribute("courseUpdateError", "Курс с таким именем существует в разделе " + course.getTopic().getName());
+
+            if (!courseService.updateCourse(course, courseName, courseDescription, file)) {
+                redir.addFlashAttribute("courseUpdateError",
+                        "Курс с таким именем существует в разделе " + course.getTopic().getName());
+                redir.addAttribute("course", course);
                 return "redirect:/users/user-courses/" + user;
             }
 
-        } else if(lesson.getAuthor().equals(currentUser)){
-            if (!StringUtils.isEmpty(lessonName)) {
-                lesson.setName(lessonName);
-            }
-            if (!StringUtils.isEmpty(lessonDescription)) {
-                lesson.setDescription(lessonDescription);
-            }
-            if (!StringUtils.isEmpty(lessonLink)) {
-                lesson.setLink(lessonLink);
-            }
-            lessonService.updateLesson(lesson);
-            redir.addFlashAttribute("lessonUpdateSuccess", "Урок успешно обновлен" );
+        } else if(lesson!=null && lesson.getAuthor().equals(currentUser)){
+
+            lessonService.updateLesson(lesson, lessonName, lessonDescription, lessonLink);
+            redir.addFlashAttribute("lessonUpdateSuccess",
+                    "Урок успешно обновлен" );
             return "redirect:/topics/"+lesson.getCourse().getTopic().getId()+"/courses/"+lesson.getCourse().getId()+"/lessons";
         }
+        redir.addFlashAttribute("courseUpdateSuccess", "Курс успешно обновлен");
         return "redirect:/users/user-courses/" + user;
     }
+
     @GetMapping("subscribe/{user}")
     public String subscribe(
             @PathVariable User user,

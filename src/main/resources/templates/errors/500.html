@@ -5,10 +5,12 @@
 <html>
 <body>
 <div layout:fragment="content" th:remove="tag">
-    <h1>Something went wrong! </h1>
-    <h2>Our Engineers are on it</h2>
+    <div class="container">
+    <h1>Что-то пошло не так...</h1>
+    <h4>Мы работаем над этой проблемой</h4>
     <h1>ERROR 500</h1>
-    <p><a href="/" th:href="@{/}">Back to home page</a></p>
+    <p><a href="/" th:href="@{/}">Вернуться на главную</a></p>
+    </div>
 </div>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <body>
 <span><a href="/users">User's list</a></span>
 <div layout:fragment="content" th:remove="tag">
-    <div class="container">
+    <div class="container my-lg-3">
     <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
 
     <!--<div class="form-row">-->
@@ -77,14 +77,14 @@
     <div class="card-columns" id="topic-list">
         <div th:if="${not #lists.isEmpty(topics)}" th:each="topic : ${topics}">
             <div class="card border-warning my-3" style="width: 20rem;" th:data-id="${topic.id}">
-                <div class="card-header" style="color: #3ccaed" th:text="${topic.name}">
-                </div>
-                <div th:if="${not #strings.isEmpty(topic.filename)}">
+               <b> <div class="card-header" style="color: #3ccaed"  th:text="${topic.name}">
+                </div></b>
+                <div class="mb-0" th:if="${not #strings.isEmpty(topic.filename)}">
                     <img style="height: 12rem" class="card-img-top" th:src="@{${'/img/' + topic.filename}}"/>
                 </div>
-                <div class="card-body">
+                <div style="height: 1rem" class="card-body my-0">
                     <!--<p class="card-text" th:text="${topic.description}"></p>-->
-                    <a th:href="${topic.id=='stackoverflow'}? @{http://www.stackoverflow.com}: @{'/topics/'+${topic.id}+'/courses'}" style="border-radius: 100px" class="btn green accent-2">Перейти</a>
+                    <a th:href="${topic.id=='stackoverflow'}? @{http://www.stackoverflow.com}: @{'/topics/'+${topic.id}+'/courses'}" style="border-radius: 100px" class="btn cyan mt-0">Перейти</a>
                 </div>
 
                 <!--<div class="card-footer" th:text="${topic.description}">-->

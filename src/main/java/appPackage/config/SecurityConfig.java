@@ -51,12 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/img/**",
                         "/uploads/**",
+                        "/imgUploads/**",
                         "/registration",
                         "/activate/*",
                         "/hello",
                         "/webjars/**").permitAll()
 
-                .antMatchers("/main", "/users/profile", "/maif", "/topics/**")
+                .antMatchers("/users/profile", "/topics/**")
                 .hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()

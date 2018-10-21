@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -38,7 +39,16 @@ public class LessonService {
          lessonRepository.save(lesson);
 	}
 
-	public void updateLesson(Lesson lesson) {
+	public void updateLesson(Lesson lesson, String lessonName, String lessonDescription, String lessonLink) {
+        if (!StringUtils.isEmpty(lessonName)) {
+            lesson.setName(lessonName);
+        }
+        if (!StringUtils.isEmpty(lessonDescription)) {
+            lesson.setDescription(lessonDescription);
+        }
+        if (!StringUtils.isEmpty(lessonLink)) {
+            lesson.setLink(lessonLink);
+        }
 		lessonRepository.save(lesson);
 	}
 
@@ -55,4 +65,8 @@ public class LessonService {
 	public List<Lesson> getAllLessons(Long courseId) {
 		return lessonRepository.findByCourseId(courseId);
 	}
+
+    public void updateLesson(Lesson lesson) {
+        lessonRepository.save(lesson);
+    }
 }

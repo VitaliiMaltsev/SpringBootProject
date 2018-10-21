@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +47,29 @@ public class Course {
 	)
 	private Set<User>likes=new HashSet<>();
 
+//	@NotBlank
+	@Length(max = 255)
+	private String link="#";
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	private String filename;
+
+	private LocalDate addedDate;
+
+	public LocalDate getAddedDate() {
+		return addedDate;
+	}
+
+	public void setAddedDate(LocalDate addedDate) {
+		this.addedDate = addedDate;
+	}
 
 	public Set<User> getLikes() {
 		return likes;

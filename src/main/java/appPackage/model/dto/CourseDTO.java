@@ -5,6 +5,8 @@ import appPackage.model.User;
 import appPackage.model.util.CourseHelper;
 import appPackage.topics.Topic;
 
+import java.time.LocalDate;
+
 public class CourseDTO {
     private Long id;
     private String name;
@@ -14,6 +16,17 @@ public class CourseDTO {
     private Long likes;
     private Boolean meLiked;
     private Topic topic;
+    private String link;
+
+    public String getLink() {
+        return link;
+    }
+
+    public LocalDate getAddedDate() {
+        return addedDate;
+    }
+
+    private LocalDate addedDate;
 //    private String topicId;
 
     public Topic getTopic() {
@@ -21,13 +34,14 @@ public class CourseDTO {
     }
 
     public CourseDTO(Course course, Long likes, Boolean meLiked) {
-        this.id= course.getId();
-        this.name= course.getName();
-        this.description= course.getDescription();
-        this.author= course.getAuthor();
-        this.topic=course.getTopic();
-//        this.topicId = course.getTopic().getId();
-        this.filename= course.getFilename();
+        this.id = course.getId();
+        this.name = course.getName();
+        this.description = course.getDescription();
+        this.author = course.getAuthor();
+        this.topic = course.getTopic();
+        this.addedDate = course.getAddedDate();
+        this.link = course.getLink();
+        this.filename = course.getFilename();
         this.likes = likes;
         this.meLiked = meLiked;
     }
@@ -61,7 +75,7 @@ public class CourseDTO {
         return meLiked;
     }
 
-    public String getAuthorName(){
+    public String getAuthorName() {
         return CourseHelper.getAuthorName(author);
     }
 

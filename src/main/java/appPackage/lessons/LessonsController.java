@@ -97,6 +97,8 @@ public class LessonsController {
         model.addAttribute("pageLessons", pageLessons);
         model.addAttribute("courseId", courseId);
         model.addAttribute("topicId", topicId);
+        model.addAttribute("courseName", courseService.getCourse(courseId).getName());
+
 //        model.addAttribute("topicC",course.getTopic().getName());
 //        model.addAttribute("topicC",javaCourses.getContent().stream().filter(curse ->curse.getTopic().getId().equals(topicId)).findFirst().get().getTopic().getName());
         return "lessons";

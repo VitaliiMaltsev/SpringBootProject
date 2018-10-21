@@ -24,6 +24,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -76,6 +78,7 @@ public class CoursesController {
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable) throws IOException {
 
         course.setTopic(new Topic(topicId, "", ""));
+        course.setAddedDate(LocalDate.now());
         course.setAuthor(user);
         if (bindingResult.hasErrors()) {
 
@@ -88,8 +91,8 @@ public class CoursesController {
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
-                String uuid = UUID.randomUUID().toString();
-                String resultFileName = /*uuid + "." +*/file.getOriginalFilename();
+//                String uuid = UUID.randomUUID().toString();
+                String resultFileName =LocalDateTime.now().hashCode()+ file.getOriginalFilename();
                 file.transferTo(new File(uploadPath + "/" + resultFileName));
                 course.setFilename(resultFileName);
             }
@@ -101,6 +104,8 @@ public class CoursesController {
         Page<CourseDTO> javaCourses = courseService.getAllCourses(topicId, pageable, user);
         model.addAttribute("page", javaCourses);
         model.addAttribute("topicId", topicId);
+        model.addAttribute("topicName", topicService.getTopic(topicId).getName());
+
         return "courses";
 
     }
