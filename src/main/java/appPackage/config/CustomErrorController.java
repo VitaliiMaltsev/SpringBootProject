@@ -19,21 +19,21 @@ public class CustomErrorController implements ErrorController {
             Integer statusCode = Integer.valueOf(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "/errors/404";
+                return "errors/404";
             }
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "/errors/500";
+                return "errors/500";
             }
             else if(statusCode == HttpStatus.FORBIDDEN.value()) {
-                return "/errors/403";
+                return "errors/403";
             }
         }
-        return "/errors/404";
+        return "errors/404";
     }
 
     @Override
     public String getErrorPath() {
-        return "/error";
+        return "error";
     }
 
 }

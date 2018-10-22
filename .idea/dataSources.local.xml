@@ -28,5 +28,14 @@
       <user-name>postgres</user-name>
       <introspection-schemas>coursesDBTest:public</introspection-schemas>
     </data-source>
+    <data-source name="Heroku" uuid="f7850662-a3b4-41dd-ac30-550987bde193">
+      <database-info product="PostgreSQL" version="10.5 (Ubuntu 10.5-1.pgdg14.04+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>akbkmkzcmlpkir</user-name>
+      <introspection-schemas>d865te1b0tjfpb:public</introspection-schemas>
+    </data-source>
   </component>
 </project>
