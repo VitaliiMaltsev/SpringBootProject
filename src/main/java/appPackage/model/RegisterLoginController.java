@@ -1,8 +1,6 @@
-package appPackage.hello;
+package appPackage.model;
 
-import appPackage.model.User;
 import appPackage.model.dto.CaptchaResponseDTO;
-import appPackage.model.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,11 +20,15 @@ import java.util.Collections;
 public class RegisterLoginController {
     private static final String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final RestTemplate restTemplate;
 
     @Autowired
-    private RestTemplate restTemplate;
+    public RegisterLoginController(UserService userService, RestTemplate restTemplate) {
+        this.userService = userService;
+        this.restTemplate = restTemplate;
+    }
 
     @Value("${recaptcha.secret}")
     private String secret;
@@ -53,25 +55,15 @@ public class RegisterLoginController {
         String url = String.format(CAPTCHA_URL, secret, captchaResponse);
         CaptchaResponseDTO responseDTO = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDTO.class);
 
-//        if(!responseDTO.isSuccess()){
-//        }
-
-//        if(user.getPassword()!=null&&!user.getPassword().equals(user.getPassword2())){
-//            model.addAttribute("passwordError", "Введенные пароли не совпадают");
-//        }
         if (bindingResult.hasErrors() || !responseDTO.isSuccess()) {
-//            Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
-//            model.mergeAttributes(errorsMap);
             model.addAttribute("captchaError", "Captcha не подтверждена!");
             return "registration";
-
         }
         if (!userService.addUser(user)) {
             model.addAttribute("userNameError", "User exists");
             return "registration";
         }
-//        model.addAttribute("checkEmail", "Check your e-mail for activation account");
-        redirectAttributes.addFlashAttribute("checkEmail","Проверьте Ваш e-mail для активации аккаунта");
+        redirectAttributes.addFlashAttribute("checkEmail", "Проверьте Ваш e-mail для активации аккаунта");
         return "redirect:/login";
     }
 

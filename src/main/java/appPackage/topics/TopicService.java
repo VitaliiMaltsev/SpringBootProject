@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TopicService {
-	
+
+	private final TopicRepository topicRepository;
+
 	@Autowired
-	private TopicRepository topicRepository;
-		
-	
+	public TopicService(TopicRepository topicRepository) {
+		this.topicRepository = topicRepository;
+	}
+
 	public List<Topic>getAllTopics(){
 		List<Topic>topics = new ArrayList<>();
 		topicRepository.findAll().forEach(topics::add);
@@ -20,10 +23,7 @@ public class TopicService {
 	}
 	
 	public Topic getTopic(String id) {
-		//return topics.stream().filter(t -> t.getId().equals(id)).findFirst().get();
 		return topicRepository.findById(id).get();
-				//.filter(Topic.class::isInstance)
-				//.map(Topic.class::cast);;
 	}
 	
 	public void addTopic(Topic topic) {
@@ -32,27 +32,10 @@ public class TopicService {
 
 	public void updateTopic(String id, Topic topic) {
 		topicRepository.save(topic);
-		
-		//for(int i=0;i<topics.size();i++) {
-		//	Topic t =topics.get(i);
-		//	if(t.getId().equals(id)) {
-		//		topics.set(i, topic);
-		//		return;
-		//	}
-		//}
-		
 	}
 
 	public void deleteTopic(String id) {
-		//topics.removeIf(t->t.getId().equals(id));
 		topicRepository.deleteById(id);
-		//for(int i=0;i<topics.size();i++) {
-		//	Topic t =topics.get(i);
-		//	if(t.getId().equals(id)) {
-		//		topics.remove(i)/*(i, topic)*/;
-		//		return;
-		//	}
-		//}
 	}
 
 	public Iterable<Topic> findByName(String name) {

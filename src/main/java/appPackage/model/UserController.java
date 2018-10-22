@@ -16,28 +16,27 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Set;
 
 @RequestMapping("/users")
 @Controller
 public class UserController {
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+    private final CourseService courseService;
+    private final LessonService lessonService;
 
     @Autowired
-    CourseService courseService;
-
-    @Autowired
-    LessonService lessonService;
+    public UserController(UserService userService, CourseService courseService, LessonService lessonService) {
+        this.userService = userService;
+        this.courseService = courseService;
+        this.lessonService = lessonService;
+    }
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -62,9 +61,8 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public String updateUser(
-//            @ModelAttribute(value = "user") User userWithChanges,
             @RequestParam Long userId,
-            @RequestParam Set<Role> userRoles,
+            @RequestParam(required = false) Set<Role> userRoles,
             @RequestParam String password,
             @RequestParam String userName) {
         userService.saveUser(userId, userName, password, userRoles);
@@ -75,13 +73,13 @@ public class UserController {
     @GetMapping("profile")
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("user", user);
-        return "profile";
+        return "user/profile";
     }
 
     @PostMapping("profile")
     public String updateProfile(
             @AuthenticationPrincipal User user,
-            @RequestParam String password,
+            @RequestParam(required = false) String password,
             @RequestParam String email
     ) {
         userService.updateProfile(user, password, email);
@@ -106,10 +104,10 @@ public class UserController {
         model.addAttribute("userChannel", author);
         model.addAttribute("isCurrentUser", currentUser.equals(author));
         model.addAttribute("isSubscriber", author.getSubscribers().contains(currentUser));
-        model.addAttribute("url", "/users/user-courses/"+author.getId());
+        model.addAttribute("url", "/users/user-courses/" + author.getId());
         return "user/userCourses";
     }
-//    @Transactional
+
     @PostMapping("/user-courses/{user}")
     public String updateCorse(
             @RequestParam(value = "file", required = false) MultipartFile file,
@@ -122,10 +120,9 @@ public class UserController {
             @RequestParam(value = "courseId", required = false) Course course,
             @RequestParam(value = "courseName", required = false) String courseName,
             @RequestParam(value = "courseDescription", required = false) String courseDescription,
-            Model model,
             RedirectAttributes redir
     ) throws IOException {
-        if (course!=null && course.getAuthor().equals(currentUser)) {
+        if (course != null && course.getAuthor().equals(currentUser)) {
 
             if (!courseService.updateCourse(course, courseName, courseDescription, file)) {
                 redir.addFlashAttribute("courseUpdateError",
@@ -134,12 +131,12 @@ public class UserController {
                 return "redirect:/users/user-courses/" + user;
             }
 
-        } else if(lesson!=null && lesson.getAuthor().equals(currentUser)){
+        } else if (lesson != null && lesson.getAuthor().equals(currentUser)) {
 
             lessonService.updateLesson(lesson, lessonName, lessonDescription, lessonLink);
             redir.addFlashAttribute("lessonUpdateSuccess",
-                    "Урок успешно обновлен" );
-            return "redirect:/topics/"+lesson.getCourse().getTopic().getId()+"/courses/"+lesson.getCourse().getId()+"/lessons";
+                    "Урок успешно обновлен");
+            return "redirect:/topics/" + lesson.getCourse().getTopic().getId() + "/courses/" + lesson.getCourse().getId() + "/lessons";
         }
         redir.addFlashAttribute("courseUpdateSuccess", "Курс успешно обновлен");
         return "redirect:/users/user-courses/" + user;
@@ -148,15 +145,16 @@ public class UserController {
     @GetMapping("subscribe/{user}")
     public String subscribe(
             @PathVariable User user,
-            @AuthenticationPrincipal User currentUser){
-        userService.subscribe(currentUser,user);
+            @AuthenticationPrincipal User currentUser) {
+        userService.subscribe(currentUser, user);
         return "redirect:/users/user-courses/" + user.getId();
     }
+
     @GetMapping("unsubscribe/{user}")
     public String unsubscribe(
             @PathVariable User user,
-            @AuthenticationPrincipal User currentUser){
-        userService.unsubscribe(currentUser,user);
+            @AuthenticationPrincipal User currentUser) {
+        userService.unsubscribe(currentUser, user);
         return "redirect:/users/user-courses/" + user.getId();
     }
 
@@ -165,12 +163,12 @@ public class UserController {
             @PathVariable User user,
             @PathVariable String type,
             Model model
-    ){
-        model.addAttribute("userChannel", user );
-        model.addAttribute("type", type );
-        if ("subscriptions".equals(type)){
+    ) {
+        model.addAttribute("userChannel", user);
+        model.addAttribute("type", type);
+        if ("subscriptions".equals(type)) {
             model.addAttribute("users", user.getSubscriptions());
-        }else{
+        } else {
             model.addAttribute("users", user.getSubscribers());
         }
         return "subscriptions";

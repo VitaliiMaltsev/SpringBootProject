@@ -22,14 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoggingAccessDeniedHandler accessDeniedHandler;
 
-//    @Autowired
-//    DataSource dataSource;
-
     @Autowired
     UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
 
     @Bean
     public LayoutDialect layoutDialect() {
@@ -54,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/imgUploads/**",
                         "/registration",
                         "/activate/*",
-                        "/hello",
+                        "/global",
                         "/webjars/**").permitAll()
 
                 .antMatchers("/users/profile", "/topics/**")

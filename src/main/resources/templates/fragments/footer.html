@@ -9,12 +9,11 @@
                 <div class="col l6 s12">
                     <h5 class="white-text">Параметры</h5>
                     <p class="grey-text text-lighten-4">
-                    <span class="grey-text text-lighten-4" sec:authorize="isAuthenticated()" style="display: inline-block;">
+                    <span class="grey-text text-lighten-4" sec:authorize="isAuthenticated()"
+                          style="display: inline-block;">
                     Вы вошли как : <span sec:authentication="name"></span> |
                     Роли: <span sec:authentication="principal.authorities"></span> |
                         <a th:href="@{/logout}">Выход</a></span></p>
-                <!--</span>-->
-
 
                 </div>
                 <div class="col l6 s12">
@@ -22,8 +21,6 @@
                     <ul>
                         <li><a class="white-text" th:href="@{/topics}">Разделы</a></li>
                         <li><a class="white-text center" th:href="@{/registration}">Регистрация</a></li>
-                        <!--<li><a class="white-text" href="#!">Link 3</a></li>-->
-                        <!--<li><a class="white-text" href="#!">Link 4</a></li>-->
                     </ul>
                 </div>
                 <div class="col l6 s12">
@@ -31,9 +28,8 @@
                     <ul>
                         <li><a class="white-text" href="mailto:ihbectop@gmail.com">E-mail</a></li>
                         <li><a class="white-text" href="skype:vitaliy75243">Skype</a></li>
-                        <li><a class="white-text" href="https://github.com/VitaliiMaltsev/SpringBootProject">Github</a></li>
-                        <!--<li><a class="white-text" href="#!">Link 3</a></li>-->
-                        <!--<li><a class="white-text" href="#!">Link 4</a></li>-->
+                        <li><a class="white-text" href="https://github.com/VitaliiMaltsev/SpringBootProject">Github</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -50,17 +46,11 @@
     <script type="text/javascript" th:src="@{/webjars/popper.js/1.14.1/umd/popper.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/materialize.js}"></script>
     <script type="text/javascript" th:src="@{/js/init.js}"></script>
-    <!--<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>-->
-
     <script>
-
 
         $(".dropdown-trigger").dropdown();
 
     </script>
-    <!--<script src="/js/materialize.js"></script>-->
-    <!--<script th:src="@{/js/init.js"></script>-->
-
 </th:block>
 </body>
 </html>

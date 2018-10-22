@@ -1,7 +1,5 @@
 package appPackage.courses;
 
-import java.util.List;
-
 import appPackage.model.User;
 import appPackage.model.dto.CourseDTO;
 import org.springframework.data.domain.Page;
@@ -9,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface CourseRepository extends CrudRepository<Course, Long> {
 
@@ -21,14 +21,14 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
             " where c.topic.id =:topicId "+
             " group by c"
     )
-    public Page<CourseDTO> findByTopicId(@Param("topicId")String topicId, Pageable pageable, @Param("user") User user);
+    Page<CourseDTO> findByTopicId(@Param("topicId") String topicId, Pageable pageable, @Param("user") User user);
     @Query("select c " +
             " from Course c " +
             " where c.name =:name "+
             " and c.topic.id =:topicId "+
             " group by c"
     )
-    public Course findByNameAndTopicId(@Param("name") String name,@Param("topicId") String topicId);
+    Course findByNameAndTopicId(@Param("name") String name, @Param("topicId") String topicId);
 
     @Query("select new appPackage.model.dto.CourseDTO(" +
             " c, " +
@@ -41,9 +41,9 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
             " and c.topic.id =:topicId "+
             " group by c"
     )
-    public Page<CourseDTO> findByNameContainingIgnoreCase(@Param("searchTerm")String searchName, Pageable pageable,  @Param("user") User user, @Param("topicId") String topicId);
+    Page<CourseDTO> findByNameContainingIgnoreCase(@Param("searchTerm") String searchName, Pageable pageable, @Param("user") User user, @Param("topicId") String topicId);
 
-    public Page<Course> findAll(Pageable pageable);
+    Page<Course> findAll(Pageable pageable);
 
     @Query("select new appPackage.model.dto.CourseDTO(" +
             " c, " +
@@ -55,9 +55,9 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
             " group by c"
     )
 //    @Query("from Course c where c.author= :author")
-    public Page<CourseDTO> findByUser(Pageable pageable,
-                                   @Param("author") User author,
-                                   @Param("user") User user);
+    Page<CourseDTO> findByUser(Pageable pageable,
+                               @Param("author") User author,
+                               @Param("user") User user);
         @Query("select new appPackage.model.dto.CourseDTO(" +
             " c, " +
             " count (cl), " +
@@ -67,5 +67,12 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
             " where c.name =:name "+
             " group by c"
     )
-    public Page<CourseDTO> findCoursesByName(@Param("name") String name, Pageable pageable, @Param("user")User user);
+        Page<CourseDTO> findCoursesByName(@Param("name") String name, Pageable pageable, @Param("user") User user);
+
+    @Query("select c " +
+            " from Course c " +
+            " where c.topic.id =:topicId "+
+            " group by c"
+    )
+    List<Course> findByTopicId(@Param("topicId")String topicId);
 }

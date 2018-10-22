@@ -6,8 +6,6 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <!--<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
 </head>
 <body>
@@ -20,7 +18,6 @@
             <thead>
             <tr>
                 <th>Имя</th>
-                <!--<th>Surname</th>-->
                 <th>E-mail</th>
                 <th>Дата Регистрации</th>
                 <th>Роли</th>
@@ -30,7 +27,6 @@
             <tbody>
             <tr th:each="user : ${userList}">
                 <td data-label="Name" th:text="${user.name}">n</td>
-                <!--<td data-label="Surname" th:text="${user.surname}">n</td>-->
                 <td data-label="Surname" th:text="${user.email}">n</td>
                 <td data-label="Surname" th:text="${user.registrationDate}">n</td>
                 <td data-label="Roles" id="Roles">

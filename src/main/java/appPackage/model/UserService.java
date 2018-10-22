@@ -17,17 +17,16 @@ import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private MailSender mailSender;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final MailSender mailSender;
+    private final PasswordEncoder passwordEncoder;
 
-
-//    public UserService(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
+    @Autowired
+    public UserService(UserRepository userRepository, MailSender mailSender, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.mailSender = mailSender;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
@@ -47,9 +46,7 @@ public class UserService implements UserDetailsService {
         user.setRegistrationDate(LocalDate.now());
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        user.setPassword2(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        //TODO Очередность влияет?
         sendMessage(user);
         return true;
     }
@@ -75,7 +72,6 @@ public class UserService implements UserDetailsService {
         }
         user.setActivationCode(null);
         user.setActive(true);
-//        user.setRoles(Collections.singleton(Role.ADMIN));
         userRepository.save(user);
 
         return true;
@@ -91,8 +87,10 @@ public class UserService implements UserDetailsService {
         if (!StringUtils.isEmpty(password)) {
             user.setPassword(passwordEncoder.encode(password));
         }
-        user.setRoles(userRoles);
+        if(userRoles!=null) {
 
+            user.setRoles(userRoles);
+        }
         if (!StringUtils.isEmpty(userName)) {
             user.setName(userName);
         }

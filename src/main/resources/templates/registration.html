@@ -9,160 +9,150 @@
 <div layout:fragment="content" th:remove="tag">
     <div class="container">
 
-            <h1>Регистрация</h1>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div th:if="${userNameError != null}">
-                        <div class="alert alert-danger">
-                Пользователь с таким именем уже существует
-            </div>
-            </div>
-            <form class="needs-validation" th:action="@{/registration}" method="post" th:object="${user}"
-                  novalidate="">
-                <div th:if="${param.error}">
+        <h1>Регистрация</h1>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div th:if="${userNameError != null}">
+                           
                     <div class="alert alert-danger">
-                        Неверные имя пользователя и/или пароль
+                        Пользователь с таким именем уже существует
                     </div>
                 </div>
-                <div th:remove="tag" th:if="${captchaError != null}">
-                    <div class="alert alert-danger mb-0 alert-dismissible fade show"
-                         role="alert"> Captcha не подтверждена!
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-                <!--<div th:if="${captchaError != null}">-->
-                    <!--       <div class="alert alert-danger">-->
-                    <!--Captcha не подтверждена!</div>-->
-                <!--</div>-->
-                <div th:if="${param.logout}">
-                    <div class="alert alert-info">
-                        Вы вышли из учетной записи
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-field">
-                        <i class="material-icons prefix">account_circle</i>
-                    <input type="text"
-                           id="username"
-                           name="name"
-                           class="form-control"
-                           autofocus="autofocus"
-                           minlength="3"
-                           maxlength="255"
-                           required>
-                    <label for="username">Имя пользователя</label>
-                <div class="valid-feedback">Отлично!</div>
-                <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
-                </div>
-                        </div>
-                <div class="form-group">
-                    <div class="input-field">
-                        <i class="material-icons prefix">lock_open</i>
-                    <input type="password"
-                           id="password"
-                           name="password"
-                           class="form-control"
-                           minlength="3"
-                           maxlength="255"
-                           required>
-                    <label for="password">Пароль</label>
-                <div class="valid-feedback">Отлично!</div>
-                <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-field">
-                        <i class="material-icons prefix">lock_outline</i>
-                    <input type="password"
-                           id="password2"
-                           name="password2"
-                           class="form-control"
-                           minlength="3"
-                           maxlength="255"
-                           required>
-                    <label for="password2">Подтверждение пароля</label>
-                    <div class="valid-feedback">Отлично!</div>
-                    <div class="invalid-feedback">Данное поле должно совадать с полем "Пароль"</div>
-                </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-field">
-                        <i class="material-icons prefix">email</i>
-                        <input type="email"
-                               id="email"
-                               name="email"
-                               min="5"
-                               class="form-control"
-                               required
-                               pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])">
-                        <label for="email">E-mail</label>
-                        <div class="valid-feedback">Отлично!</div>
-                        <div class="invalid-feedback">Корректно введите e-mail</div>
-                    </div>
-                </div>
-
-
-                <!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <input type="submit"
-                                   name="login-submit"
-                                   id="login-submit"
-                                   class="form-control btn btn-info"
-                                   value="Зарегистрироваться">
+                <form class="needs-validation" th:action="@{/registration}" method="post" th:object="${user}"
+                      novalidate="">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Неверные имя пользователя и/или пароль
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="g-recaptcha" data-sitekey="6LcPrXAUAAAAAOU_wOzV2harKcW83YyBpSJQ41Be" ></div>
-
+                    <div th:remove="tag" th:if="${captchaError != null}">
+                        <div class="alert alert-danger mb-0 alert-dismissible fade show"
+                             role="alert"> Captcha не подтверждена!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">
+                            Вы вышли из учетной записи
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input type="text"
+                                   id="username"
+                                   name="name"
+                                   class="form-control"
+                                   autofocus="autofocus"
+                                   minlength="3"
+                                   maxlength="255"
+                                   required>
+                            <label for="username">Имя пользователя</label>
+                            <div class="valid-feedback">Отлично!</div>
+                            <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-field">
+                            <i class="material-icons prefix">lock_open</i>
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="form-control"
+                                   minlength="3"
+                                   maxlength="255"
+                                   required>
+                            <label for="password">Пароль</label>
+                            <div class="valid-feedback">Отлично!</div>
+                            <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
+                        </div>
                     </div>
 
-            </form>
-
+                    <div class="form-group">
+                        <div class="input-field">
+                            <i class="material-icons prefix">lock_outline</i>
+                            <input type="password"
+                                   id="password2"
+                                   name="password2"
+                                   class="form-control"
+                                   minlength="3"
+                                   maxlength="255"
+                                   required>
+                            <label for="password2">Подтверждение пароля</label>
+                            <div class="valid-feedback">Отлично!</div>
+                            <div class="invalid-feedback">Данное поле должно совадать с полем "Пароль"</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-field">
+                            <i class="material-icons prefix">email</i>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   min="5"
+                                   class="form-control"
+                                   required
+                                   pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])">
+                            <label for="email">E-mail</label>
+                            <div class="valid-feedback">Отлично!</div>
+                            <div class="invalid-feedback">Корректно введите e-mail</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <input type="submit"
+                                       name="login-submit"
+                                       id="login-submit"
+                                       class="form-control btn btn-info"
+                                       value="Зарегистрироваться">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="g-recaptcha" data-sitekey="6LcPrXAUAAAAAOU_wOzV2harKcW83YyBpSJQ41Be"></div>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <p><a href="/" th:href="@{/}">Вернуться на главную</a></p>
-    <script>
+        <p><a href="/" th:href="@{/}">Вернуться на главную</a></p>
+        <script>
 
-        var password = document.getElementById("password")
-            , confirm_password = document.getElementById("password2");
+            var password = document.getElementById("password")
+                , confirm_password = document.getElementById("password2");
 
-        function validatePassword(){
-            if(password.value != confirm_password.value) {
-                confirm_password.setCustomValidity("Passwords Don't Match");
-            } else {
-                confirm_password.setCustomValidity('');
+            function validatePassword() {
+                if (password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("Passwords Don't Match");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
             }
-        }
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
 
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
     </div>
 </div>
 </body>

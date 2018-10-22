@@ -5,7 +5,6 @@
 <head>
     <title>Lessons</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
-
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -38,6 +37,7 @@
                 Добавить новый урок
             </a>
         </p>
+
         <div class="collapse" th:classappend="${lesson== null ? '' :'show'}" id="collapseExample">
             <div class="card card-body">
                 <div>
@@ -64,10 +64,7 @@
                                     <div class="valid-feedback">Отлично!</div>
                                     <div class="invalid-feedback">Данное поле не должно быть менее 3 символов</div>
                                 </div>
-                                    <!--<div th:if="${not #strings.isEmpty(course.id)}">-->
-                                    <!--th:if="${course.id!=null}"-->
                                     <input type="hidden" name="id" th:value="${lesson== null ? '' : lesson.id}"/>
-                                    <!--</div>-->
                                     <div class="form-group mt-0 mb-0">
                                         <label for="validationCustomDesc"><h5 style="font-family: 'Raleway', sans-serif">Описание урока</h5></label>
                                         <textarea class="form-control"
@@ -81,8 +78,6 @@
                                         <div class="invalid-feedback">
                                             Данное поле не должно быть менее 10 символов
                                         </div>
-                                                  <!--rows="10"-->
-                                <!---->
                                     </div>
 
                                     <div class="form-group mt-0 mb-0">
@@ -100,7 +95,6 @@
                                         <div class="valid-feedback">Отлично!</div>
                                         <div class="invalid-feedback">Введите корректную ссылку</div>
                                     </div>
-                                    <!--<input type="file" name="file"/>-->
                                     <div class="mt-2">
                                         <button class="btn btn-outline-info  " type="submit"
                                         >Добавить
@@ -110,7 +104,6 @@
                                         >Отменить
                                         </button>
                                     </div>
-                                <!--</div>-->
                             </form>
                         </div>
                         <div class="col-md-6">
@@ -177,7 +170,6 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <!--<th>Surname</th>-->
                     <th>Описание</th>
                     <th>Дата Добавления</th>
                     <th>Добавил</th>
@@ -188,19 +180,14 @@
                 <tbody>
                 <tr th:each="lesson : ${pageLessons?.content}">
                     <td data-label="Name" th:text="${lesson.name}">n</td>
-                    <!--<td data-label="Surname" th:text="${user.surname}">n</td>-->
                     <td data-label="Description" th:text="${lesson.description}">n</td>
                     <td data-label="AddedDate" th:text="${lesson.addedDate}">n</td>
                     <td data-label="Author">
                         <a th:href="@{'/users/user-courses/' + ${lesson.author.id}}">[[${lesson.author.name}]]</a>
                     </td>
                     <td data-label="Link"><a th:href="@{${lesson.link}}">Go</a></td>
-                    <!--${lesson.author.id==#authentication.getPrincipal().getId()}?'Edit':''-->
-
-                    <!--<span th:remove="tag" th:if="${lesson.author.id}==${#authentication.getPrincipal().getId()}">-->
                     <td data-label="Edit"> <a
                             th:href="@{'/users/user-courses/' + ${lesson.author.id}(lesson=${lesson.id})}">[[${lesson.author.id==#authentication.getPrincipal().getId()}?'Редактировать':' ']]</a></td>
-                    <!--</span>-->
                 </tr>
                 </tbody>
             </table>

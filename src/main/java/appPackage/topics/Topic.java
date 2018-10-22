@@ -1,9 +1,9 @@
 package appPackage.topics;
 
-import appPackage.model.User;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 
@@ -14,13 +14,12 @@ public class Topic {
 
     private String filename;
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
+    @NotBlank(message = "Пожалуйста заполните имя раздела")
+    @Length(max = 255, message = "Имя слишком длинное")
+    private String name;
+    @NotBlank(message = "Пожалуйста заполните описание раздела")
+    @Length(max = 2048, message = "Описание раздела слишком длинное")
+    private String description;
 
     public Topic(String name, String description) {
         this.name = name;
@@ -37,6 +36,13 @@ public class Topic {
         this.description = description;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public String getId() {
         return id;
@@ -62,10 +68,5 @@ public class Topic {
         this.description = description;
     }
 
-    @NotBlank(message = "Пожалуйста заполните имя раздела")
-    @Length(max = 255, message = "Имя слишком длинное")
-    private String name;
-    @NotBlank(message = "Пожалуйста заполните описание раздела")
-    @Length(max = 2048, message = "Описание раздела слишком длинное")
-    private String description;
+
 }

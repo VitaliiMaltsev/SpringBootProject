@@ -1,8 +1,4 @@
 package appPackage.courses;
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import appPackage.model.User;
 import appPackage.model.util.CourseHelper;
@@ -11,6 +7,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,9 +45,31 @@ public class Course {
 	)
 	private Set<User>likes=new HashSet<>();
 
-//	@NotBlank
 	@Length(max = 255)
 	private String link="#";
+
+	private String filename;
+
+	private LocalDate addedDate;
+
+	public Course() {
+	}
+
+	public Course(String name, String description, Topic topic, User author) {
+
+		this.name = name;
+		this.description = description;
+		this.topic = topic;
+		this.author = author;
+	}
+
+	public Course(Long id, String name, String description, String topicId) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.topic = new Topic(topicId,"","");
+	}
 
 	public String getLink() {
 		return link;
@@ -58,10 +78,6 @@ public class Course {
 	public void setLink(String link) {
 		this.link = link;
 	}
-
-	private String filename;
-
-	private LocalDate addedDate;
 
 	public LocalDate getAddedDate() {
 		return addedDate;
@@ -79,8 +95,6 @@ public class Course {
 		this.likes = likes;
 	}
 
-
-
 	public String getFilename() {
 		return filename;
 	}
@@ -97,32 +111,13 @@ public class Course {
 		this.author = author;
 	}
 
-	public Course(String name, String description, Topic topic, User author) {
-
-		this.name = name;
-		this.description = description;
-		this.topic = topic;
-		this.author = author;
-	}
-
-	public Course() {
-			}
-
 	public String getAuthorName(){
 		return CourseHelper.getAuthorName(author);
 	}
 	public String getTopicId() {
 		return CourseHelper.getTopicId(topic);
-
 	}
 
-	public Course(Long id, String name, String description, String topicId) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.topic = new Topic(topicId,"","");
-	}
 	public Long getId() {
 		return id;
 	}

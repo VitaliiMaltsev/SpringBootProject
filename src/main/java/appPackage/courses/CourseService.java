@@ -1,11 +1,5 @@
 package appPackage.courses;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-
 import appPackage.model.User;
 import appPackage.model.dto.CourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +10,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityManager;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CourseService {
 
+    private final CourseRepository courseRepository;
+
     @Autowired
-    private CourseRepository courseRepository;
-    //
+    public CourseService(CourseRepository courseRepository) {
+        this.courseRepository=courseRepository;
+    }
 //	@Autowired
 //	private EntityManager entityManager;
+
     @Value("${upload.path}")
     private String uploadPath;
 
     public Page<CourseDTO> getAllCourses(String topicId, Pageable pageable, User user) {
-        //List<Lesson>courses = new ArrayList<>();
-        //courseRepository.findByTopicId(topicId)
-        //.forEach(courses::add);
-        //return courses;
-        return courseRepository.findByTopicId(topicId, pageable, user);
+               return courseRepository.findByTopicId(topicId, pageable, user);
     }
 
     public Course getCourse(Long id) {
@@ -76,7 +74,6 @@ public class CourseService {
 			if (!uploadDir.exists()) {
 				uploadDir.mkdir();
 			}
-			String uuid = UUID.randomUUID().toString();
             String resultFileName =LocalDateTime.now().hashCode()+ file.getOriginalFilename();
 			file.transferTo(new File(uploadPath + "/" + resultFileName));
 			course.setFilename(resultFileName);
@@ -96,5 +93,9 @@ public class CourseService {
     }
 
     public void updateCourse(Course course) {
+    }
+
+    public List<Course> getAllCourses(String topicId) {
+        return courseRepository.findByTopicId(topicId);
     }
 }

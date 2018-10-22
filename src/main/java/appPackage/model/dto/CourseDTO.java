@@ -18,21 +18,6 @@ public class CourseDTO {
     private Topic topic;
     private String link;
 
-    public String getLink() {
-        return link;
-    }
-
-    public LocalDate getAddedDate() {
-        return addedDate;
-    }
-
-    private LocalDate addedDate;
-//    private String topicId;
-
-    public Topic getTopic() {
-        return topic;
-    }
-
     public CourseDTO(Course course, Long likes, Boolean meLiked) {
         this.id = course.getId();
         this.name = course.getName();
@@ -46,11 +31,23 @@ public class CourseDTO {
         this.meLiked = meLiked;
     }
 
-    public Long getId() {
-
-        return id;
+    public String getLink() {
+        return link;
     }
 
+    public LocalDate getAddedDate() {
+        return addedDate;
+    }
+
+    private LocalDate addedDate;
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public Long getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }

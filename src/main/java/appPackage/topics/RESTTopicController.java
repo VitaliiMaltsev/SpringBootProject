@@ -23,8 +23,6 @@ public class RESTTopicController {
 	public List<Topic> getTopics() {
 		return topicService.getAllTopics();
 	}
-//	@RequestMapping("/topics/{food}")
-	//public Topic getTopic(@PathVariable("food") String id) { - works too
 		@RequestMapping("/rest/topics/{id}")
 		public Topic getTopic(@PathVariable String id) {
 		return topicService.getTopic(id);

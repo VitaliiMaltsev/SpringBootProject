@@ -20,14 +20,6 @@ public class Lesson {
 	@Length(max = 255)
 	private String name;
 
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
 	@NotBlank
 	@Length(max = 255)
 	private String link;
@@ -45,6 +37,19 @@ public class Lesson {
 	@JoinColumn(name = "user_id")
 	private User author;
 
+	private LocalDate addedDate;
+
+	public Lesson() {
+	}
+
+	public Lesson(Long id, String name, String description, Long courseId, String topicId) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.course = new Course(courseId,"","", topicId);
+	}
+
 	public User getAuthor() {
 		return author;
 	}
@@ -61,19 +66,14 @@ public class Lesson {
 		this.addedDate = addedDate;
 	}
 
-	private LocalDate addedDate;
-
-
-	public Lesson() {
-			}
-	
-	public Lesson(Long id, String name, String description, Long courseId, String topicId) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.course = new Course(courseId,"","", topicId);
+	public String getLink() {
+		return link;
 	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	public Long getId() {
 		return id;
 	}

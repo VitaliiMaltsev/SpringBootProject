@@ -1,9 +1,5 @@
 package appPackage.topics;
 
-import appPackage.courses.CourseRepository;
-import appPackage.courses.CourseService;
-import appPackage.topics.Topic;
-import appPackage.topics.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -65,7 +61,6 @@ public class TopicController {
             if(!uploadDir.exists()){
                 uploadDir.mkdir();
             }
-            String uuid = UUID.randomUUID().toString();
             String resultFileName = /*uuid + "." +*/file.getOriginalFilename();
             file.transferTo(new File(uploadPath+"/"+resultFileName));
             topic.setFilename(resultFileName);

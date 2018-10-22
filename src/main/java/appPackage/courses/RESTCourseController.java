@@ -1,6 +1,5 @@
 package appPackage.courses;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,35 +13,39 @@ import appPackage.topics.Topic;
 
 @RestController
 public class RESTCourseController {
-	
-	@Autowired
-	private CourseService courseService;
-	//TODO сделать что-то с пагинацией
-//	@RequestMapping("/rest/topics/{id}/courses")
-//	public List<Course> getCourses(@PathVariable String id) {
-//		return courseService.getAllCourses(id);
-//	}
 
-		@RequestMapping("/rest/topics/{topicId}/courses/{courseId}")
-		public Course getCourse(@PathVariable("topicId") String topicId, @PathVariable("courseId") Long courseId) {
-		return courseService.getCourse(courseId);
-//		ArrayList<String> test=new ArrayList<>();
-//		test.
+    private final CourseService courseService;
+
+    @Autowired
+    public RESTCourseController(CourseService courseService) {
+        this.courseService=courseService;
+    }
+
+	@RequestMapping("/rest/topics/{topicId}/courses")
+	public List<Course> getCourses(@PathVariable String topicId) {
+		return courseService.getAllCourses(topicId);
 	}
-		
-		@RequestMapping(value="/rest/topics/{topicId}/courses", method=RequestMethod.POST)
-		public void addCourse(@RequestBody Course course, @PathVariable String topicId) {
-			course.setTopic(new Topic(topicId,"",""));
-			courseService.addCourse(course,topicId);
-		}
-		@RequestMapping(value="/rest/topics/{topicId}/courses/{courseId}", method=RequestMethod.PUT)
-		public void updateCourse(@RequestBody Course course, @PathVariable Long courseId, @PathVariable String topicId ) {
-			course.setTopic(new Topic(topicId,"",""));
-			course.setId(courseId);
-			courseService.updateCourse(course);
-		}
-		@RequestMapping(value="/rest/topics/{topicId}/courses/{courseId}", method=RequestMethod.DELETE)
-		public void deleteCourse(@PathVariable Long courseId) {
-			courseService.deleteCourse(courseId);
-		}
+
+    @RequestMapping("/rest/topics/{topicId}/courses/{courseId}")
+    public Course getCourse(@PathVariable("topicId") String topicId, @PathVariable("courseId") Long courseId) {
+        return courseService.getCourse(courseId);
+    }
+
+    @RequestMapping(value = "/rest/topics/{topicId}/courses", method = RequestMethod.POST)
+    public void addCourse(@RequestBody Course course, @PathVariable String topicId) {
+        course.setTopic(new Topic(topicId, "", ""));
+        courseService.addCourse(course, topicId);
+    }
+
+    @RequestMapping(value = "/rest/topics/{topicId}/courses/{courseId}", method = RequestMethod.PUT)
+    public void updateCourse(@RequestBody Course course, @PathVariable Long courseId, @PathVariable String topicId) {
+        course.setTopic(new Topic(topicId, "", ""));
+        course.setId(courseId);
+        courseService.updateCourse(course);
+    }
+
+    @RequestMapping(value = "/rest/topics/{topicId}/courses/{courseId}", method = RequestMethod.DELETE)
+    public void deleteCourse(@PathVariable Long courseId) {
+        courseService.deleteCourse(courseId);
+    }
 }

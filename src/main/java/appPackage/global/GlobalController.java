@@ -1,22 +1,25 @@
-package appPackage.hello;
+package appPackage.global;
 
-import appPackage.topics.TopicRepository;
+import appPackage.topics.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @ControllerAdvice
 public class GlobalController {
 
+
+	private final TopicService topicService;
+
 	@Autowired
-	private TopicRepository topicRepository;
+	public GlobalController(TopicService topicService) {
+		this.topicService=topicService;
+	}
 
 	@ModelAttribute
 	public void layout(Model model) {
-		model.addAttribute("topics", topicRepository.findAll());
+		model.addAttribute("topics", topicService.getAllTopics());
 
 	}
 }

@@ -1,7 +1,6 @@
 package appPackage.model;
 
 import appPackage.courses.Course;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -48,7 +47,6 @@ public class User implements UserDetails {
     private Set<User> subscriptions = new HashSet<>();
 
     @Transient
-//    @NotBlank(message = "Подтвержденный пароль должнен быть заполнен")
     private String password2;
 
     @Column(name = "active")
@@ -62,10 +60,11 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     private LocalDate registrationDate;
-//    private String surname;
+
     @Email(message = "E-mail заполнен некорректно")
     @NotBlank(message = "E-mail должен быть заполнен")
     private String email;
+
     private String activationCode;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -99,6 +98,7 @@ public class User implements UserDetails {
     public LocalDate getRegistrationDate() {
         return registrationDate;
     }
+
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
@@ -209,17 +209,7 @@ public class User implements UserDetails {
 
     public User(String name) {
         this.name = name;
-//        this.surname = surname;
     }
-
-//    public String getSurname() {
-//        return surname;
-//    }
-//
-//    public void setSurname(String surname) {
-//        this.surname = surname;
-//    }
-
 
     public User() {
     }
@@ -228,7 +218,6 @@ public class User implements UserDetails {
 
         this.id = id;
         this.name = name;
-//        this.surname = surname;
     }
 
     public Long getId() {

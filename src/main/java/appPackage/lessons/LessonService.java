@@ -11,35 +11,34 @@ import java.util.List;
 @Service
 public class LessonService {
 
-	@Autowired
-	private LessonRepository lessonRepository;
+    private final LessonRepository lessonRepository;
+
+    @Autowired
+    public LessonService(LessonRepository lessonRepository) {
+        this.lessonRepository = lessonRepository;
+    }
+
+    public Page<Lesson> getAllLessons(Long courseId, Pageable pageable) {
+        return lessonRepository.findByCourseId(courseId, pageable);
+    }
+
+    public Page<Lesson> getLessonsByName(String name, Pageable pageable) {
+        return lessonRepository.findByName(name, pageable);
+    }
+
+    public Page<Lesson> getLessonbySearchName(String searchName, Pageable pageable) {
+        return lessonRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchName, pageable);    }
 
 
-	public Page<Lesson> getAllLessons(Long courseId,  Pageable pageable){
-		//List<Lesson>courses = new ArrayList<>();
-		//lessonRepository.findByTopicId(topicId)
-		//.forEach(courses::add);
-		//return courses;
-		return lessonRepository.findByCourseId(courseId, pageable);
-	}
-	public Page<Lesson> getLessonsByName(String name, Pageable pageable){
-		return lessonRepository.findByName(name, pageable);
-	}
+    public Lesson getLesson(Long id) {
+        return lessonRepository.findById(id).get();
+    }
 
-	public Page<Lesson>getLessonbySearchName(String searchName, Pageable pageable){
-		return lessonRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchName,pageable);
-	}
+    public void addLesson(Lesson lesson) {
+        lessonRepository.save(lesson);
+    }
 
-
-	public Lesson getLesson(Long id) {
-		return lessonRepository.findById(id).get();
-	}
-
-	public void addLesson(Lesson lesson) {
-         lessonRepository.save(lesson);
-	}
-
-	public void updateLesson(Lesson lesson, String lessonName, String lessonDescription, String lessonLink) {
+    public void updateLesson(Lesson lesson, String lessonName, String lessonDescription, String lessonLink) {
         if (!StringUtils.isEmpty(lessonName)) {
             lesson.setName(lessonName);
         }
@@ -49,22 +48,22 @@ public class LessonService {
         if (!StringUtils.isEmpty(lessonLink)) {
             lesson.setLink(lessonLink);
         }
-		lessonRepository.save(lesson);
-	}
-
-	public void deleteLesson(Long id) {
-		lessonRepository.deleteById(id);
-
-	}
-
-    public Page<Lesson> getLessonsBySearchName(String searchTerm, Pageable pageable, Long courseId) {
-		Page<Lesson> searchLessons = lessonRepository.findByNameContainingIgnoreCase(searchTerm, pageable, courseId);
-		return searchLessons;
+        lessonRepository.save(lesson);
     }
 
-	public List<Lesson> getAllLessons(Long courseId) {
-		return lessonRepository.findByCourseId(courseId);
-	}
+    public void deleteLesson(Long id) {
+        lessonRepository.deleteById(id);
+
+    }
+
+    public Page<Lesson> getLessonsBySearchName(String searchTerm, Pageable pageable, Long courseId) {
+        Page<Lesson> searchLessons = lessonRepository.findByNameContainingIgnoreCase(searchTerm, pageable, courseId);
+        return searchLessons;
+    }
+
+    public List<Lesson> getAllLessons(Long courseId) {
+        return lessonRepository.findByCourseId(courseId);
+    }
 
     public void updateLesson(Lesson lesson) {
         lessonRepository.save(lesson);

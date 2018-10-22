@@ -4,7 +4,7 @@ import appPackage.model.User;
 import appPackage.model.dto.CourseDTO;
 import appPackage.topics.Topic;
 import appPackage.topics.TopicService;
-import appPackage.utils.ControllerUtil;
+import appPackage.model.util.ControllerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -27,11 +27,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Controller
 public class CoursesController {
-    //@Autowired
+
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -46,7 +45,6 @@ public class CoursesController {
 
     @GetMapping("/topics/{topicId}/courses")
     public String main(
-//            @RequestParam(required = false, defaultValue = "") String name,
             @RequestParam(value = "searchName", required = false) String searchName,
             @PathVariable String topicId,
             Model model,
@@ -54,10 +52,14 @@ public class CoursesController {
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable
             ) {
         Page<CourseDTO> pageJavaCourses;
+
         if (!(searchName == null) && !searchName.isEmpty()) {
+
             model.addAttribute("searchName", searchName);
             pageJavaCourses = courseService.getCoursesBySearchName(searchName, pageable, user, topicId);
+
         } else {
+
             pageJavaCourses = courseService.getAllCourses(topicId, pageable, user);
         }
 
@@ -73,7 +75,7 @@ public class CoursesController {
             @PathVariable String topicId,
             @AuthenticationPrincipal User user,
             @Valid Course course,
-            BindingResult bindingResult, //- всегда должен идти перед Mo del!!!
+            BindingResult bindingResult,
             Model model,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable) throws IOException {
 
@@ -86,17 +88,20 @@ public class CoursesController {
             model.addAttribute("course", course);
 
         } else {
+
             if (file != null && !file.getOriginalFilename().isEmpty()) {
+
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
+
                     uploadDir.mkdir();
                 }
-//                String uuid = UUID.randomUUID().toString();
                 String resultFileName =LocalDateTime.now().hashCode()+ file.getOriginalFilename();
                 file.transferTo(new File(uploadPath + "/" + resultFileName));
                 course.setFilename(resultFileName);
             }
             if (!courseService.addCourse(course,topicId)) {
+
                 model.addAttribute("courseNameError", "Курс с таким именем существует");
             }
             model.addAttribute("course", null);
@@ -105,7 +110,6 @@ public class CoursesController {
         model.addAttribute("page", javaCourses);
         model.addAttribute("topicId", topicId);
         model.addAttribute("topicName", topicService.getTopic(topicId).getName());
-
         return "courses";
 
     }
@@ -119,8 +123,11 @@ public class CoursesController {
     ) {
         Set<User> likes = course.getLikes();
         if (likes.contains(currentUser)) {
+
             likes.remove(currentUser);
+
         } else {
+
             likes.add(currentUser);
         }
         UriComponents components = UriComponentsBuilder.fromHttpUrl(referer).build();
@@ -129,8 +136,5 @@ public class CoursesController {
                 .forEach(pair -> redirectAttributes.addAttribute(pair.getKey(), pair.getValue()));
 
         return "redirect:" + components.getPath();
-
     }
-
-
 }

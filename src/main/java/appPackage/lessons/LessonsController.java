@@ -3,8 +3,7 @@ package appPackage.lessons;
 import appPackage.courses.Course;
 import appPackage.courses.CourseService;
 import appPackage.model.User;
-import appPackage.topics.Topic;
-import appPackage.utils.ControllerUtil;
+import appPackage.model.util.ControllerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -19,17 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Controller
 public class LessonsController {
-    //@Autowired
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -50,22 +45,20 @@ public class LessonsController {
                        Model model,
                        @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
         Page<Lesson> pageLessons;
+
         if (!(searchName == null) && !searchName.isEmpty()) {
+
             model.addAttribute("searchName", searchName);
             pageLessons = lessonService.getLessonsBySearchName(searchName, pageable, courseId);
-//            pageLessons = lessonService.getLessonsByName(name, pageable);
+
         } else {
+
             pageLessons = lessonService.getAllLessons(courseId, pageable);
         }
         model.addAttribute("courseName", courseService.getCourse(courseId).getName());
         model.addAttribute("pageLessons", pageLessons);
         model.addAttribute("urlLessons", "/topics/" + topicId + "/courses/" + courseId + "/lessons");
         model.addAttribute("name", name);
-//        model.addAttribute("coursename", lessonService.getCours eById().getName());
-
-//        if (pageLessons.getContent().size()!=0) {
-//        model.addAttribute("topicC", pageLessons.getContent().stream().filter(curse -> curse.getTopic().getId().equals(topicId)).findFirst().get().getTopic().getName());
-//        }
         return "lessons";
     }
 
@@ -93,14 +86,11 @@ public class LessonsController {
             model.addAttribute("lesson", null);
         }
         Page<Lesson> pageLessons = lessonService.getAllLessons(courseId, pageable);
-//        pageLessons.getContent().get(0).getCourse().getName();
         model.addAttribute("pageLessons", pageLessons);
         model.addAttribute("courseId", courseId);
         model.addAttribute("topicId", topicId);
         model.addAttribute("courseName", courseService.getCourse(courseId).getName());
 
-//        model.addAttribute("topicC",course.getTopic().getName());
-//        model.addAttribute("topicC",javaCourses.getContent().stream().filter(curse ->curse.getTopic().getId().equals(topicId)).findFirst().get().getTopic().getName());
         return "lessons";
 
     }

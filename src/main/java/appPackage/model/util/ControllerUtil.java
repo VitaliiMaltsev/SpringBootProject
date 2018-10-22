@@ -1,4 +1,4 @@
-package appPackage.utils;
+package appPackage.model.util;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
