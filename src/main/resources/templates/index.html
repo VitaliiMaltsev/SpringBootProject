@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Main</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container mt-4">
+                <br/><br/>
+                <h1 class="header center teal-text text-lighten-2">Аггрегатор курсов</h1>
+                <div class="row center">
+                    <h5 class="header col s12 light">Сайт создан при использовании технологий Java, Spring Boot, Spring
+                        Security, Spring MVC, Spring Data JPA, Spring Test, Hibernate, Thymeleaf, HTML, CSS, Bootstrap,
+                        Javascript, Materialize, XPath, RegEx, REST, Mockito, SQL...</h5>
+                </div>
+                <div class="center">
+                    <a style="border-radius: 7px" href="/topics" id="download-button"
+                       class="btn-large waves-effect waves-light teal lighten-1">Войти</a>
+                </div>
+                <br/><br/>
+
+            </div>
+        </div>
+        <div class="parallax"><img src="img/Campo-Andaluz.jpg" alt="Unsplashed background img 1"/></div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center deep-orange-text"><i class="material-icons">flash_on</i></h2>
+                        <h5 class="center">Быстрая разработка</h5>
+
+                        <p class="light" align="justify">Spring Boot берет на себя все рутинные действия по созданию
+                            Spring-приложений и ускоряет работу настолько, насколько это возможно. Самым главным
+                            преимуществом является то, что больше нет необходимости следить за совместимостью версий
+                            всех сторонних библиотек, без генерации кода и без написания XML конфигурации, Spring Boot
+                            сделает это вместо Вас. Основной девиз - "Просто запусти!"</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center brown-text"><i class="material-icons">mood</i></h2>
+                        <h5 class="center">Приятный пользовательский интерфейс</h5>
+
+                        <p class="light" align="justify">При использованию фреймворков Bootstrap и MaterializeCSS
+                            верстка происходит намного проще и учитывает разметку элементов с учетом размера экрана
+                            устройства на котором открывают ресурс. Набор необходимых шаблонов элементов фреймворков
+                            позволяет намного ускорить процесс разработки, не задумываясь о цвете элементов или
+                            отсупах... </p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center deep-purple-text"><i class="material-icons">settings</i></h2>
+                        <h5 class="center">Гибкие настройки использования</h5>
+
+                        <p class="light" align="justify">Spring Security - framework, предоставляющий механизмы
+                            построения систем аутентификации и авторизации, а также другие возможности обеспечения
+                            безопасности для корпоративных приложений. Spring MVC позволяет легко управляться с
+                            контроллерами на всех этапах и обеспечивает меньше кода и большую простоту разработчику по
+                            сравнению с классическими Java сервлетами</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="parallax-container valign-wrapper">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <div class="row center">
+                    <h5 class="header col s12 light white-text">Современный дизайн в сочетании с надежным Java
+                        кодом</h5>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"><img src="img/sky.jpg" alt="Unsplashed background img 2"/></div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+
+            <div class="row">
+                <div class="col s12 center">
+                    <h3><i class="mdi-content-send brown-text"></i></h3>
+                    <h4>Описание</h4>
+                    <p class="left-align light">Данный сайт является аггрегатором бесплатных курсов и ресурсов на
+                        тематику разработки. Большинство из них помогли в создании этого сайта, и я буду только рад,
+                        если данные ссылки кому-то помогут так же. Любой желающий может также зарегистрироваться и
+                        добавлять/редактировать полезные ресурсы. Реализована возможность подписки на кого-то из
+                        пользователей, а так же проставления лайков понравившимся курсам. Ресурс является полностью
+                        некоммерческим и выложен в открытом доступе на Github. В наше время, когда информации очень
+                        много, найти по-настоящему стоящий материал не так просто...</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="parallax-container valign-wrapper">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <div class="row center">
+                    <h5 class="header col s12 light white-text">Современный дизайн в сочетании с надежным Java
+                        кодом</h5>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"><img src="img/yellow2.jpg" alt="Unsplashed background img 3"/></div>
+    </div>
+</div>
+
+</body>
+</html>

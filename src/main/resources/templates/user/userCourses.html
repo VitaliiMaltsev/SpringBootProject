@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>My Courses</title>
+    <style>
+        ::-webkit-input-placeholder {
+            color: #875d83;
+            font-size: 15px;
+            opacity: 1 !important;
+        }
+        @media (min-width: 34em) {
+            .card-columns {
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+                column-count: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div th:remove="tag" th:if="${courseUpdateSuccess}">
+        <div class="alert alert-success mb-0 center alert-dismissible fade show" role="alert">[[${courseUpdateSuccess}]]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div th:if="${!isCurrentUser}">
+        <div th:if="${isSubscriber}">
+            <a class="btn orange lighten-3" th:href="@{'/users/unsubscribe/'+${userChannel.id}}">Отписаться</a>
+        </div>
+        <div th:unless="${isSubscriber}">
+            <a class="btn cyan accent-1" th:href="@{'/users/subscribe/'+${userChannel.id}}">Подписаться</a>
+        </div>
+    </div>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title text-center">Подписки</div>
+                        <h5 class="card-text text-center">
+                            <a th:href="@{'/users/subscriptions/'+${userChannel.id}+'/list'}">[[${subscriptionsCount}]]</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title text-center">Подписчики</div>
+                        <h5 class="card-text text-center">
+                            <a th:href="@{'/users/subscribers/'+${userChannel.id}+'/list'}">[[${subscribersCount}]]</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-lg-3">
+        <div th:if="${isCurrentUser}">
+            <p>
+                <a style="border-radius: 100px" class="btn btn-outline-info ml-3" data-toggle="collapse"
+                   href="#collapseExample" role="button"
+                   aria-expanded="false"
+                   aria-controls="collapseExample">
+                    Редактировать
+                </a>
+            </p>
+            <div class="collapse"
+                 th:classappend="${course!= null or lesson!=null or courseUpdateError!=null ? 'show' :''}"
+                 id="collapseExample">
+                <div class="row ">
+                    <div class="col-4 align-self-auto">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            <a
+                                    class="list-group-item list-group-item-primary list-group-item-action"
+                                    th:classappend="${course!=null or courseUpdateError!=null ? 'active' :''}"
+                                    id="list-home-list"
+                                    data-toggle="list" href="#list-home" role="tab" aria-controls="home">Курсы</a>
+                            <a
+                                    class="list-group-item list-group-item-primary list-group-item-action"
+                                    th:classappend="${lesson!=null ? 'active' :''}" id="list-profile-list"
+                                    data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Уроки</a>
+                        </div>
+                        <div class="card mt-4">
+                            <img style="height: 383px" class="card-img-top" th:src="@{/img/vector.jpg}">
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="tab-content" id="nav-tabContent">
+
+                            <div style="height: 500px" class="card border-info card-body mt-0 tab-pane fade show"
+                                 th:classappend="${course!=null or courseUpdateError!=null ? 'active' :''}"
+                                 id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                                <div class="col-md-10">
+
+                                    <form class="needs-validation mt-0"
+                                          th:action="@{'/users/user-courses/' + ${#authentication.getPrincipal().getId()}}"
+                                          th:object="${course}"
+                                          novalidate=""
+                                          method="post" enctype="multipart/form-data">
+
+                                        <div th:remove="tag" th:if="${courseUpdateError}">
+                                            <div class="alert alert-danger mb-0 alert-dismissible fade show"
+                                                 role="alert">[[${courseUpdateError}]]
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="validationCustomCourses"><h5
+                                                    style="font-family: 'Raleway', sans-serif">Название курса</h5>
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="validationCustomCourses"
+                                                   autofocus="autofocus"
+                                                   name="courseName"
+                                                   th:value="${course!=null or courseUpdateError!=null ? course.name: ''}"
+                                                   placeholder="Введите название курса"
+                                                   minlength="3"
+                                                   maxlength="35"
+                                                   required>
+                                            <div class="valid-feedback">Отлично!</div>
+                                            <div class="invalid-feedback">Данное поле не должно быть менее 3 символов
+                                            </div>
+                                            <input type="hidden" name="courseId"
+                                                   th:value="${course== null ? '' : course.id}">
+                                            <!--<input type="hidden" name="id" th:value="${course.id}">-->
+                                            <div class="form-group">
+                                                <label for="validationCustomDesc"><h5
+                                                        style="font-family: 'Raleway', sans-serif">Описание курса</h5>
+                                                </label>
+                                                <textarea class="form-control"
+                                                          name="courseDescription"
+                                                          rows="5"
+                                                          minlength="3"
+                                                          maxlength="140"
+                                                          id="validationCustomDesc"
+                                                          placeholder="Введите описание курса"
+                                                          required="required"
+                                                          th:inline="text">[[${course!=null or courseUpdateError!=null ?course.description: ''}]]</textarea>
+                                                <div class="valid-feedback">Отлично!</div>
+                                                <div class="invalid-feedback">
+                                                    Данное поле не должно быть менее 3 символов
+                                                </div>
+                                            </div>
+                                            <div class="file-field">
+                                                <a class="btn-floating purple lighten-3 mt-0 float-left">
+                                                    <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                                    <input type="file"
+                                                           name="file"
+                                                           accept="image/gif, image/jpeg, image/png"
+                                                    >
+                                                </a>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate"
+                                                           type="text" placeholder="Загрузить фото курса"
+                                                           th:value="${course!=null or courseUpdateError!=null ? course.filename: ''}"
+                                                           aria-placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <button class="btn btn-outline-info  " type="submit"
+                                                        style="font-family: " Roboto
+                                                ", sans-serif">Сохранить
+                                                </button>
+                                                <button class="btn btn-outline-secondary waves-effect waves-light red"
+                                                        type="reset"
+                                                        style="font-family: " Roboto
+                                                ", sans-serif">Отменить
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="height: 500px" class="card border-warning card-body mt-0 tab-pane fade show "
+                                 th:classappend="${lesson!=null ? 'active' :''}" id="list-profile" role="tabpanel"
+                                 aria-labelledby="list-profile-list">
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-3">
+
+                                        <form class=" needs-validation"
+                                              th:action="@{'/users/user-courses/' + ${#authentication.getPrincipal().getId()}}"
+                                              th:object="${lesson}"
+                                              novalidate=""
+                                              method="post">
+                                            <div class="form-group mt-0 mb-0">
+                                                <label for="validationCustomLessons">
+                                                    <h5 style="font-family: 'Raleway', sans-serif">Название урока</h5>
+                                                </label>
+                                                <input type="text"
+                                                       id="validationCustomLessons"
+                                                       autofocus="autofocus"
+                                                       name="lessonName"
+                                                       placeholder="Введите название урока"
+                                                       th:value="${lesson== null ? '' : lesson.name}"
+                                                       minlength="3"
+                                                       maxlength="30"
+                                                       class="form-control"
+                                                       required="required"/>
+                                                <div class="valid-feedback"></div>
+                                                <div class="invalid-feedback">Данное поле не должно быть менее 3
+                                                    символов
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="lessonId"
+                                                   th:value="${lesson== null ? '' : lesson.id}"/>
+                                            <div class="form-group mt-0 mb-0">
+                                                <label for="validationCustomLessonsDesc"><h5
+                                                        style="font-family: 'Raleway', sans-serif">Описание урока</h5>
+                                                </label>
+                                                <textarea class="form-control"
+                                                          name="lessonDescription"
+                                                          minlength="10"
+                                                          maxlength="140"
+                                                          id="validationCustomLessonsDesc"
+                                                          th:value="${lesson== null ? '' : lesson.description}"
+                                                          placeholder="Введите описание урока"
+                                                          required="required"
+                                                          th:inline="text">[[${lesson== null ? '' : lesson.description}]]</textarea>
+                                                <div class="valid-feedback"></div>
+                                                <div class="invalid-feedback">
+                                                    Данное поле не должно быть менее 10 символов
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mt-0 mb-0">
+                                                <label class="mt-1" for="validationCustomLinks"><h5
+                                                        style="font-family: 'Raleway', sans-serif">Ссылка</h5></label>
+                                                <input type="text"
+                                                       id="validationCustomLinks"
+                                                       autofocus="autofocus"
+                                                       name="lessonLink"
+                                                       placeholder="Введите ссылку на урок"
+                                                       th:value="${lesson== null ? '' : lesson.link}"
+                                                       minlength="10"
+                                                       class="form-control"
+                                                       maxlength="255"
+                                                       pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+                                                       required="required"/>
+                                                <div class="valid-feedback"></div>
+                                                <div class="invalid-feedback">Введите корректную ссылку</div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <button class="btn btn-outline-info  " type="submit"
+                                                >Сохранить
+                                                </button>
+                                                <button class="btn btn-outline-secondary waves-effect waves-light red"
+                                                        type="reset"
+                                                >Отменить
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h5 th:inline="text" align="center"> Список [[${isCurrentUser ? 'моих курсов' : 'доступных курсов пользователя
+            '+ {userChannel.getName()}}]] </h5>
+        <div th:with="totalPages=${pageUserCourses.getTotalPages()},
+              pageNumber=${pageUserCourses.getNumber()+1},
+              head=${(pageNumber>4)?{ {1,-1} }: { {1, 2, 3} }},
+              tail=${(pageNumber < totalPages-3) ?{ {-1, totalPages} }:{ {totalPages-2, totalPages-1, totalPages} }},
+              bodyBefore=${(pageNumber > 4 && pageNumber < totalPages-1)?{ {pageNumber-2, pageNumber-1} } :''},
+              bodyAfter=${(pageNumber > 2 && pageNumber < totalPages-3)?{ {pageNumber+1, pageNumber+2} }:''},
+              currentPage =${(pageNumber > 3 && pageNumber < totalPages-2)? { {pageNumber} } : '' },
+              body0=${#strings.concat(head, bodyBefore,currentPage,bodyAfter,tail)},
+              body1=${#strings.replace(body0,'[',' ')},
+              body2=${#strings.replace(body1,']',' ')},
+              body3=${#strings.replace(body2,',',' ')},
+              body4=${#strings.trim(body3)},
+              bodyLast=${#strings.listSplit(body4,' ')}">
+
+            <div th:with="body=${(pageUserCourses.getTotalPages() > 7) ? bodyLast: #numbers.sequence(1,pageUserCourses?.getTotalPages())}">
+
+                <div>
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Страницы</a>
+                        </li>
+                        <span th:each="pg : ${body}">
+                        <span th:with="p=${T(Integer).parseInt(pg)}">
+                    <span th:if="${p-1==pageUserCourses.getNumber()}">
+                    <li class="page-item active">
+                        <a class="page-link" href="#" tabindex="-1">[[${p}]]</a>
+                    </li>
+                    </span>
+                         <span th:if="${p==-1}">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">...</a>
+                    </li>
+                    </span>
+                        <span th:unless="${p==-1}">
+                    <span th:unless="${p-1==pageUserCourses.getNumber()}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{${url}(page=${p-1},size=${pageUserCourses.getSize()})}"
+                           tabindex="-1">[[${p==-1?'':p}]]</a>
+                    </li>
+                    </span>
+                </span>
+                        </span>
+                    </span>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-columns" id="user-courses-list">
+            <div th:if="${not #lists.isEmpty(pageUserCourses.getContent())}">
+                <div class="card border-success my-3" th:each="course : ${pageUserCourses?.content}"
+                     style="width: 30rem;">
+                    <div class="card-header" style="color: #3ccaed" th:text="${course.name}">
+                    </div>
+                    <div th:if="${not #strings.isEmpty(course.filename)}">
+                        <img style="height: 16rem" class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">
+                    </div>
+                    <div class="card-body my-0">
+                        <p style="height: 6rem" class="card-text my-0"
+                           th:text="${#strings.abbreviate(course.description,171)}"></p>
+                        <a style="border-radius: 100px"
+                           th:href="@{${course.topic.id =='links'?course.link:'/topics/' + course.topic.id+'/courses/' + course.id+'/lessons'}}"
+                           class="btn btn-outline-success">Смотреть</a>
+                    </div>
+                    <div class="card-footer  container-fluid" style="height: 4rem">
+                        <div class="row mb-0">
+                            Раздел:<a class="col"
+                                      th:href="@{'/topics/' + ${course.topic.id}+'/courses'}"
+                                      th:text="${course.topic.name}"></a>
+                            <a th:inline="text" class="col align-self-baseline mr-0 ml-0"
+                               th:href="@{'/courses/'+${course.id}+'/like'}">
+                                <i style="color: hotpink" th:if="${course.meLiked}" class="fas fa-heart"></i>
+                                <i style="color: hotpink" th:unless="${course.meLiked}" class="far fa-heart"></i>
+                                <p th:remove="tag" th:inline="text">[[${course.likes}]]</p>
+                            </a>
+                            <span th:if="${course.author.id}==${#authentication.getPrincipal().getId()}">
+                        <a style="border-radius: 100px" class="col btn btn-small purple lighten-3 align-self-auto"
+                           th:href="@{'/users/user-courses/' + ${course.author.id}(course=${course.id})}">Изменить</a>
+                    </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <div th:with="sizeList = ${ {10,20,50,100} }" class="ml-auto">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Элементов на странице</a>
+                        </li>
+                        <span th:each="size : ${sizeList}">
+                    <span th:if="${size==pageUserCourses.getSize()}">
+                    <li class="page-item active">
+                        <a class="page-link" href="#" tabindex="-1">[[${size}]]</a>
+                    </li>
+                    </span>
+                    <span th:unless="${size==pageUserCourses.getSize()}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{${url}(page=${pageUserCourses.getNumber()},size=${size})}"
+                           tabindex="-1">[[${size}]]</a>
+                    </li>
+                    </span>
+                </span>
+                    </ul>
+                </div>
+            </div>
+            <script>
+
+                (function () {
+                    'use strict';
+                    window.addEventListener('load', function () {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function (form) {
+                            form.addEventListener('submit', function (event) {
+                                if (form.checkValidity() === false) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                            }, false);
+                        });
+                    }, false);
+                })();
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

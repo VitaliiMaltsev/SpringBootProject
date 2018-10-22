@@ -6,104 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/resources/templates/lessons.html" line="83" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c34a747a-3dd0-46f4-9c3f-bef48b6daf89" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/config/MvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/config/MvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/courses/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/courses/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/courses/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/courses/CourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/courses/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/courses/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/courses/CoursesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/courses/CoursesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/courses/RESTCourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/courses/RESTCourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/hello/GlobalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/global/GlobalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/hello/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/hello/RegisterLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/RegisterLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/lessons/Lesson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/lessons/Lesson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/lessons/LessonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/lessons/LessonService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/lessons/LessonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/lessons/LessonsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/lessons/RESTLessonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/lessons/RESTLessonController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/model/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/model/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/model/dto/CourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/dto/CourseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/model/util/MailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/util/MailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/topics/RESTTopicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/topics/RESTTopicController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/topics/Topic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/topics/Topic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/topics/TopicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/topics/TopicController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/topics/TopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/topics/TopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/appPackage/utils/ControllerUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/appPackage/model/util/ControllerUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/analyze.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/card.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/cat.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/checkbox.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/mount.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/img/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/analyze.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/cat.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/uploads/java-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hello.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/javaCourses2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/lessons.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/lessons.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/shortcuts.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/subscriptions.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/subscriptions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/tableEx.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/topics.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/topics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userList.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/userList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/appPackage/CoursesControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/appPackage/CoursesControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/appPackage/DumbPasswordEncoderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/appPackage/DumbPasswordEncoderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/appPackage/LoginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/appPackage/LoginTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/application-test.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/config/CustomErrorController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/config/LoggingAccessDeniedHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/config/MvcConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/config/SecurityConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/courses/Course.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/courses/CourseRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/courses/CourseService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/hello/HelloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/hello/RegisterLoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/lessons/Lesson.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/lessons/LessonRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/lessons/LessonService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/model/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/model/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/topics/Topic.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/topics/TopicController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/topics/TopicRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/appPackage/topics/TopicService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/errors/403.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/errors/404.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/errors/500.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/errors/access-denied.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/footer.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/header.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/layout.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/hello.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/javaCourses2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/registration.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/user/index.html" beforeDir="false" />
-    </list>
+    <list default="true" id="c34a747a-3dd0-46f4-9c3f-bef48b6daf89" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -195,8 +98,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="20" column="68" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="68" />
+            <state relative-caret-position="235">
+              <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -716,7 +619,7 @@
       <workItem from="1540022319252" duration="35592000" />
       <workItem from="1540120267087" duration="5940000" />
       <workItem from="1540127091586" duration="22982000" />
-      <workItem from="1540194905522" duration="15051000" />
+      <workItem from="1540194905522" duration="16319000" />
     </task>
     <task id="LOCAL-00001" summary="file upload added">
       <created>1536735376182</created>
@@ -809,7 +712,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540152822938</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="first deploy ready">
+      <created>1540212695862</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1540212695862</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -845,7 +755,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="784025000" />
+    <option name="totallyTimeSpent" value="785293000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -962,7 +872,8 @@
     <MESSAGE value="add likes and lessons" />
     <MESSAGE value="add search + bug fixed in double names" />
     <MESSAGE value="bug fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fix" />
+    <MESSAGE value="first deploy ready" />
+    <option name="LAST_COMMIT_MESSAGE" value="first deploy ready" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1434,8 +1345,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="20" column="68" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="68" />
+        <state relative-caret-position="235">
+          <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
           <folding>
             <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
