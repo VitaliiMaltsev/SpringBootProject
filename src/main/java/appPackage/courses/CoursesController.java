@@ -2,11 +2,12 @@ package appPackage.courses;
 
 import appPackage.model.User;
 import appPackage.model.dto.CourseDTO;
+import appPackage.model.util.CloudinaryConfig;
+import appPackage.model.util.ControllerUtil;
 import appPackage.topics.Topic;
 import appPackage.topics.TopicService;
-import appPackage.model.util.ControllerUtil;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,25 +23,24 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
+
 
 @Controller
 public class CoursesController {
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     private final CourseService courseService;
     private final TopicService topicService;
+    private final CloudinaryConfig cloudinaryConfig;
 
     @Autowired
-    public CoursesController(CourseService courseService, TopicService topicService) {
+    public CoursesController(CourseService courseService, TopicService topicService, CloudinaryConfig cloudinaryConfig) {
         this.courseService = courseService;
         this.topicService = topicService;
+        this.cloudinaryConfig = cloudinaryConfig;
     }
 
     @GetMapping("/topics/{topicId}/courses")
@@ -71,7 +71,7 @@ public class CoursesController {
 
     @PostMapping("/topics/{topicId}/courses")
     public String addCourse(
-            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "file", required = false) MultipartFile multipartFile,
             @PathVariable String topicId,
             @AuthenticationPrincipal User user,
             @Valid Course course,
@@ -89,16 +89,13 @@ public class CoursesController {
 
         } else {
 
-            if (file != null && !file.getOriginalFilename().isEmpty()) {
+            if (multipartFile != null && !multipartFile.getOriginalFilename().isEmpty()) {
 
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) {
+                course.setFilename(LocalDate.now().hashCode()+multipartFile.getOriginalFilename());
+                Map uploadResult = cloudinaryConfig.upload(multipartFile.getBytes(),
+                        ObjectUtils.asMap("recource_type", "auto"));
+                course.setFileURL(uploadResult.get("url").toString());
 
-                    uploadDir.mkdir();
-                }
-                String resultFileName =LocalDateTime.now().hashCode()+ file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/" + resultFileName));
-                course.setFilename(resultFileName);
             }
             if (!courseService.addCourse(course,topicId)) {
 

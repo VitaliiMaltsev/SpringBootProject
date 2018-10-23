@@ -2,34 +2,32 @@ package appPackage.courses;
 
 import appPackage.model.User;
 import appPackage.model.dto.CourseDTO;
+import appPackage.model.util.CloudinaryConfig;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 public class CourseService {
 
     private final CourseRepository courseRepository;
+    private final CloudinaryConfig cloudinaryConfig;
+
 
     @Autowired
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, CloudinaryConfig cloudinaryConfig) {
         this.courseRepository=courseRepository;
+        this.cloudinaryConfig=cloudinaryConfig;
     }
-//	@Autowired
-//	private EntityManager entityManager;
-
-    @Value("${upload.path}")
-    private String uploadPath;
 
     public Page<CourseDTO> getAllCourses(String topicId, Pageable pageable, User user) {
                return courseRepository.findByTopicId(topicId, pageable, user);
@@ -57,7 +55,7 @@ public class CourseService {
         return true;
     }
 
-    public boolean updateCourse(Course course, String courseName, String courseDescription, MultipartFile file) throws IOException {
+    public boolean updateCourse(Course course, String courseName, String courseDescription, MultipartFile multipartFile) throws IOException {
         Course courseFromDB = courseRepository.findByNameAndTopicId(courseName, course.getTopic().getId());
 		if (courseFromDB != null && ! course.getName().equals(courseName)) {
 
@@ -69,15 +67,12 @@ public class CourseService {
 		if (!StringUtils.isEmpty(courseDescription)) {
 			course.setDescription(courseDescription);
 		}
-		if (file != null && !file.getOriginalFilename().isEmpty()) {
-			File uploadDir = new File(uploadPath);
-			if (!uploadDir.exists()) {
-				uploadDir.mkdir();
-			}
-            String resultFileName =LocalDateTime.now().hashCode()+ file.getOriginalFilename();
-			file.transferTo(new File(uploadPath + "/" + resultFileName));
-			course.setFilename(resultFileName);
+		if (multipartFile != null && !multipartFile.getOriginalFilename().isEmpty()) {
 
+            course.setFilename(LocalDate.now().hashCode()+multipartFile.getOriginalFilename());
+            Map uploadResult = cloudinaryConfig.upload(multipartFile.getBytes(),
+                    ObjectUtils.asMap("recource_type", "auto"));
+            course.setFileURL(uploadResult.get("url").toString());
 		}
 		courseRepository.save(course);
 		return true;

@@ -38,9 +38,6 @@ public class UserController {
         this.lessonService = lessonService;
     }
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -172,6 +169,11 @@ public class UserController {
             model.addAttribute("users", user.getSubscribers());
         }
         return "subscriptions";
+    }
+
+    @GetMapping("/user")
+    public String userIndex() {
+        return "user/index";
     }
 
 }

@@ -1,6 +1,5 @@
 package appPackage.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -8,14 +7,8 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-
-
-//@EnableWebMvc
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
-
-    @Value("${upload.path}")
-    private String uploadPath;
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"classpath:/static/imgUploads/", "classpath:/static/uploads/" };
 
@@ -27,8 +20,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:///"+uploadPath+"/");
+//        registry.addResourceHandler("/uploads/**")
+//                .addResourceLocations("file:///"+uploadPath+"/");
 //                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");

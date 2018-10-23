@@ -205,7 +205,7 @@
                     </div>
                     <div th:if="${not #strings.isEmpty(course.filename)}">
                         <img style="height: 16rem" class="card-img-top"
-                             th:src="@{${'/uploads/' + course.filename}}"/>
+                             th:src="@{${course.fileURL}}"/>
                     </div>
                     <div class="card-body my-0">
                         <p style="height: 6rem" class="card-text my-0" th:text="${#strings.abbreviate(course.description,171)}"></p>

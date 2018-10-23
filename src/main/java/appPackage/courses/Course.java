@@ -48,7 +48,13 @@ public class Course {
 	@Length(max = 255)
 	private String link="#";
 
+//	@NotBlank
+	@Length(max = 255)
 	private String filename;
+
+//	@NotBlank
+	@Length(max = 2048)
+	private String fileURL;
 
 	private LocalDate addedDate;
 
@@ -145,4 +151,11 @@ public class Course {
 		this.topic = topic;
 	}
 
+    public void setFileURL(String fileURL) {
+        this.fileURL = fileURL;
+    }
+
+    public String getFileURL() {
+        return fileURL;
+    }
 }

@@ -327,7 +327,7 @@
                     <div class="card-header" style="color: #3ccaed" th:text="${course.name}">
                     </div>
                     <div th:if="${not #strings.isEmpty(course.filename)}">
-                        <img style="height: 16rem" class="card-img-top" th:src="@{${'/uploads/' + course.filename}}">
+                        <img style="height: 16rem" class="card-img-top" th:src="@{${course.fileURL}}">
                     </div>
                     <div class="card-body my-0">
                         <p style="height: 6rem" class="card-text my-0"

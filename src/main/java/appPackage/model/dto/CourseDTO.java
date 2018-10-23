@@ -17,6 +17,11 @@ public class CourseDTO {
     private Boolean meLiked;
     private Topic topic;
     private String link;
+    private String fileURL;
+
+    public String getFileURL() {
+        return fileURL;
+    }
 
     public CourseDTO(Course course, Long likes, Boolean meLiked) {
         this.id = course.getId();
@@ -29,6 +34,7 @@ public class CourseDTO {
         this.filename = course.getFilename();
         this.likes = likes;
         this.meLiked = meLiked;
+        this.fileURL = course.getFileURL();
     }
 
     public String getLink() {

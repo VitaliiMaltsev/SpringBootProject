@@ -25,8 +25,6 @@ import java.time.LocalDate;
 
 @Controller
 public class LessonsController {
-    @Value("${upload.path}")
-    private String uploadPath;
 
     private final LessonService lessonService;
     private final CourseService courseService;
