@@ -19,11 +19,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/coursesDBTest</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="Heroku" uuid="f7850662-a3b4-41dd-ac30-550987bde193">
+    <data-source source="LOCAL" name="heroku" uuid="cf29b69b-a4b5-4303-9666-7a371cfebe34">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://ec2-79-125-8-105.eu-west-1.compute.amazonaws.com:5432/d865te1b0tjfpb</jdbc-url>
+      <jdbc-url>jdbc:postgresql://ec2-54-247-86-89.eu-west-1.compute.amazonaws.com:5432/d5jbmr3fs68h9u</jdbc-url>
       <driver-properties>
         <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
         <property name="ssl" value="true" />
