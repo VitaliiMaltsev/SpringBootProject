@@ -22,8 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoggingAccessDeniedHandler accessDeniedHandler;
 
-//    @Autowired
-//    UserService userService;
+    @Autowired
+    UserService userService;
 //
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
@@ -75,20 +75,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
     }
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userService)
-////                .jdbcAuthentication().dataSource(dataSource)
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userService);
+//                .jdbcAuthentication().dataSource(dataSource)
 //                .passwordEncoder(passwordEncoder);
-////                .usersByUsernameQuery(
-////                        "select name, password, active from users where name=?")
-////                .authoritiesByUsernameQuery(
-////                        "select u.name, ur.roles from users u inner join user_roles ur on u.id = ur.user_id where u.name =?");
-////                .withUser("user").password("{noop}password").roles("USER")
-////                .and()
-////                .withUser("manager").password("{noop}password").roles("MANAGER");
-//    }
+//                .usersByUsernameQuery(
+//                        "select name, password, active from users where name=?")
+//                .authoritiesByUsernameQuery(
+//                        "select u.name, ur.roles from users u inner join user_roles ur on u.id = ur.user_id where u.name =?");
+//                .withUser("user").password("{noop}password").roles("USER")
+//                .and()
+//                .withUser("manager").password("{noop}password").roles("MANAGER");
+    }
 //    @Bean
 //    @Override
 //    public UserDetailsService userDetailsService() {
