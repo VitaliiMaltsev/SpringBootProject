@@ -32,10 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-
-
-
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
@@ -85,9 +81,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userService)
+                .userDetailsService(userService);
 //                .jdbcAuthentication().dataSource(dataSource)
-                .passwordEncoder(passwordEncoder);
+//                .passwordEncoder(passwordEncoder);
 //                .usersByUsernameQuery(
 //                        "select name, password, active from users where name=?")
 //                .authoritiesByUsernameQuery(
