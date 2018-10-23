@@ -19,17 +19,16 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final LoggingAccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    private LoggingAccessDeniedHandler accessDeniedHandler;
 
-    private final UserService userService;
-
+//    @Autowired
+//    UserService userService;
+//
+//    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public SecurityConfig(LoggingAccessDeniedHandler accessDeniedHandler, UserService userService ){
-        this.accessDeniedHandler = accessDeniedHandler;
-        this.userService = userService;
-    }
+
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
@@ -76,20 +75,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
     }
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userService);
-//                .jdbcAuthentication().dataSource(dataSource)
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .userDetailsService(userService)
+////                .jdbcAuthentication().dataSource(dataSource)
 //                .passwordEncoder(passwordEncoder);
-//                .usersByUsernameQuery(
-//                        "select name, password, active from users where name=?")
-//                .authoritiesByUsernameQuery(
-//                        "select u.name, ur.roles from users u inner join user_roles ur on u.id = ur.user_id where u.name =?");
-//                .withUser("user").password("{noop}password").roles("USER")
-//                .and()
-//                .withUser("manager").password("{noop}password").roles("MANAGER");
-    }
+////                .usersByUsernameQuery(
+////                        "select name, password, active from users where name=?")
+////                .authoritiesByUsernameQuery(
+////                        "select u.name, ur.roles from users u inner join user_roles ur on u.id = ur.user_id where u.name =?");
+////                .withUser("user").password("{noop}password").roles("USER")
+////                .and()
+////                .withUser("manager").password("{noop}password").roles("MANAGER");
+//    }
 //    @Bean
 //    @Override
 //    public UserDetailsService userDetailsService() {
