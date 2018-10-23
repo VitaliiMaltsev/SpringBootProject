@@ -23,15 +23,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
 
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityConfig(LoggingAccessDeniedHandler accessDeniedHandler, UserService userService, PasswordEncoder passwordEncoder ){
+    public SecurityConfig(LoggingAccessDeniedHandler accessDeniedHandler, UserService userService ){
         this.accessDeniedHandler = accessDeniedHandler;
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
-
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
@@ -78,20 +76,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
     }
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userService);
-////                .jdbcAuthentication().dataSource(dataSource)
-////                .passwordEncoder(passwordEncoder);
-////                .usersByUsernameQuery(
-////                        "select name, password, active from users where name=?")
-////                .authoritiesByUsernameQuery(
-////                        "select u.name, ur.roles from users u inner join user_roles ur on u.id = ur.user_id where u.name =?");
-////                .withUser("user").password("{noop}password").roles("USER")
-////                .and()
-////                .withUser("manager").password("{noop}password").roles("MANAGER");
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userService)
+//                .jdbcAuthentication().dataSource(dataSource)
+                .passwordEncoder(passwordEncoder);
+//                .usersByUsernameQuery(
+//                        "select name, password, active from users where name=?")
+//                .authoritiesByUsernameQuery(
+//                        "select u.name, ur.roles from users u inner join user_roles ur on u.id = ur.user_id where u.name =?");
+//                .withUser("user").password("{noop}password").roles("USER")
+//                .and()
+//                .withUser("manager").password("{noop}password").roles("MANAGER");
+    }
 //    @Bean
 //    @Override
 //    public UserDetailsService userDetailsService() {
