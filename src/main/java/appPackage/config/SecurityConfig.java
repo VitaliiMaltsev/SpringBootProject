@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
 
-    private PasswordEncoder passwordEncoder;
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public SecurityConfig(LoggingAccessDeniedHandler accessDeniedHandler, UserService userService ){
@@ -79,9 +79,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userService)
+                .userDetailsService(userService);
 //                .jdbcAuthentication().dataSource(dataSource)
-                .passwordEncoder(passwordEncoder);
+//                .passwordEncoder(passwordEncoder);
 //                .usersByUsernameQuery(
 //                        "select name, password, active from users where name=?")
 //                .authoritiesByUsernameQuery(
