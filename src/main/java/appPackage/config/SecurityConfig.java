@@ -19,14 +19,20 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private LoggingAccessDeniedHandler accessDeniedHandler;
+    private final LoggingAccessDeniedHandler accessDeniedHandler;
+
+    private final UserService userService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    UserService userService;
+    public SecurityConfig(LoggingAccessDeniedHandler accessDeniedHandler, UserService userService, PasswordEncoder passwordEncoder ){
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
 
 
