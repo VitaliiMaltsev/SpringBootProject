@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
             String message = String.format(
                     "Здравстуйте, %s!\n" + "Добро пожаловать на VVM.com!\n" +
                             "Пожалуйста перейдите по следующей ссылке для активации вашего аккаунта\n" +
-                            "http://localhost:8080/activate/%s",
+                            "https://vvm-com.herokuapp.com/activate/%s",
                     user.getUsername(), user.getActivationCode()
             );
             mailSender.send(user.getEmail(), "Activation code", message);
