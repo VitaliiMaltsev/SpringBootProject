@@ -41,7 +41,7 @@ public class LessonsController {
                        @PathVariable String topicId,
                        @PathVariable Long courseId,
                        Model model,
-                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
+                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 20) Pageable pageable) {
         Page<Lesson> pageLessons;
 
         if (!(searchName == null) && !searchName.isEmpty()) {
