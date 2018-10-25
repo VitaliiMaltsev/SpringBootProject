@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/registration",
                         "/activate/*",
                         "/global",
+                        "/topics",
                         "/webjars/**").permitAll()
 
                 .antMatchers("/users/profile", "/topics/**")
