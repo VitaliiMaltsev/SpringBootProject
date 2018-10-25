@@ -17,16 +17,19 @@ import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
-    private final MailSender mailSender;
-    private final PasswordEncoder passwordEncoder;
-
     @Autowired
-    public UserService(UserRepository userRepository, MailSender mailSender, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.mailSender = mailSender;
-        this.passwordEncoder = passwordEncoder;
-    }
+    UserRepository userRepository;
+    @Autowired
+    MailSender mailSender;
+    @Autowired    
+    PasswordEncoder passwordEncoder;
+
+//     @Autowired
+//     public UserService(UserRepository userRepository, MailSender mailSender, PasswordEncoder passwordEncoder) {
+//         this.userRepository = userRepository;
+//         this.mailSender = mailSender;
+//         this.passwordEncoder = passwordEncoder;
+//     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
