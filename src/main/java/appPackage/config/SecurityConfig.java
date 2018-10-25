@@ -24,6 +24,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserService userService;
+    
+     public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 //
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
